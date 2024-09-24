@@ -10,7 +10,6 @@ import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
 import { CardJobComponent } from './components/card-job/card-job.component';
 import { CarouselItemsComponent } from './components/carousel-items/carousel-items.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
@@ -25,14 +24,22 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     CardCategoryComponent,
     CarouselItemsComponent,
     CarouselComponent,
+    ListJobsComponent,
+    CardJobComponent
   ],
   exports: [
-    ListCategoriesComponent,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule,
+    InfiniteScrollModule,
+    ListCategoriesComponent,
     CardCategoryComponent,
     CarouselItemsComponent,
     CarouselComponent,
+    ListJobsComponent,
+    CardJobComponent
   ],
 })
 export class SharedModule { }
