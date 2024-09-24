@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Definir el color principal en Tailwind */
+:root {
+    --tw-color-morado: #240046;
+    --tw-color-morado-header: #10002bc0;
+}

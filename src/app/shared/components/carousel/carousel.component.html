@@ -1,0 +1,22 @@
+<div class="relative w-full overflow-hidden mt-16">
+    <!-- Carrusel items con imágenes -->
+
+    <app-carousel-items [categories]="items_carousel" [products_details]="items_details"
+        [page]="page"></app-carousel-items>
+
+
+    <!-- Controles prev y next con flechas -->
+    <button (click)="prev()" title="Previous"
+        class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#240046] text-white px-4 py-2 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+
+    <button (click)="next()" title="Next"
+        class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#240046] text-white px-4 py-2 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+</div>

@@ -1,0 +1,85 @@
+<div class="container mx-auto p-6">
+    <!-- Mensaje si no hay job -->
+    <div *ngIf="!job" class="text-center text-xl text-gray-600">No job found</div>
+
+    <!-- Job details -->
+    <div class="bg-white rounded-lg shadow-lg p-6" *ngIf="job">
+        <!-- Información del trabajo -->
+        <div class="mb-4">
+            <h3 class="text-2xl font-bold text-[#240046]">{{ job.name }}</h3>
+        </div>
+        <div class="space-y-4 text-gray-700">
+            <div class="description">
+                <strong class="font-semibold">Description: </strong>{{ job.description }}.
+            </div>
+            <div class="category">
+                <strong class="font-semibold">Author: </strong>
+                <!-- <a [routerLink]="['/profile', job.author.username]" class="text-[#240046] hover:underline">{{ job.author.username }}</a> -->
+            </div>
+            <div class="price">
+                <strong class="font-semibold">Price: </strong>{{ job.price }}€
+            </div>
+
+            <!-- Opciones de edición o eliminación si es permitido -->
+            <div class="mt-4" *ngIf="canModify === true">
+                <a class="bg-[#240046] text-white py-2 px-4 rounded hover:bg-purple-800 inline-block mr-2"
+                    [routerLink]="['/editor', job.slug]">
+                    <i class="ion-edit"></i> Edit job
+                </a>
+                <button class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 inline-block">
+                    <i class="ion-trash-a"></i> Delete job
+                </button>
+            </div>
+
+            <!-- Botones para favoritos o seguir al autor si no se puede modificar -->
+            <div *ngIf="canModify === false" class="flex space-x-4 mt-4">
+                <!-- <app-favorite-button [jobs]="job" (toggle)="onToggleFavorite($event)">
+                    {{ job.favorited ? 'Unfavorite' : 'Favorite' }} Job
+                    <span class="counter">({{ job.favoritesCount }})</span>
+                </app-favorite-button>
+                <app-follow-button (toggle)="onToggleFollow($event)" [profile]="job.author"></app-follow-button> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de comentarios -->
+    <hr class="my-6 border-gray-300">
+    <h3 class="text-2xl font-bold text-[#240046] mb-4">Comment Section</h3>
+
+    <div class="comments-section space-y-6">
+        <!-- Comentarios existentes -->
+        <!-- <app-comments *ngFor="let comment of comments" [comment]="comment" (deleteComment)="delete_comment(comment)">
+        </app-comments> -->
+
+        <!-- Mensaje si no hay comentarios -->
+        <div class="text-center text-gray-600" *ngIf="NoComments">
+            Be the first to comment on this article.
+        </div>
+
+        <!-- Crear comentario si el usuario está logueado -->
+        <div class="create-comment" *ngIf="logged === true">
+            <form (ngSubmit)="null">
+                <div class="flex items-start space-x-4">
+                    <img class="w-12 h-12 rounded-full" [src]="user_image" alt="User avatar">
+                    <div class="w-full">
+                        <textarea class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#240046]"
+                            name="enter-comment" placeholder="Write a comment..."></textarea>
+                        <div class="flex space-x-4 mt-2">
+                            <button class="bg-[#240046] text-white py-2 px-4 rounded hover:bg-purple-800"
+                                type="submit">COMMENT</button>
+                            <button class="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400" type="button"
+                                (click)="null">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Mensaje si no está logueado -->
+        <div class="text-center text-gray-600" *ngIf="logged === false">
+            <a [routerLink]="['/login']" class="text-[#240046] hover:underline">Sign in</a> or
+            <a [routerLink]="['/register']" class="text-[#240046] hover:underline">sign up</a> to add comments on this
+            job.
+        </div>
+    </div>
+</div>
