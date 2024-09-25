@@ -1,61 +1,57 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
-import { Job } from '../../core/models/job.model';
-
-const URL = 'http://localhost:3000/jobs';
-const URLcat = 'http://localhost:3000/jobsByCategory';
-
+import { Observable } from 'rxjs';
+import { Job } from '../models/job.model';
+import { ApiService } from './api.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root' // 'root' indica que este servicio será singleton en toda la aplicación
 })
-
 export class JobService {
+    constructor (
+        private apiService: ApiService
+    ) {}
 
-    constructor(private http: HttpClient) { }
-
-    //GET ALL
+    // GET ALL
     get_jobs(): Observable<Job[]> {
-        return this.http.get<Job[]>(URL);
+        return this.apiService.get(`/jobs/`);
     }
 
-    //GET ONE
+    // GET ONE
     get_job(slug: String): Observable<Job> {
-        return this.http.get<Job>(`${URL}/${slug}`);
+        return this.apiService.get(`/jobs/${slug}`);
     }
 
-    //CREATE
-    create_job(product: Job): Observable<Job[]> {
-        return this.http.post<Job[]>(URL, product);
-    }
-
-    //UPDATE ONE
-    update_job(product: Job, slug: String): Observable<Job[]> {
-        return this.http.put<Job[]>(`${URL}/${slug}`, product);
-    }
-
-    //DELETE ONE
-    delete_job(slug: any): Observable<Job[]> {
-        return this.http.delete<Job[]>(`${URL}/${slug}`);
-    }
-
-    //DELETE ALL
-    delete_all_jobs(): Observable<Job[]> {
-        return this.http.delete<Job[]>(`${URL}`);
-    }
-
+    // GET JOBS BY CATEGORY
     getJobsByCategory(slug: String): Observable<Job[]> {
-        return this.http.get<Job[]>(`${URLcat}/${slug}`);
+        return this.apiService.get(`/jobsByCategory/${slug}`);
     }
 
-    //SEARCH
-    find_Jobs_name(search: string): Observable<any> {
-        return this.http.get<Job>(`${URL}?name=${search}`).pipe(
-            map((data) => {
-                return data;
-            })
-        );
+    // CREATE
+    // create_job(product: Job): Observable<Job[]> {
+    //     return this.http.post<Job[]>(URL, product);
+    // }
+
+    // UPDATE ONE
+    // update_job(product: Job, slug: String): Observable<Job[]> {
+    //     return this.http.put<Job[]>(`${URL}/${slug}`, product);
+    // }
+
+    // DELETE ONE
+    delete_job(slug: any): Observable<Job[]> {
+        return this.apiService.delete(`/jobs/${slug}`);
     }
 
+    // DELETE ALL
+    // delete_all_jobs(): Observable<Job[]> {
+    //     return this.http.delete<Job[]>(`${URL}`);
+    // }
+
+    // SEARCH
+    // find_Jobs_name(search: string): Observable<any> {
+    //     return this.http.get<Job>(`${URL}?name=${search}`).pipe(
+    //         map((data) => {
+    //             return data;
+    //         })
+    //     );
+    // }
 }
