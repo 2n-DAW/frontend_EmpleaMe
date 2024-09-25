@@ -55,13 +55,13 @@ export class CarouselComponent implements OnInit {
   totalSlides = 0;
 
   next() {
-    this.totalSlides =  Math.ceil(this.items_carousel.length / 7); // Número de "grupos" de 7 ítems
+    this.totalSlides =  Math.ceil(this.items_carousel.length / 10); // Número de "grupos" de 7 ítems
     this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
     this.updateCarousel();
   }
 
   prev() {
-    this.totalSlides = Math.ceil(this.items_carousel.length / 7); // Número de "grupos" de 7 ítems
+    this.totalSlides = Math.ceil(this.items_carousel.length / 10); // Número de "grupos" de 7 ítems
     this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
     this.updateCarousel();
   }

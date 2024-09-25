@@ -30,7 +30,7 @@ export class CarouselItemsComponent implements OnChanges {
   }
 
   createSlides(): void {
-    const itemsPerSlide = 7;
+    const itemsPerSlide = 10;
     this.slides = [];
 
     for (let i = 0; i < this.categories.length; i += itemsPerSlide) {

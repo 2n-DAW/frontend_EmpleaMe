@@ -1,0 +1,14 @@
+.nombre {
+    opacity: 0;
+    transition: opacity 0.3s ease; 
+}
+
+.targeta:hover .nombre {
+    opacity: 1;
+}
+
+.targeta:hover img {
+    opacity: 0.3;
+    filter: blur(1px); 
+    transition: filter 0.3s ease, opacity 0.3s ease; 
+}
