@@ -4,7 +4,14 @@ module.exports = {
     './src/**/*.{html,js}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '1/7': '14.2857143%',
+      },
+      colors: {
+        customPurple: 'rgb(36 0 70)', // Aquí defines tu color personalizado
+      },
+    },
   },
   plugins: [],
 }

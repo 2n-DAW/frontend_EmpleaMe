@@ -16,13 +16,27 @@ export class CarouselItemsComponent implements OnChanges {
   @Input() products_details!: CarouselDetails[];
   @Input() page!: String;
 
+  slides: CarouselHome[][] = []; // Array de arrays para agrupar los ítems en bloques de 7.
+
   selectIndex = 0;
   selectIndex_product_img = 0;
 
   constructor() { }
 
   ngOnChanges(): void {
+    if (this.categories?.length) {
+      this.createSlides();
+    }
+  }
 
+  createSlides(): void {
+    const itemsPerSlide = 7;
+    this.slides = [];
+
+    for (let i = 0; i < this.categories.length; i += itemsPerSlide) {
+      // Dividimos las categorías en bloques de 7.
+      this.slides.push(this.categories.slice(i, i + itemsPerSlide));
+    }
   }
 
 }
