@@ -22,11 +22,9 @@ export const routes: Routes = [
         loadComponent: () => import('./shop/shop.component')
             .then(c => c.ShopComponent)
     },
-
     {
         path: 'details/:slug',
         loadComponent: () => import('./details/details.component').then(c => c.DetailsComponent),
         resolve: { job: DetailsResolver } // 
     },
-
 ];
