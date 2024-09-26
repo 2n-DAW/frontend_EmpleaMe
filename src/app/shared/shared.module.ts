@@ -10,6 +10,7 @@ import { CardJobComponent } from './components/card-job/card-job.component';
 import { CarouselItemsComponent } from './components/carousel-items/carousel-items.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { FiltersComponent } from './components/filters/filters.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
     CarouselItemsComponent,
     CarouselComponent,
     ListJobsComponent,
-    CardJobComponent
+    CardJobComponent,
+    FiltersComponent
   ],
   exports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
     CarouselItemsComponent,
     CarouselComponent,
     ListJobsComponent,
-    CardJobComponent
+    CardJobComponent,
+    FiltersComponent
   ],
 })
 export class SharedModule { }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Job } from '../models/job.model';
 import { ApiService } from './api.service';
+import { Filters } from '../models/filters.model';
 
 @Injectable({
   providedIn: 'root' // 'root' indica que este servicio será singleton en toda la aplicación
@@ -12,12 +13,12 @@ export class JobService {
     ) {}
 
     // GET ALL
-    get_jobs(): Observable<Job[]> {
+    getJobs(): Observable<Job[]> {
         return this.apiService.get(`/jobs/`);
     }
 
     // GET ONE
-    get_job(slug: String): Observable<Job> {
+    getJob(slug: String): Observable<Job> {
         return this.apiService.get(`/jobs/${slug}`);
     }
 
@@ -37,7 +38,7 @@ export class JobService {
     // }
 
     // DELETE ONE
-    delete_job(slug: any): Observable<Job[]> {
+    deleteJob(slug: any): Observable<Job[]> {
         return this.apiService.delete(`/jobs/${slug}`);
     }
 
@@ -54,4 +55,11 @@ export class JobService {
     //         })
     //     );
     // }
+    
+    
+    getJobsFilter(filters: Filters): Observable<Job[]> {
+        // Just pass the filters object directly
+        return this.apiService.get('/jobs', filters);
+      }
+    
 }
