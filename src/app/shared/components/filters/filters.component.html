@@ -10,16 +10,17 @@
             </select>
         </div>
         
-        <app-multi-range-slider 
+        <!-- <app-multi-range-slider 
         [min]="0" 
-        [max]="10000" 
-        [minprice]="minPrice" 
-        [maxprice]="maxPrice" 
+        [max]="2000" 
+        [minprice]="salary_min" 
+        [maxprice]="salary_max" 
         (minpriceChange)="updateMinPrice($event)" 
-        (maxpriceChange)="updateMaxPrice($event)">
-      </app-multi-range-slider>
+        (maxpriceChange)="updateMaxPrice($event)"
+        (change)="filter_jobs()">
+        </app-multi-range-slider> -->
         
-         
+        
         <!-- Botón de eliminar filtros -->
         <div class="w-full md:w-1/5 flex items-end">
             <button type="button" class="bg-[#240046] text-white py-2 px-4 rounded hover:bg-purple-800 w-full" (click)="remove_filters()">

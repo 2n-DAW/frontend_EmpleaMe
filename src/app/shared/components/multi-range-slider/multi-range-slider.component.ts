@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Slide } from '../../../core/models';
 import { SharedModule } from '../../shared.module';
 
 
@@ -23,7 +22,7 @@ export class MultiRangeSliderComponent {
   @Output() maxpriceChange = new EventEmitter<number>();
 
   minthumb: number = 0;
-  maxthumb: number = 1;
+  maxthumb: number = 0;
 
   onMinPriceChange(event: any): void {
     const value = parseInt(event.target.value, 10);
@@ -41,13 +40,13 @@ export class MultiRangeSliderComponent {
 
   mintrigger(): void {
     this.validation();
-    this.minprice = Math.min(this.minprice, this.maxprice - 500);
+    this.minprice = Math.min(this.minprice, this.maxprice );
     this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
   }
 
   maxtrigger(): void {
     this.validation();
-    this.maxprice = Math.max(this.maxprice, this.minprice + 200);
+    this.maxprice = Math.max(this.maxprice, this.minprice);
     this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
   }
 
