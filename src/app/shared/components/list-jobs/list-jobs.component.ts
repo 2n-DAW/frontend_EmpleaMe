@@ -46,7 +46,7 @@ export class ListJobsComponent implements OnInit {
 
 
 
-    //this.getListForCategory();
+    this.getListForCategory();
     if (this.slug_Category !== null) {
       this.getJobsByCat();
     }
