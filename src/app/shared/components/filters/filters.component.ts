@@ -1,15 +1,17 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Category } from '../../../core/models';
 import { Filters } from '../../../core/models/filters.model';
-
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, Location, NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {  Location } from '@angular/common';
+import { SharedModule } from '../../shared.module';
+import { MultiRangeSliderComponent } from '../multi-range-slider/multi-range-slider.component';
 
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MultiRangeSliderComponent],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.css'
 })
@@ -24,6 +26,49 @@ export class FiltersComponent implements OnInit {
   id_cat: string = "";
   salary_max: number | undefined;
   salary_min: number | undefined;
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  //valores por defect
+  minPrice: number = 1000;
+  maxPrice: number = 9000;
+
+  updateMinPrice(newMinPrice: number): void {
+    this.minPrice = newMinPrice;
+    console.log(this.minPrice);
+  }
+
+  updateMaxPrice(newMaxPrice: number): void {
+    this.maxPrice = newMaxPrice;
+    console.log(this.maxPrice);
+  
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   constructor( private ActivatedRoute: ActivatedRoute, private Router: Router, private Location: Location ) 
   {
