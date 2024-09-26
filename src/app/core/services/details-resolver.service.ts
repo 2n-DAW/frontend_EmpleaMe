@@ -18,7 +18,7 @@ export class DetailsResolver implements Resolve<Job> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.jobService.get_job(route.params['slug'])
+    return this.jobService.getJob(route.params['slug'])
       .pipe(catchError((err) => this.router.navigateByUrl('/')));
   }
 }

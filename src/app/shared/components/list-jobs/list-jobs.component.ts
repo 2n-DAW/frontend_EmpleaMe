@@ -4,13 +4,15 @@ import { JobService, CategoryService } from '../../../core/services';
 import { ActivatedRoute } from '@angular/router'
 import { Category } from '../../../core/models';
 import { CommonModule, Location } from '@angular/common';
-import { CardJobComponent } from '../card-job/card-job.component';
+import { SharedModule } from '../../shared.module';
+import { Filters } from '../../../core/models/filters.model';
+
 
 
 @Component({
   selector: 'app-list-jobs',
   standalone: true,
-  imports: [CommonModule, CardJobComponent],
+  imports: [CommonModule, SharedModule],
   templateUrl: './list-jobs.component.html',
   styleUrl: './list-jobs.component.css'
 })
@@ -20,11 +22,11 @@ export class ListJobsComponent implements OnInit {
   jobs: Job[] = [];
   slug_Category!: string | null;
   listCategories: Category[] = [];
-  //filters = new Filters();
-  // offset: number = 0;
-  // limit: number = 3;
-  // totalPages: Array<number> = [];
-  // currentPage: number = 1;
+  filters = new Filters();
+  offset: number = 0;
+  limit: number = 77;
+  totalPages: Array<number> = [];
+  currentPage: number = 1;
 
 
   constructor(private jobService: JobService,
@@ -44,9 +46,13 @@ export class ListJobsComponent implements OnInit {
 
 
 
-    //this.getListForCategory();
+    this.getListForCategory();
     if (this.slug_Category !== null) {
       this.getJobsByCat();
+    }
+    else if(this.routeFilters !== null){
+      this.refreshRouteFilter();
+      this.get_list_filtered(this.filters);
     }
     else {
       this.getJobs();
@@ -54,7 +60,7 @@ export class ListJobsComponent implements OnInit {
   }
 
   getJobs(): void {
-    this.jobService.get_jobs().subscribe(
+    this.jobService.getJobs().subscribe(
       (data: any) => {
         this.jobs = data.jobs;
         console.log(data.jobs);
@@ -78,6 +84,26 @@ export class ListJobsComponent implements OnInit {
         this.listCategories = data.categories;
       }
     );
+  }
+  
+  refreshRouteFilter() {
+    this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+    if(typeof(this.routeFilters) == "string" ){
+      this.filters = JSON.parse(atob(this.routeFilters));
+    }else{
+      this.filters = new Filters();
+    }
+  }
+  
+  get_list_filtered(filters: Filters) {
+    this.filters = filters;
+      this.jobService.getJobsFilter(filters).subscribe(
+        (data: any) => {
+          this.jobs = data.jobs;
+          this.totalPages = Array.from(new Array(Math.ceil(data.job_count/this.limit)), (val, index) => index + 1);
+          console.log(this.jobs);
+          console.log(data.job_count);
+      });
   }
 
 }

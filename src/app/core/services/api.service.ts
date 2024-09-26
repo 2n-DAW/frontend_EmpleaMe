@@ -16,10 +16,22 @@ export class ApiService {
     return  throwError(error.error);
   }
 
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.get(`${environment.api_url}${path}`, { params })
-      .pipe(catchError(this.formatErrors));
+  get(path: string, paramsObj: any = {}): Observable<any> {
+    let params_result = {};
+    
+    for(const key in paramsObj) {
+      if(paramsObj[key] !== null && paramsObj[key] !== undefined) {
+        params_result = { ...params_result, [key]: paramsObj[key] };  
+      }
+    }
+    const params = new HttpParams({ fromObject: params_result });
+    
+    const url = `${environment.api_url}${path}?${params.toString()}`;
+    console.log(url);
+    
+    return this.http.get(url).pipe(catchError(this.formatErrors));
   }
+  
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(

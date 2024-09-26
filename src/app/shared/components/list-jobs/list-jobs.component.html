@@ -1,4 +1,7 @@
+
+<app-filters  (eventofiltros)="get_list_filtered($event)" [listCategories]="listCategories"></app-filters>
 <div class="container px-0 mx-auto flex mt-20">
+  
     <div class="w-3/5 ">
         <app-card-job *ngFor="let job of jobs" [jobs]="job">
         </app-card-job>

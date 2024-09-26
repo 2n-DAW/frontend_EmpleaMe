@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { RouterModule } from '@angular/router';
 
 import { ListCategoriesComponent } from './components/list-categories/list-categories.component';
@@ -10,12 +9,13 @@ import { CardJobComponent } from './components/card-job/card-job.component';
 import { CarouselItemsComponent } from './components/carousel-items/carousel-items.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { FiltersComponent } from './components/filters/filters.component';
+import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+   
+  
     RouterModule,
     InfiniteScrollDirective,
     ListCategoriesComponent,
@@ -23,12 +23,13 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
     CarouselItemsComponent,
     CarouselComponent,
     ListJobsComponent,
-    CardJobComponent
+    CardJobComponent,
+    FiltersComponent,
+    //  MultiRangeSliderComponent
   ],
   exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    
+  
     RouterModule,
     InfiniteScrollDirective,
     ListCategoriesComponent,
@@ -36,7 +37,9 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
     CarouselItemsComponent,
     CarouselComponent,
     ListJobsComponent,
-    CardJobComponent
+    CardJobComponent,
+    FiltersComponent,
+    // MultiRangeSliderComponent
   ],
 })
 export class SharedModule { }
