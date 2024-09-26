@@ -9,18 +9,30 @@
                 <option *ngFor="let category of listCategories" [value]="category.id_cat">{{category.category_name}}</option>
             </select>
         </div>
+        <!-- Filtro por precio mínimo -->
+        <div class="w-full md:w-1/5 overflow-y-auto max-h-40">
+            <label class="block text-gray-700 font-semibold mb-2">Salario Mínimo</label>
+            <input type="number" class="w-full p-2 border border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]" 
+                   placeholder="Precio Minimo" [(ngModel)]="salary_min" min="0" step="5" (input)="filter_jobs()">
+        </div>
+        
+        <!-- Filtro por salario máximo con scrollbar -->
+        <div class="w-full md:w-1/5 overflow-y-auto max-h-40">
+            <label class="block text-gray-700 font-semibold mb-2">Salario Máximo</label>
+            <input type="number" class="w-full p-2 border border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]" 
+                   placeholder="Precio Maximo" [(ngModel)]="salary_max" min="0" step="5" (input)="filter_jobs()">
+        </div>
         
         <!-- <app-multi-range-slider 
         [min]="0" 
-        [max]="2000" 
-        [minprice]="salary_min" 
-        [maxprice]="salary_max" 
+        [max]="10000" 
+        [minprice]="minPrice" 
+        [maxprice]="maxPrice" 
         (minpriceChange)="updateMinPrice($event)" 
-        (maxpriceChange)="updateMaxPrice($event)"
-        (change)="filter_jobs()">
-        </app-multi-range-slider> -->
+        (maxpriceChange)="updateMaxPrice($event)">
+      </app-multi-range-slider> -->
         
-        
+         
         <!-- Botón de eliminar filtros -->
         <div class="w-full md:w-1/5 flex items-end">
             <button type="button" class="bg-[#240046] text-white py-2 px-4 rounded hover:bg-purple-800 w-full" (click)="remove_filters()">

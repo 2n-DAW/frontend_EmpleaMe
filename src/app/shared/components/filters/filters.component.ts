@@ -1,17 +1,15 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Category } from '../../../core/models';
 import { Filters } from '../../../core/models/filters.model';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ActivatedRoute, Router } from '@angular/router';
-import {  Location } from '@angular/common';
-import { SharedModule } from '../../shared.module';
-import { MultiRangeSliderComponent } from '../multi-range-slider/multi-range-slider.component';
+import { CommonModule, Location, NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule, MultiRangeSliderComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.css'
 })
@@ -24,52 +22,10 @@ export class FiltersComponent implements OnInit {
   filters!: Filters 
 
   id_cat: string = "";
-  // salary_max: number | undefined;
-  // salary_min: number | undefined;
+  salary_max: number | undefined;
+  salary_min: number | undefined;
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  //valores por defect
-  salary_min: number = 0;
-  salary_max: number = 2000;
-
-  updateMinPrice(newMinPrice: number): void {
-    this.salary_min = newMinPrice;
-    console.log(this.salary_min);
-  }
-
-  updateMaxPrice(newMaxPrice: number): void {
-    this.salary_max = newMaxPrice;
-    console.log(this.salary_max);
-  
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
   constructor( private ActivatedRoute: ActivatedRoute, private Router: Router, private Location: Location ) 
   {
     this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
@@ -96,7 +52,7 @@ export class FiltersComponent implements OnInit {
         this.filters.category = this.id_cat;
       }
       
-      //this.salary_calc(this.salary_min, this.salary_max);
+      this.salary_calc(this.salary_min, this.salary_max);
       this.filters.salary_min = this.salary_min ? this.salary_min : undefined;
       this.filters.salary_max = this.salary_max == 0 || this.salary_max == null ? undefined : this.salary_max;
 
@@ -107,18 +63,17 @@ export class FiltersComponent implements OnInit {
 
     }
 
-  // public salary_calc(salary_min: number | undefined, salary_max: number | undefined) {    
-  //     if (typeof salary_min == 'number' && typeof salary_max == 'number') {
-  //       if(salary_min > salary_max){
-  //         this.salary_min = salary_max;
-  //         this.salary_max = salary_max;
-  //       }else{
-  //         this.salary_min = salary_min;
-  //         this.salary_max = salary_max;
-  //       }
-  //     }
-  //   }
-    
+  public salary_calc(salary_min: number | undefined, salary_max: number | undefined) {    
+      if (typeof salary_min == 'number' && typeof salary_max == 'number') {
+        if(salary_min > salary_max){
+          this.salary_min = salary_min;
+          this.salary_max = undefined;
+        }else{
+          this.salary_min = salary_min;
+          this.salary_max = salary_max;
+        }
+      }
+    }
 
     public remove_filters(){
       window.location.assign("http://localhost:4200/shop")
