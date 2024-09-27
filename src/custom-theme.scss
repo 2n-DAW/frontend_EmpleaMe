@@ -14,12 +14,39 @@ $Frontend-theme: mat.define-theme((
   color: (
     theme-type: light,
     primary: mat.$orange-palette,
-    tertiary: mat.$blue-palette,
+    tertiary: mat.$red-palette,
   ),
   density: (
     scale: 0,
   )
 ));
+
+// mat.$red-palette: Paleta de rojos.
+// mat.$pink-palette: Paleta de rosas.
+// mat.$purple-palette: Paleta de púrpuras.
+// mat.$deep-purple-palette: Paleta de púrpuras oscuros.
+// mat.$indigo-palette: Paleta de índigos.
+// mat.$blue-palette: Paleta de azules.
+// mat.$light-blue-palette: Paleta de azules claros.
+// mat.$cyan-palette: Paleta de cianes.
+// mat.$teal-palette: Paleta de verdes azulados (teal).
+// mat.$green-palette: Paleta de verdes.
+// mat.$light-green-palette: Paleta de verdes claros.
+// mat.$lime-palette: Paleta de lima.
+// mat.$yellow-palette: Paleta de amarillos.
+// mat.$amber-palette: Paleta de ámbar.
+// mat.$orange-palette: Paleta de naranjas.
+// mat.$deep-orange-palette: Paleta de naranjas oscuros.
+// mat.$brown-palette: Paleta de marrones.
+// mat.$gray-palette: Paleta de grises.
+// mat.$blue-gray-palette: Paleta de grises azulados (blue-gray).
+
+
+
+
+
+
+
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component

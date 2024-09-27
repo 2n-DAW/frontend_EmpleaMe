@@ -5,11 +5,12 @@ import { Filters } from '../../../core/models/filters.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {MatSliderModule} from '@angular/material/slider';
 
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatSliderModule],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.css'
 })
