@@ -7,13 +7,8 @@
 
 /* Definir el color principal en Tailwind */
 :root {
-    --tw-color-morado: #240046;
-    --tw-color-morado-header: #10002bc0;
+    --tw-color-morado: #264653;
+    --tw-color-morado-header: #264653;
 }
-html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
