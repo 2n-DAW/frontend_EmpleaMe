@@ -2,12 +2,12 @@
     <div class="bg-white rounded-lg shadow-lg overflow-hidden w-80 mt-10 mb-10">
         <a href="#">
             <div class="relative h-48">
-                <img [src]="'img_categories/'+ categories.image" alt="Prosegur" class="w-full h-full object-cover">
+                <img [src]="'img_categories/'+ categories.image" alt="{{categories.category_name}}" class="mt-8 w-full h-full object-contain">
             </div>
         </a>
         <div class="p-6 text-center">
-            <h4 class="text-xl font-bold text-[#240046]">{{categories.category_name}}</h4>
-            <p class="text-gray-500">29 ofertas</p>
+            <h4 class="h-14 text-xl font-bold text-color9">{{categories.category_name}}</h4>
+            <!-- <p class="text-gray-500">29 ofertas</p> -->
         </div>
     </div>
 </a>

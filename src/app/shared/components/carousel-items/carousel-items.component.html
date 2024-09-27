@@ -1,14 +1,14 @@
 <div class="relative w-full overflow-hidden">
     <div id="carousel-items" class="flex transition-transform ease-in-out">
         <!-- Iteramos sobre los slides, cada uno conteniendo hasta 7 ítems -->
-        <div *ngFor="let slide of slides" class="min-w-full flex" style="padding-left: 60px; padding-right: 60px;">
+        <div *ngFor="let slide of slides" class="min-w-full flex" style="padding-left: 80px; padding-right: 80px;">
             <!-- Dentro de cada slide, iteramos sobre los ítems (máximo 7 por slide) -->
             <!-- mx-3 separación entre items -->
              <!-- Para el contenedor de los items. Responsive?? w-1/2 sm:w-1/4 lg:w-1/7 -->
             <div *ngFor="let category of slide" class="w-1/7 h-16 flex flex-col items-center justify-between">
                 <div class="w-full h-full relative flex items-center justify-center targeta">
                     <img [src]="'img_categories/' + category.image" alt="Category Image" class="w-full h-full object-contain">
-                    <span class="nombre absolute top-0 mt-2 text-center w-full h-14 flex items-center justify-center font-bold text-customPurple text-sh">{{ category.category_name }}</span>
+                    <span class="nombre absolute top-0 mt-2 text-center w-full h-14 flex items-center justify-center font-bold text-color2 text-sh">{{ category.category_name }}</span>
                 </div>
             </div>
         </div>

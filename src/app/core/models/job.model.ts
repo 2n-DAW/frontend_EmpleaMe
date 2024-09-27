@@ -2,7 +2,7 @@ export interface Job {
     slug: string;
     name: string;
     description: string;
-    price: number;
+    salary: number;
     images: [],
     img: string,
     id_cat: string;
