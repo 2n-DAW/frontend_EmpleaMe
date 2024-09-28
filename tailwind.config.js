@@ -12,7 +12,7 @@ module.exports = {
       colors: {
         customPurple: '#625D7E',
         color1: '#264653', // verde charcoal PRINCIPAL
-        color2: '#2A9D8F', // verde persian SECUNDARIO
+        color2: '#39A296', // verde persian SECUNDARIO
         color3: '#89D2CA', // azul tiffany FOCUS
         color4: '#E9C46A', // naranja saffron HOVERS
         color5: '#89D2CA', // azul tiffany BUTTONS

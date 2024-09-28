@@ -1,9 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "~@angular/material/prebuilt-themes/cyan-orange.css";
-
-
 
 /* Definir el color principal en Tailwind */
 :root {
