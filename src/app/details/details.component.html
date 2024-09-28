@@ -1,4 +1,4 @@
-<div class="container mx-auto p-6 mt-20">
+<div class="container mx-auto p-6 mt-24">
     <!-- Mensaje si no hay job -->
     <div *ngIf="!job" class="text-center text-xl text-color8">No job found</div>
 
@@ -6,7 +6,7 @@
     <div class="bg-white rounded-lg shadow-lg p-6" *ngIf="job">
         <!-- Información del trabajo -->
         <div class="mb-4">
-            <h3 class="text-2xl font-bold text-color7">{{ job.name }}</h3>
+            <h3 class="text-2xl font-bold text-color1">{{ job.name }}</h3>
         </div>
         <div class="space-y-4 text-color8">
             <div class="description">
