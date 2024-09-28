@@ -1,0 +1,47 @@
+<div class="pagination flex justify-center mb-4">
+    @if (totalPages.length > 1) {
+        <nav>
+            <ul class="flex space-x-2">
+                <!-- Botón de Prev -->
+                @if (currentPage !== 1) {
+                    <li (click)="setPageTo(currentPage - 1)">
+                        <span role="button" tabindex="0"
+                            class="w-10 h-10 flex items-center justify-center text-color3
+                                cursor-pointer transition-colors duration-300 ease-in-out hover:text-color2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7M9 19l-7-7 7-7" />
+                            </svg>
+                        </span>
+                    </li>
+                }
+                
+                <!-- Páginas -->
+                @for (pageNumber of totalPages.slice(startPage - 1, startPage - 1 + maxPagesToShow); track pageNumber) {
+                    <li (click)="setPageTo(pageNumber)">
+                        <span role="button" tabindex="0"
+                        class="w-10 h-10 flex items-center justify-center rounded-full shadow-md
+                            cursor-pointer transition-colors duration-300 ease-in-out text-lg"
+                        [ngClass]="{
+                            'bg-color3 text-white border hover:bg-color2': pageNumber === currentPage,
+                            'bg-white text-color3 border hover:text-color2': pageNumber !== currentPage
+                        }"
+                        >{{ pageNumber }}</span>
+                    </li>
+                }
+                
+                <!-- Botón de Next -->
+                @if (currentPage != totalPages.length) {
+                    <li (click)="setPageTo(currentPage + 1)">
+                        <span role="button" tabindex="0"
+                            class="w-10 h-10 flex items-center justify-center text-color3
+                                cursor-pointer transition-colors duration-300 ease-in-out hover:text-color2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7M15 5l7 7-7 7" />
+                            </svg>
+                        </span>
+                    </li>  
+                }
+            </ul>
+        </nav>
+    }
+</div>

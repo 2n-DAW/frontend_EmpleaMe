@@ -20,13 +20,10 @@ export class ListJobsComponent implements OnInit {
 
   routeFilters!: string | null;
   jobs: Job[] = [];
+  jobCount: number = 0;
   slug_Category!: string | null;
   listCategories: Category[] = [];
   filters = new Filters();
-  offset: number = 0;
-  limit: number = 77;
-  totalPages: Array<number> = [];
-  currentPage: number = 1;
 
 
   constructor(private jobService: JobService,
@@ -39,14 +36,14 @@ export class ListJobsComponent implements OnInit {
 
   //Lo que inicia
   ngOnInit(): void {
-    console.log()
     this.slug_Category = this.ActivatedRoute.snapshot.paramMap.get('slug');
     this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+    console.log(this.ActivatedRoute.snapshot.paramMap.get('slug'));
     // console.log(this.ActivatedRoute.snapshot.paramMap.get('filters'));
 
 
-
     this.getListForCategory();
+
     if (this.slug_Category !== null) {
       this.getJobsByCat();
     }
@@ -55,25 +52,28 @@ export class ListJobsComponent implements OnInit {
       this.get_list_filtered(this.filters);
     }
     else {
-      this.getJobs();
+      this.get_list_filtered(this.filters);
     }
   }
 
-  getJobs(): void {
-    this.jobService.getJobs().subscribe(
-      (data: any) => {
-        this.jobs = data.jobs;
-        console.log(data.jobs);
-      });
-  }
+  // getJobs(): void {
+  //   this.jobService.getJobs().subscribe(
+  //     (data: any) => {
+  //       this.jobs = data.jobs;
+  //       console.log(this.jobs);
+  //     });
+  // }
 
-  getJobsByCat(): void {
+  getJobsByCat() {
     if (this.slug_Category !== null) {
+      console.log(this.slug_Category);
       this.jobService.getJobsByCategory(this.slug_Category).subscribe(
         (data: any) => {
-          console.log(data);
           this.jobs = data.jobs;
-
+          this.jobCount = this.jobs.length;
+          // this.totalPages = Array.from(new Array(Math.ceil(this.jobCount/this.limit)), (val, index) => index + 1);
+          console.log(this.jobs);
+          console.log(this.jobCount);
         });
     }
   }
@@ -100,11 +100,21 @@ export class ListJobsComponent implements OnInit {
       this.jobService.getJobsFilter(filters).subscribe(
         (data: any) => {
           this.jobs = data.jobs;
-          this.totalPages = Array.from(new Array(Math.ceil(data.job_count/this.limit)), (val, index) => index + 1);
+          this.jobCount = data.job_count;
+          // this.totalPages = Array.from(new Array(Math.ceil(this.jobCount/this.limit)), (val, index) => index + 1);
           console.log(this.jobs);
-          console.log(data.job_count);
+          console.log(this.jobCount)
+          console.log(filters);
       });
   }
 
-}
+  setPageTo(filters: Filters) {
+    if (typeof this.routeFilters === 'string') {
+      this.refreshRouteFilter();
+    }
 
+    this.Location.replaceState('/shop/' + btoa(JSON.stringify(filters)));
+    this.get_list_filtered(filters);
+  }
+
+}

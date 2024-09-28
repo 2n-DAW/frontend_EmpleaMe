@@ -12,7 +12,7 @@ export class CategoryService {
   ) {}
 
     all_categories(params: any): Observable<Category[]> {
-        return this.apiService.get(`/categories/`);
+        return this.apiService.get(`/categories/`, params);
     }
 
     all_categories_select(): Observable<Category[]> {

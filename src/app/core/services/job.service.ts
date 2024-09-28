@@ -56,10 +56,9 @@ export class JobService {
     //     );
     // }
     
-    
     getJobsFilter(filters: Filters): Observable<Job[]> {
         // Just pass the filters object directly
         return this.apiService.get('/jobs', filters);
-      }
+    }
     
 }

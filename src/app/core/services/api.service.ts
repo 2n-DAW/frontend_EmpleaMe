@@ -24,14 +24,16 @@ export class ApiService {
         params_result = { ...params_result, [key]: paramsObj[key] };  
       }
     }
+    // console.log(params_result);
+
     const params = new HttpParams({ fromObject: params_result });
+    // console.log(params.toString());
     
     const url = `${environment.api_url}${path}?${params.toString()}`;
     console.log(url);
     
     return this.http.get(url).pipe(catchError(this.formatErrors));
   }
-  
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(

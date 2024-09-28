@@ -10,12 +10,13 @@ import { CarouselItemsComponent } from './components/carousel-items/carousel-ite
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { FiltersComponent } from './components/filters/filters.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
+
 
 @NgModule({
   imports: [
-   
-  
+    
     RouterModule,
     InfiniteScrollDirective,
     ListCategoriesComponent,
@@ -25,11 +26,11 @@ import { MultiRangeSliderComponent } from './components/multi-range-slider/multi
     ListJobsComponent,
     CardJobComponent,
     FiltersComponent,
+    PaginationComponent,
     //  MultiRangeSliderComponent
   ],
   exports: [
     
-  
     RouterModule,
     InfiniteScrollDirective,
     ListCategoriesComponent,
@@ -39,6 +40,7 @@ import { MultiRangeSliderComponent } from './components/multi-range-slider/multi
     ListJobsComponent,
     CardJobComponent,
     FiltersComponent,
+    PaginationComponent
     // MultiRangeSliderComponent
   ],
 })
