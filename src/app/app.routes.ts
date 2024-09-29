@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, UrlSegment } from '@angular/router';
 import { DetailsResolver } from './core/services';
 
 export const routes: Routes = [
@@ -14,19 +14,11 @@ export const routes: Routes = [
     },
     {
         path: 'shop',
-        loadComponent: () => import('./shop/shop.component')
-            .then(c => c.ShopComponent)
+        loadChildren: () => import('./shop/shop.routes')
     },
-    {
-        path: 'shop/categories/:slug',
-        loadComponent: () => import('./shop/shop.component')
-            .then(c => c.ShopComponent)
-    },
-
     {
         path: 'details/:slug',
         loadComponent: () => import('./details/details.component').then(c => c.DetailsComponent),
         resolve: { job: DetailsResolver } // 
     },
-
 ];

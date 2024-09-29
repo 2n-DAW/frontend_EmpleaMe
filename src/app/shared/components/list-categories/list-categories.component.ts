@@ -33,7 +33,6 @@ export class ListCategoriesComponent implements OnInit {
       (data: any) => {
         this.categories = data.categories;
         this.limit = this.limit + 4;
-        // console.log(this.categories, this.limit); 
       }
     );
   }

@@ -57,8 +57,7 @@ export class DetailsComponent implements OnInit {
   deleteJob() {
     this.isDeleting = true;
 
-    this.JobService.delete_job(this.slug)
-      .subscribe(
+    this.JobService.deleteJob(this.slug).subscribe(
         (data: any) => {
           // console.log(data);
           this.router.navigateByUrl('/shop');

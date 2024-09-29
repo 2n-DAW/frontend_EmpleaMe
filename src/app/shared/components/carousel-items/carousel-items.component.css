@@ -1,0 +1,20 @@
+.nombre {
+    letter-spacing: -0.5px;
+    opacity: 0;
+    transition: opacity 0.3s ease; 
+}
+
+.targeta:hover .nombre {
+    opacity: 1;
+}
+
+/* img {
+    opacity: 0.8;
+    filter: hue-rotate(197deg) saturate(37%) brightness(24%);
+} */
+
+.targeta:hover img {
+    opacity: 0.05;
+    filter: blur(1px) hue-rotate(0deg) saturate(0%) brightness(95%);
+    transition: filter 0.3s ease, opacity 0.3s ease; 
+}

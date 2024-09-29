@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from '../../core/models/category.model';
-const URL = 'http://127.0.0.1:3000/categories';
-const URL_select = 'http://127.0.0.1:3000/categories_select_filter';
+import { Category } from '../models/category.model';
+import { ApiService } from './api.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root' // 'root' indica que este servicio será singleton en toda la aplicación
 })
-
 export class CategoryService {
-
-    constructor(private http: HttpClient) { }
+  constructor (
+    private apiService: ApiService
+  ) {}
 
     all_categories(params: any): Observable<Category[]> {
-        return this.http.get<Category[]>(URL, { params });
+        return this.apiService.get(`/categories/`, params);
     }
 
     all_categories_select(): Observable<Category[]> {
-        return this.http.get<Category[]>(URL_select)
+        return this.apiService.get(`/categories/`);
     }
-
 }
-
-export type { Category };

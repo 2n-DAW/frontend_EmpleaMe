@@ -1,7 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 import { RouterModule } from '@angular/router';
 
 import { ListCategoriesComponent } from './components/list-categories/list-categories.component';
@@ -10,36 +8,43 @@ import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
 import { CardJobComponent } from './components/card-job/card-job.component';
 import { CarouselItemsComponent } from './components/carousel-items/carousel-items.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { FiltersComponent } from './components/filters/filters.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
+import { SearchComponent } from './components/search/search.component';
+
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    
     RouterModule,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     ListCategoriesComponent,
     CardCategoryComponent,
     CarouselItemsComponent,
     CarouselComponent,
     ListJobsComponent,
-    CardJobComponent
+    CardJobComponent,
+    FiltersComponent,
+    PaginationComponent,
+    SearchComponent
+    //  MultiRangeSliderComponent
   ],
   exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    
     RouterModule,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     ListCategoriesComponent,
     CardCategoryComponent,
     CarouselItemsComponent,
     CarouselComponent,
     ListJobsComponent,
-    CardJobComponent
+    CardJobComponent,
+    FiltersComponent,
+    PaginationComponent,
+    SearchComponent
+    // MultiRangeSliderComponent
   ],
 })
 export class SharedModule { }
