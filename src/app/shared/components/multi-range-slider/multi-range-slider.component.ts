@@ -14,21 +14,30 @@ import {MatSliderModule} from '@angular/material/slider';
 export class MultiRangeSliderComponent {
   @Input() min: number = 900;
   @Input() max: number = 5000;
-  @Input() minprice: number = 900;
-  @Input() maxprice: number = 5000;
+  @Input() downValue: number = 900;
+  @Input() upValue: number = 5000;
   
   @Output() minpriceChange = new EventEmitter<number>();
   @Output() maxpriceChange = new EventEmitter<number>();
 
-  minthumb: number = 0;
-  maxthumb: number = 0;
+  
+  onMinPriceChange(event: any): void {
+    const value = parseInt(event.target.value, 10);
+    this.downValue = value;
+    this.minpriceChange.emit(this.downValue);
+  }
+
+  onMaxPriceChange(event: any): void {
+    const value = parseInt(event.target.value, 10);
+    this.upValue = value;
+    this.maxpriceChange.emit(this.upValue);
+  }
   
   
   formatLabel(value: number): string {
     if (value >= 1000) {
       return (value / 1000) + 'k';
     }
-
     return `${value}`;
   }
   

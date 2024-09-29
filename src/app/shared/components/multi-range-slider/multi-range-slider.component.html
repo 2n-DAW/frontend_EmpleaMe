@@ -1,16 +1,17 @@
+<div class=" flex items-center w-full">
+  <!-- Input para el valor mínimo -->
+  <input type="number" value="{{min}}" (input)="onMinPriceChange($event)" [(ngModel)]="downValue" min="{{min}}" max="{{max}}" step="50"
+      class="w-1/4 input border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
 
-  <div class="slider-container">
-
-      <input type="number" value="{{min}}" (input)="onMinPriceChange($event)" [(ngModel)]="minprice" min="{{min}}" max="{{max}}" step="50"
-          class="border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
-          
-      <mat-slider class="slider" [min]="min" [max]="max" step="50" showTickMarks discrete
-          [displayWith]="formatLabel" (input)="filter_jobs()">
-          <input value="1000" (input)="onMinPriceChange($event)" [(ngModel)]="minprice" matSliderStartThumb>
-          <input value="2000" (input)="onMaxPriceChange($event)" [(ngModel)]="maxprice" matSliderEndThumb>
-      </mat-slider>
-
-      <input type="number" value="{{max}}"  (input)="onMaxPriceChange($event)" [(ngModel)]="maxprice" min="{{min}}" max="{{max}}" step="50"
-          class=" border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
-          
+  <!-- Mat-slider para el rango -->
+  <div class="w-1/2 slider-container">
+    <mat-slider class="slider w-full" [min]="min" [max]="max" step="50" showTickMarks discrete [displayWith]="formatLabel">
+      <input value="{{min}}" (input)="onMinPriceChange($event)" [(ngModel)]="downValue" matSliderStartThumb>
+      <input value="{{max}}" (input)="onMaxPriceChange($event)" [(ngModel)]="upValue" matSliderEndThumb>
+    </mat-slider>
   </div>
+
+  <!-- Input para el valor máximo -->
+  <input type="number" value="{{max}}" (input)="onMaxPriceChange($event)" [(ngModel)]="upValue" min="{{min}}" max="{{max}}" step="50"
+      class="w-1/4 input border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
+</div>
