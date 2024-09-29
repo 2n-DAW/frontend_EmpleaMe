@@ -39,9 +39,9 @@ export class ListJobsComponent implements OnInit {
 
   //Lo que inicia
   ngOnInit(): void {
-    console.log()
     this.slug_Category = this.ActivatedRoute.snapshot.paramMap.get('slug');
     this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+    console.log(this.routeFilters);
     // console.log(this.ActivatedRoute.snapshot.paramMap.get('filters'));
 
 

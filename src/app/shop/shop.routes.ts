@@ -13,6 +13,7 @@ const shopRoutes: Routes = [
     path: ':filters',
     loadComponent: () => import('./shop.component').then(c => c.ShopComponent),
   },
+
 ];
 
 export default shopRoutes;

@@ -23,8 +23,10 @@ export class FiltersComponent implements OnInit {
   filters!: Filters 
 
   id_cat: string = "";
-  salary_max: number | undefined;
-  salary_min: number | undefined;
+  salary_max: number =2000;
+  salary_min: number =1000;
+  
+  
   
   
   constructor( private ActivatedRoute: ActivatedRoute, private Router: Router, private Location: Location ) 
@@ -53,7 +55,6 @@ export class FiltersComponent implements OnInit {
         this.filters.category = this.id_cat;
       }
       
-      this.salary_calc(this.salary_min, this.salary_max);
       this.filters.salary_min = this.salary_min ? this.salary_min : undefined;
       this.filters.salary_max = this.salary_max == 0 || this.salary_max == null ? undefined : this.salary_max;
 
@@ -64,17 +65,7 @@ export class FiltersComponent implements OnInit {
 
     }
 
-  public salary_calc(salary_min: number | undefined, salary_max: number | undefined) {    
-      if (typeof salary_min == 'number' && typeof salary_max == 'number') {
-        if(salary_min > salary_max){
-          this.salary_min = salary_min;
-          this.salary_max = undefined;
-        }else{
-          this.salary_min = salary_min;
-          this.salary_max = salary_max;
-        }
-      }
-    }
+ 
 
     public remove_filters(){
       window.location.assign("http://localhost:4200/shop")
@@ -91,5 +82,14 @@ export class FiltersComponent implements OnInit {
         this.salary_min = routeFilters.salary_min;
         this.salary_max = routeFilters.salary_max;
       }
+    }
+    
+    
+    formatLabel(value: number): string {
+      if (value >= 1000) {
+        return (value / 1000) + 'k';
+      }
+  
+      return `${value}`;
     }
 }
