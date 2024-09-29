@@ -1,26 +1,16 @@
-<div class="relative max-w-xl w-full">
-  <div>
-    <input type="range" step="100" [min]="min" [max]="max" (input)="onMinPriceChange($event)" [value]="minprice"
-      class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
-    <input type="range" step="100" [min]="min" [max]="max" (input)="onMaxPriceChange($event)" [value]="maxprice"
-      class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
 
-    <div class="relative z-10 h-2">
-      <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200"></div>
-      <div class="absolute z-20 top-0 bottom-0 rounded-md bg-green-300" [style.right.%]="maxthumb"
-        [style.left.%]="minthumb"></div>
-      <div class="absolute z-30 w-6 h-6 top-0 left-0 bg-red-300 rounded-full -mt-2" [style.left.%]="minthumb"  [style.transform]="'translateX(-24px)'"></div>
-      <div class="absolute z-30 w-6 h-6 top-0 right-0 bg-green-300 rounded-full -mt-2" [style.right.%]="maxthumb" [style.transform]="'translateX(24px)'"></div>
-    </div>
+  <div class="slider-container">
+
+      <input type="number" value="1000" [(ngModel)]="salary_min" min="1000" max="2000" step="50"
+          class="border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
+          
+      <mat-slider class="slider" min="1000" max="2000" step="50" showTickMarks discrete
+          [displayWith]="formatLabel" (input)="filter_jobs()">
+          <input value="1000" [(ngModel)]="salary_min" matSliderStartThumb>
+          <input value="2000" [(ngModel)]="salary_max" matSliderEndThumb>
+      </mat-slider>
+
+      <input type="number" value="2000" [(ngModel)]="salary_max" min="1000" max="2000" step="50"
+          class=" border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
+          
   </div>
-  <div class="flex items-center justify-between pt-5 space-x-4 text-sm text-gray-700">
-    <div>
-      <input type="text" maxlength="5" (input)="onMinPriceChange($event)" [(ngModel)]="minprice"
-        class="w-24 px-3 py-2 text-center border border-gray-200 rounded-lg bg-gray-50 focus:border-yellow-400 focus:outline-none">
-    </div>
-    <div>
-      <input type="text" maxlength="5" (input)="onMaxPriceChange($event)" [(ngModel)]="maxprice"
-        class="w-24 px-3 py-2 text-center border border-gray-200 rounded-lg bg-gray-50 focus:border-yellow-400 focus:outline-none">
-    </div>
-  </div>
-</div>
