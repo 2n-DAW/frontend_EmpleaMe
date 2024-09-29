@@ -8,7 +8,6 @@ import { SharedModule } from '../../shared.module';
 import { Filters } from '../../../core/models/filters.model';
 
 
-
 @Component({
   selector: 'app-list-jobs',
   standalone: true,
@@ -24,6 +23,7 @@ export class ListJobsComponent implements OnInit {
   slug_Category!: string | null;
   listCategories: Category[] = [];
   filters = new Filters();
+  currentPage: number = 1;  // Página actual
 
 
   constructor(private jobService: JobService,
@@ -38,31 +38,34 @@ export class ListJobsComponent implements OnInit {
   ngOnInit(): void {
     this.slug_Category = this.ActivatedRoute.snapshot.paramMap.get('slug');
     this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
-    console.log(this.ActivatedRoute.snapshot.paramMap.get('slug'));
-    // console.log(this.ActivatedRoute.snapshot.paramMap.get('filters'));
-
-
+    // console.log(this.slug_Category);
+    // console.log(this.routeFilters);
+    if (typeof(this.routeFilters) == "string") {
+      this.filters = JSON.parse(atob(this.routeFilters));
+      this.currentPage = this.filters.page || 1;
+      // console.log(this.filters);
+    } else {
+      this.filters = new Filters();
+    }
+    
     this.getListForCategory();
 
     if (this.slug_Category !== null) {
       this.getJobsByCat();
     }
-    else if(this.routeFilters !== null){
-      this.refreshRouteFilter();
-      this.get_list_filtered(this.filters);
-    }
     else {
-      this.get_list_filtered(this.filters);
+      this.updateFilters(this.filters);
     }
   }
 
-  // getJobs(): void {
-  //   this.jobService.getJobs().subscribe(
-  //     (data: any) => {
-  //       this.jobs = data.jobs;
-  //       console.log(this.jobs);
-  //     });
-  // }
+  
+  getListForCategory() {
+    this.CategoryService.all_categories_select().subscribe(
+      (data: any) => {
+        this.listCategories = data.categories;
+      }
+    );
+  }
 
   getJobsByCat() {
     if (this.slug_Category !== null) {
@@ -77,44 +80,44 @@ export class ListJobsComponent implements OnInit {
         });
     }
   }
-
-  getListForCategory() {
-    this.CategoryService.all_categories_select().subscribe(
-      (data: any) => {
-        this.listCategories = data.categories;
-      }
-    );
-  }
   
-  refreshRouteFilter() {
-    this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
-    if(typeof(this.routeFilters) == "string" ){
-      this.filters = JSON.parse(atob(this.routeFilters));
-    }else{
-      this.filters = new Filters();
-    }
-  }
+  // refreshRouteFilter() {
+  //   this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+  //   if(typeof(this.routeFilters) == "string") {
+  //     this.filters = JSON.parse(atob(this.routeFilters));
+  //   } else {
+  //     this.filters = new Filters();
+  //   }
+  // }
   
   get_list_filtered(filters: Filters) {
     this.filters = filters;
-      this.jobService.getJobsFilter(filters).subscribe(
-        (data: any) => {
-          this.jobs = data.jobs;
-          this.jobCount = data.job_count;
-          // this.totalPages = Array.from(new Array(Math.ceil(this.jobCount/this.limit)), (val, index) => index + 1);
-          console.log(this.jobs);
-          console.log(this.jobCount)
-          console.log(filters);
-      });
+    console.log(filters);
+    this.jobService.getJobsFilter(filters).subscribe(
+      (data: any) => {
+        this.jobs = data.jobs;
+        this.jobCount = data.job_count;
+        // this.totalPages = Array.from(new Array(Math.ceil(this.jobCount/this.limit)), (val, index) => index + 1);
+        console.log(this.jobs);
+        console.log(this.jobCount)
+    });
   }
 
-  setPageTo(filters: Filters) {
-    if (typeof this.routeFilters === 'string') {
-      this.refreshRouteFilter();
-    }
+  updateFilters(newFilters: Filters) {
+    // if (typeof this.routeFilters === 'string') {
+    //   this.refreshRouteFilter();
+    // }
 
-    this.Location.replaceState('/shop/' + btoa(JSON.stringify(filters)));
-    this.get_list_filtered(filters);
+    this.currentPage = newFilters.page || 1;
+    
+    for (const key in newFilters) {
+        if (newFilters[key] !== undefined && newFilters[key] !== null)
+        this.filters[key] = newFilters[key];
+    }
+    // console.log("updateFilters:\n", this.filters);
+
+    this.Location.replaceState('/shop/' + btoa(JSON.stringify(this.filters)));
+    this.get_list_filtered(this.filters);
   }
 
 }

@@ -20,7 +20,6 @@ export class FiltersComponent implements OnInit {
 
   routeFilters: string | null = null;
   filters!: Filters 
-
   id_cat: string = "";
   salary_max: number | undefined;
   salary_min: number | undefined;
@@ -44,10 +43,10 @@ export class FiltersComponent implements OnInit {
       if (this.routeFilters != null) {
         this.filters = new Filters();
         this.filters = JSON.parse(atob(this.routeFilters));
-        console.log(this.filters.category);
       } else {
         this.filters = new Filters();
       }
+
       if (this.id_cat) {
         this.filters.category = this.id_cat;
       }
@@ -56,6 +55,11 @@ export class FiltersComponent implements OnInit {
       this.filters.salary_min = this.salary_min ? this.salary_min : undefined;
       this.filters.salary_max = this.salary_max == 0 || this.salary_max == null ? undefined : this.salary_max;
 
+      // reinicia la paginación al ejecutar cualquier filtro
+      this.filters.page = 1;
+      this.filters.limit = 2;
+      this.filters.offset = 0;
+      
       setTimeout(() => {
           this.Location.replaceState('/shop/' + btoa(JSON.stringify(this.filters)));
           this.eventofiltros.emit(this.filters);

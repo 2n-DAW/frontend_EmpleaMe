@@ -19,13 +19,13 @@
                 @for (pageNumber of totalPages.slice(startPage - 1, startPage - 1 + maxPagesToShow); track pageNumber) {
                     <li (click)="setPageTo(pageNumber)">
                         <span role="button" tabindex="0"
-                        class="w-10 h-10 flex items-center justify-center rounded-full shadow-md
-                            cursor-pointer transition-colors duration-300 ease-in-out text-lg"
-                        [ngClass]="{
-                            'bg-color3 text-white border hover:bg-color2': pageNumber === currentPage,
-                            'bg-white text-color3 border hover:text-color2': pageNumber !== currentPage
-                        }"
-                        >{{ pageNumber }}</span>
+                            class="w-10 h-10 flex items-center justify-center rounded-full shadow-md
+                                cursor-pointer transition-colors duration-300 ease-in-out text-lg"
+                            [ngClass]="{
+                                'bg-color3 text-white border hover:bg-color2': pageNumber === currentPage,
+                                'bg-white text-color3 border hover:text-color2': pageNumber !== currentPage}">
+                            {{ pageNumber }}
+                        </span>
                     </li>
                 }
                 

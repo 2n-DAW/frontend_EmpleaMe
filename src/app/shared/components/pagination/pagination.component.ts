@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Filters } from '../../../core/models';
+
 
 @Component({
   selector: 'app-pagination',
@@ -9,20 +10,21 @@ import { Filters } from '../../../core/models';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnInit, OnChanges{
   @Input() jobCount: number = 0;  // Total de jobs
+  @Input() currentPage: number = 1;  // Página actual
   @Output() pageChange = new EventEmitter <Filters>();
 
+  routeFilters!: string | null;
   filters = new Filters();
   limit: number = 2;
   offset: number = 0;
   totalPages: number[] = [];  // Array de páginas totales
-  currentPage: number = 1;  // Página actual
   maxPagesToShow: number = 5;  // Máximo de páginas a mostrar
   startPage: number = 1;  // Página inicial a mostrar en el bloque de paginación
-  
+
   ngOnInit(): void {
-    this.calculateTotalPages();
+  
   }
 
   ngOnChanges(): void {
@@ -35,6 +37,7 @@ export class PaginationComponent {
 
   setPageTo(pageNumber: number) {
     this.currentPage = pageNumber;
+    this.filters.page = this.currentPage;
 
     if (this.currentPage == this.startPage + this.maxPagesToShow) {
       this.startPage = this.currentPage;
