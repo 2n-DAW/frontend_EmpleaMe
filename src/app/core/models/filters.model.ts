@@ -1,6 +1,8 @@
 export class Filters {
+    [key: string]: any;
     limit?: number;
     offset?: number;
+    page?: number;
     salary_min?: number;
     salary_max?: number;
     category?: string;
@@ -9,6 +11,7 @@ export class Filters {
     constructor(
         limit?: number,
         offset?: number,
+        page?: number,
         salary_min?: number,
         salary_max?: number,
         category?: string,
@@ -17,6 +20,7 @@ export class Filters {
     {
         this.limit = limit || 2;
         this.offset = offset || 0;
+        this.page = page || 1;
         this.salary_min = salary_min;
         this.salary_max = salary_max;
         this.category = category;
