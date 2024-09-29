@@ -6,11 +6,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from '../search/search.component';
+import { MultiRangeSliderComponent } from '../multi-range-slider/multi-range-slider.component';
 
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchComponent],
+  imports: [CommonModule, FormsModule, SearchComponent, MultiRangeSliderComponent],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.css'
 })
@@ -22,8 +23,9 @@ export class FiltersComponent implements OnInit {
   routeFilters: string | null = null;
   filters!: Filters 
   id_cat: string = "";
-  salary_max: number | undefined;
-  salary_min: number | undefined;
+  salary_min: number = 900;
+  salary_max: number = 5000;
+ 
   name: string = "";
   
   
@@ -60,7 +62,6 @@ export class FiltersComponent implements OnInit {
       const search = localStorage.getItem('search');
       
       this.filters.name = this.name;
-      this.salary_calc(this.salary_min, this.salary_max);
       this.filters.salary_min = this.salary_min ? this.salary_min : undefined;
       this.filters.salary_max = this.salary_max == 0 || this.salary_max == null ? undefined : this.salary_max;
 
@@ -76,17 +77,7 @@ export class FiltersComponent implements OnInit {
 
     }
 
-  public salary_calc(salary_min: number | undefined, salary_max: number | undefined) {    
-      if (typeof salary_min == 'number' && typeof salary_max == 'number') {
-        if(salary_min > salary_max){
-          this.salary_min = salary_min;
-          this.salary_max = undefined;
-        }else{
-          this.salary_min = salary_min;
-          this.salary_max = salary_max;
-        }
-      }
-    }
+
 
     public remove_filters(){
       window.location.assign("http://localhost:4200/shop")
@@ -111,4 +102,15 @@ export class FiltersComponent implements OnInit {
       this.filters.name = search;
      
     }
+    
+    updateMinPrice(minprice: number) {
+      this.salary_min = minprice;
+    }
+    
+    updateMaxPrice(maxprice: number) {
+      this.salary_max = maxprice;
+    }
+    
+    
+  
 }
