@@ -36,9 +36,14 @@ export class FiltersComponent implements OnInit {
     ngOnInit() : void {
       this.ActivatedRoute.snapshot.paramMap.get('filters') != undefined ? this.Highlights() : "";
       this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
+      this.name = localStorage.getItem('search') || this.name;
+      localStorage.removeItem('search');
     }
 
     public filter_jobs() {
+      
+      this.name = localStorage.getItem('search') || this.name;
+      localStorage.removeItem('search');
 
       this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
       console.log(this.routeFilters);
@@ -53,6 +58,8 @@ export class FiltersComponent implements OnInit {
       if (this.id_cat) {
         this.filters.category = this.id_cat;
       }
+      const search = localStorage.getItem('search');
+      
       this.filters.name = this.name;
       this.salary_calc(this.salary_min, this.salary_max);
       this.filters.salary_min = this.salary_min ? this.salary_min : undefined;

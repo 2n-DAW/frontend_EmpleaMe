@@ -47,11 +47,16 @@ export class ListJobsComponent implements OnInit {
       this.getJobsByCat();
     }
     else if(this.routeFilters !== null){
+      this.filters.name = localStorage.getItem('search') ?? undefined; //Si no hay nada en el localStorage, se asigna undefined
+      this.get_list_filtered(this.filters);
+      
       this.refreshRouteFilter();
       this.get_list_filtered(this.filters);
     }
     else {
+      this.filters.name = localStorage.getItem('search') ?? undefined; //Si no hay nada en el localStorage, se asigna undefined
       this.get_list_filtered(this.filters);
+     // localStorage.removeItem('search');
     }
   }
   nameFilter(search: string) {
