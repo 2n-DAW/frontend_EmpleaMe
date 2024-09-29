@@ -1,7 +1,10 @@
+
+
 <app-filters [listCategories]="listCategories" (eventofiltros)="get_list_filtered($event)"></app-filters>
 <div class="container px-0 mx-auto flex mt-24">
-    
+   
     <div class="w-3/5 ">
+     
         <app-card-job *ngFor="let job of jobs" [jobs]="job"></app-card-job>
         <app-pagination [jobCount]="jobCount" (pageChange)="setPageTo($event)"></app-pagination>
     </div>

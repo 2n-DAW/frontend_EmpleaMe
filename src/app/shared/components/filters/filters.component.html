@@ -18,9 +18,10 @@
         
         <!-- Filtro por salario máximo con scrollbar -->
         <div class="w-full md:w-1/5 overflow-y-auto max-h-40">
-            <label class="block text-gray-700 font-semibold mb-2">Salario Máximo</label>
-            <input type="number" class="w-full p-2 border border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]" 
-                placeholder="Precio Maximo" [(ngModel)]="salary_max" min="0" step="5" (input)="filter_jobs()">
+            <!-- <app-search  (nameFilter)="nameFilter($event)" (input)="filter_jobs()"></app-search> -->
+            <label class="block text-gray-700 font-semibold mb-2">Busqueda</label>
+            <input type="text" class="w-full p-2 border border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]" 
+                placeholder="Busqueda por nombre" [(ngModel)]="name" min="0" step="5" (input)="filter_jobs()">
         </div>
         
         <!-- <app-multi-range-slider 

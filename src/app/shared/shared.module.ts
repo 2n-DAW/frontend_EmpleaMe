@@ -12,6 +12,7 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { FiltersComponent } from './components/filters/filters.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { MultiRangeSliderComponent } from './components/multi-range-slider/multi
     CardJobComponent,
     FiltersComponent,
     PaginationComponent,
+    SearchComponent
     //  MultiRangeSliderComponent
   ],
   exports: [
@@ -40,7 +42,8 @@ import { MultiRangeSliderComponent } from './components/multi-range-slider/multi
     ListJobsComponent,
     CardJobComponent,
     FiltersComponent,
-    PaginationComponent
+    PaginationComponent,
+    SearchComponent
     // MultiRangeSliderComponent
   ],
 })
