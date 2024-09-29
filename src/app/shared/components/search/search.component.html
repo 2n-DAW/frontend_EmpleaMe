@@ -1,16 +1,34 @@
-<div class="container subheader">
-    <div class="row d-flex justify-content-center align-items-center width: 100%;">
-        <div class="col-md-8">
-            <form class="search" name="search">
-                <i class="fa fa-search"></i>
-                <input type="text" list="search" class="input" name="txt" [(ngModel)]="search_value" (input)="type_event($any($event.target).value)" 
-                    (change)="search_event(this)">
-                <datalist id="search">
-                  <option *ngFor="let product of listProducts" [value]="product.name">{{product.name}}</option>
-                </datalist>
-                <button class="btn btn-primary">Search</button>
-                <i class="fas fa-search"></i>
-            </form>
+<!-- Barra de búsqueda -->
+<div class=" rounded-lg flex items-center space-x-4 p-3">
+    <!-- Campo de texto de búsqueda -->
+    <div class="flex-grow relative">
+        <input [(ngModel)]="searchQuery" (input)="onInputChange()" (blur)="onBlur()" type="text"
+            placeholder="Buscar ofertas de..."
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+
+        <!-- Lista de sugerencias -->
+        <div *ngIf="suggestions.length"
+            class="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 w-full shadow-lg">
+            <div *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)"
+                class="p-2 cursor-pointer hover:bg-gray-200 text-black">
+                {{ suggestion }}
+            </div>
         </div>
+    </div>
+
+    <!-- Desplegable de ubicación -->
+    <div>
+        <select [(ngModel)]="selectedLocation"
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+        </select>
+    </div>
+
+    <!-- Botón de búsqueda -->
+    <div>
+        <button
+            class="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            BUSCAR
+        </button>
     </div>
 </div>
