@@ -26,7 +26,6 @@ export class CarouselComponent implements OnInit {
     this.slug_details = this.ActivatedRoute.snapshot.paramMap.get('slug');
     this.carousel_categories();
     this.carousel_shop_details();
-    console.log(this.items_carousel);
   }
 
   carousel_categories(): void {
@@ -34,8 +33,7 @@ export class CarouselComponent implements OnInit {
     this.CarouselService.getCarouselHome().subscribe((data: any) => {
       this.items_carousel = data.categories;
       // Asegúrate de que los datos ya están cargados antes de loguearlos
-      console.log('items_carousel:', this.items_carousel);
-      console.log('page:', this.page);
+      
     });
   }
 
@@ -45,8 +43,6 @@ export class CarouselComponent implements OnInit {
       this.CarouselService.getCarouselDetails(this.slug_details).subscribe((data: any) => {
         this.items_details = data.products.images;
         // Asegúrate de que los datos ya están cargados antes de loguearlos
-        console.log('items_details:', this.items_details);
-        console.log('page:', this.page);
       });
     }
   }

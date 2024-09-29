@@ -38,24 +38,38 @@ export class ListJobsComponent implements OnInit {
   ngOnInit(): void {
     this.slug_Category = this.ActivatedRoute.snapshot.paramMap.get('slug');
     this.routeFilters = this.ActivatedRoute.snapshot.paramMap.get('filters');
-    // console.log(this.slug_Category);
-    // console.log(this.routeFilters);
+
     if (typeof(this.routeFilters) == "string") {
       this.filters = JSON.parse(atob(this.routeFilters));
       this.currentPage = this.filters.page || 1;
-      // console.log(this.filters);
+      
     } else {
       this.filters = new Filters();
     }
     
+
     this.getListForCategory();
 
     if (this.slug_Category !== null) {
       this.getJobsByCat();
     }
-    else {
-      this.updateFilters(this.filters);
+
+    else if(this.routeFilters !== null){
+      this.filters.name = localStorage.getItem('search') ?? undefined; //Si no hay nada en el localStorage, se asigna undefined
+      this.get_list_filtered(this.filters);
+      
+      //this.refreshRouteFilter();
+      this.get_list_filtered(this.filters);
     }
+    else {
+      this.filters.name = localStorage.getItem('search') ?? undefined; //Si no hay nada en el localStorage, se asigna undefined
+      this.updateFilters(this.filters);
+     // localStorage.removeItem('search');
+    }
+  }
+  nameFilter(search: string) {
+    this.filters.name = search;
+    console.log(this.filters);
   }
 
   
@@ -75,8 +89,7 @@ export class ListJobsComponent implements OnInit {
           this.jobs = data.jobs;
           this.jobCount = this.jobs.length;
           // this.totalPages = Array.from(new Array(Math.ceil(this.jobCount/this.limit)), (val, index) => index + 1);
-          console.log(this.jobs);
-          console.log(this.jobCount);
+          
         });
     }
   }
@@ -92,15 +105,12 @@ export class ListJobsComponent implements OnInit {
   
   get_list_filtered(filters: Filters) {
     this.filters = filters;
-    console.log(filters);
-    this.jobService.getJobsFilter(filters).subscribe(
-      (data: any) => {
-        this.jobs = data.jobs;
-        this.jobCount = data.job_count;
-        // this.totalPages = Array.from(new Array(Math.ceil(this.jobCount/this.limit)), (val, index) => index + 1);
-        console.log(this.jobs);
-        console.log(this.jobCount)
-    });
+      this.jobService.getJobsFilter(filters).subscribe(
+        (data: any) => {
+          this.jobs = data.jobs;
+          this.jobCount = data.job_count;
+          // this.totalPages = Array.from(new Array(Math.ceil(this.jobCount/this.limit)), (val, index) => index + 1);
+      });
   }
 
   updateFilters(newFilters: Filters) {
