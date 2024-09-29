@@ -1,16 +1,16 @@
 
   <div class="slider-container">
 
-      <input type="number" value="1000" [(ngModel)]="salary_min" min="1000" max="2000" step="50"
+      <input type="number" value="{{min}}" (input)="onMinPriceChange($event)" [(ngModel)]="minprice" min="{{min}}" max="{{max}}" step="50"
           class="border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
           
-      <mat-slider class="slider" min="1000" max="2000" step="50" showTickMarks discrete
+      <mat-slider class="slider" [min]="min" [max]="max" step="50" showTickMarks discrete
           [displayWith]="formatLabel" (input)="filter_jobs()">
-          <input value="1000" [(ngModel)]="salary_min" matSliderStartThumb>
-          <input value="2000" [(ngModel)]="salary_max" matSliderEndThumb>
+          <input value="1000" (input)="onMinPriceChange($event)" [(ngModel)]="minprice" matSliderStartThumb>
+          <input value="2000" (input)="onMaxPriceChange($event)" [(ngModel)]="maxprice" matSliderEndThumb>
       </mat-slider>
 
-      <input type="number" value="2000" [(ngModel)]="salary_max" min="1000" max="2000" step="50"
+      <input type="number" value="{{max}}"  (input)="onMaxPriceChange($event)" [(ngModel)]="maxprice" min="{{min}}" max="{{max}}" step="50"
           class=" border p-2 border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]">
           
   </div>

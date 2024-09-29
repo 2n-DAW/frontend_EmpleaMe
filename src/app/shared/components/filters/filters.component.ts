@@ -111,4 +111,7 @@ export class FiltersComponent implements OnInit {
       this.filters.name = search;
      
     }
+    
+    
+  
 }
