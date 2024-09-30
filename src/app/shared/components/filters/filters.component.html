@@ -3,16 +3,34 @@
         <!-- Filtro por categoría -->
         <div class="w-full md:w-1/5">
             <label class="block text-gray-700 font-semibold mb-2">Categoría</label>
-            <select class="w-full p-2 border border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]" 
+            <select class="w-full p-2 border border-gray-300 rounded focus:ring-color3 focus:border-color3" 
                     name="category" id="category" [(ngModel)]="id_cat" (change)="filter_jobs()">
                 <option value="" disabled selected>Todas las categorías</option>
                 <option *ngFor="let category of listCategories" [value]="category.id_cat">{{category.category_name}}</option>
             </select>
         </div>
+        <!-- Filtro por contrato -->
+        <div class="w-full md:w-1/5">
+            <label class="block text-gray-700 font-semibold mb-2">Contrato</label>
+            <select class="w-full p-2 border border-gray-300 rounded focus:ring-color3 focus:border-color3" 
+                    name="contract" id="contract" [(ngModel)]="id_contract" (change)="filter_jobs()">
+                <option value="" disabled selected>Todos los contratos</option>
+                <option *ngFor="let contract of listContracts" [value]="contract.id_contract">{{contract.contract_name}}</option>
+            </select>
+        </div>
+        <!-- Filtro por jornada -->
+        <div class="w-full md:w-1/5">
+            <label class="block text-gray-700 font-semibold mb-2">Jornada</label>
+            <select class="w-full p-2 border border-gray-300 rounded focus:ring-color3 focus:border-color3" 
+                    name="workingDay" id="workingDay" [(ngModel)]="id_workingDay" (change)="filter_jobs()">
+                <option value="" disabled selected>Todas las jornadas</option>
+                <option *ngFor="let workingDay of listWorkingDays" [value]="workingDay.id_workingDay">{{workingDay.workingDay_name}}</option>
+            </select>
+        </div>
         <!-- Filtro por provincia -->
         <div class="w-full md:w-1/5">
             <label class="block text-gray-700 font-semibold mb-2">Provincia</label>
-            <select class="w-full p-2 border border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]" 
+            <select class="w-full p-2 border border-gray-300 rounded focus:ring-color3 focus:border-color3" 
                     name="province" id="province" [(ngModel)]="id_province" (change)="filter_jobs()">
                 <option value="" disabled selected>Todas las provincias</option>
                 <option *ngFor="let province of listProvinces" [value]="province.id_province">{{province.province_name}}</option>
@@ -37,7 +55,7 @@
         <div class="w-full md:w-1/5 overflow-y-auto max-h-40">
             <!-- <app-search  (nameFilter)="nameFilter($event)" (input)="filter_jobs()"></app-search> -->
             <label class="block text-gray-700 font-semibold mb-2">Busqueda</label>
-            <input type="text" class="w-full p-2 border border-gray-300 rounded focus:ring-[#240046] focus:border-[#240046]" 
+            <input type="text" class="w-full p-2 border border-gray-300 rounded focus:ring-color3 focus:border-color3" 
                 placeholder="Busqueda por nombre" [(ngModel)]="name" min="0" step="5" (input)="filter_jobs()" value="{{name}}">
         </div>
         

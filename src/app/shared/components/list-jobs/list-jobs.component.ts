@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Job } from '../../../core/models';
+import { Job, Category, Contract, WorkingDay, Province, Filters } from '../../../core/models';
 import { JobService, CategoryService, ContractService, WorkingDayService, ProvinceService } from '../../../core/services';
 import { ActivatedRoute } from '@angular/router'
-import { Category } from '../../../core/models';
-import { Contract } from '../../../core/models/contract.model';
-import { WorkingDay } from '../../../core/models/workingDay.model';
-import { Province } from '../../../core/models/province.model';
 import { CommonModule, Location } from '@angular/common';
 import { SharedModule } from '../../shared.module';
-import { Filters } from '../../../core/models/filters.model';
 
 
 @Component({
@@ -36,6 +31,8 @@ export class ListJobsComponent implements OnInit {
     private ActivatedRoute: ActivatedRoute,
     private CategoryService: CategoryService,
     private ProvinceService: ProvinceService,
+    private ContractService: ContractService,
+    private WorkingDayService: WorkingDayService,
     private Location: Location
   ) {
     // this.slug_Category = this.ActivatedRoute.snapshot.paramMap.get('filters');
@@ -54,8 +51,10 @@ export class ListJobsComponent implements OnInit {
       this.filters = new Filters();
     }
     
-
+    // carga de todos los filtros
     this.getListForCategory();
+    this.getListForContract();
+    this.getListForWorkingDay();
     this.getListForProvince();
 
     if (this.slug_Category !== null) {
@@ -74,12 +73,13 @@ export class ListJobsComponent implements OnInit {
      // localStorage.removeItem('search');
     }
   }
+
   nameFilter(search: string) {
     this.filters.name = search;
     console.log(this.filters);
   }
 
-  
+  // carga datos en filtro Categorías
   getListForCategory() {
     this.CategoryService.all_categories_select().subscribe(
       (data: any) => {
@@ -89,11 +89,32 @@ export class ListJobsComponent implements OnInit {
     );
   }
 
+  // carga datos en filtro Contratos
+  getListForContract() {
+    this.ContractService.getAllContracts().subscribe(
+      (data: any) => {
+        this.listContracts = data.contracts;
+        // console.log(this.listContracts);
+      }
+    );
+  }
+
+  // carga datos en filtro Jornadas
+  getListForWorkingDay() {
+    this.WorkingDayService.getAllWorkingDays().subscribe(
+      (data: any) => {
+        this.listWorkingDays = data.workingDays;
+        // console.log(this.listWorkingDays);
+      }
+    );
+  }
+
+  // carga datos en filtro Provincias
   getListForProvince() {
     this.ProvinceService.getAllProvinces().subscribe(
       (data: any) => {
         this.listProvinces = data.provinces;
-        console.log(this.listProvinces);
+        // console.log(this.listProvinces);
       }
     );
   }

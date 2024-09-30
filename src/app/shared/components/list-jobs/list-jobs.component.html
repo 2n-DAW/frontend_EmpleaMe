@@ -1,8 +1,15 @@
-<app-filters [listCategories]="listCategories" [listProvinces]="listProvinces" (eventofiltros)="updateFilters($event)"></app-filters>
+<app-filters
+    [listCategories]="listCategories"
+    [listContracts]="listContracts"
+    [listWorkingDays]="listWorkingDays"
+    [listProvinces]="listProvinces"
+    (eventofiltros)="updateFilters($event)"
+>
+</app-filters>
 <div class="container px-0 mx-auto flex mt-24">
     <div class="w-3/5 ">
      
-        <app-card-job *ngFor="let job of jobs" [jobs]="job"></app-card-job>
+        <app-card-job *ngFor="let job of jobs" [jobs]="job" [listProvinces]="listProvinces"></app-card-job>
         <app-pagination [jobCount]="jobCount" [currentPage]="currentPage" (pageChange)="updateFilters($event)"></app-pagination>
     </div>
     
