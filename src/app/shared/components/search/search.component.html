@@ -4,7 +4,7 @@
     <div class="flex-grow relative">
         <input [(ngModel)]="searchQuery" (input)="onInputChange()" (blur)="onBlur()" type="text"
             placeholder="Buscar ofertas de..."
-            class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-color3 focus:outline-none" />
 
         <!-- Lista de sugerencias -->
         <div *ngIf="suggestions.length"
@@ -19,7 +19,7 @@
     <!-- Desplegable de ubicación -->
     <div>
         <select [(ngModel)]="selectedLocation"
-            class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-color3 focus:outline-none">
             <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
         </select>
     </div>
@@ -27,7 +27,7 @@
     <!-- Botón de búsqueda -->
     <div>
         <button
-            class="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            class="bg-color3 text-white p-3 rounded-md hover:bg-color4 focus:ring-2 focus:ring-color3 focus:outline-none"
             (click)="onSearch()" routerLink="/shop">
             BUSCAR
         </button>
