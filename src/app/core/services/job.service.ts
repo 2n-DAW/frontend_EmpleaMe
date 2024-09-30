@@ -4,6 +4,7 @@ import { Job } from '../models/job.model';
 import { ApiService } from './api.service';
 import { Filters } from '../models/filters.model';
 
+
 @Injectable({
   providedIn: 'root' // 'root' indica que este servicio será singleton en toda la aplicación
 })
@@ -48,13 +49,9 @@ export class JobService {
     // }
 
     // SEARCH
-    // find_Jobs_name(search: string): Observable<any> {
-    //     return this.http.get<Job>(`${URL}?name=${search}`).pipe(
-    //         map((data) => {
-    //             return data;
-    //         })
-    //     );
-    // }
+    findJobsName(search: string): Observable<{ jobs: Job[] }> {
+        return this.apiService.get(`/jobs?name=${search}`);
+    }
     
     getJobsFilter(filters: Filters): Observable<Job[]> {
         // Just pass the filters object directly
