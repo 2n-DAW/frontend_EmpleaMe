@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Category } from '../../../core/models';
+import { Contract } from '../../../core/models/contract.model';
+import { WorkingDay } from '../../../core/models/workingDay.model';
+import { Province } from '../../../core/models/province.model';
 import { Filters } from '../../../core/models/filters.model';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,11 +21,13 @@ import { MultiRangeSliderComponent } from '../multi-range-slider/multi-range-sli
 export class FiltersComponent implements OnInit {
 
   @Input() listCategories: Category[] = [];
+  @Input() listProvinces: Province[] = [];
   @Output() eventofiltros: EventEmitter<Filters> = new EventEmitter();
   
   routeFilters: string | null = null;
   filters!: Filters 
   id_cat: string = "";
+  id_province: string = "";
   salary_min: number = 900;
   salary_max: number = 5000;
  
@@ -56,8 +61,12 @@ export class FiltersComponent implements OnInit {
         this.filters = new Filters();
       }
 
-      if (this.id_cat) {
+      if (this.id_cat) { // se recoge del html [(ngModel)]="id_cat"
         this.filters.category = this.id_cat;
+      }
+      if (this.id_province) { // se recoge del html [(ngModel)]="id_province"
+        this.filters.province = this.id_province;
+        console.log(this.id_province);
       }
       const search = localStorage.getItem('search');
       
@@ -82,6 +91,7 @@ export class FiltersComponent implements OnInit {
     public remove_filters(){
       window.location.assign("http://localhost:4200/shop")
       this.filters.category && this.id_cat === "";
+      this.filters.province && this.id_province === "";
       this.filters.salary_min = undefined;
       this.filters.salary_max = undefined;
       this.filters.name = "";
@@ -92,6 +102,7 @@ export class FiltersComponent implements OnInit {
       
       if (routeFilters.search == undefined) {
         this.id_cat = routeFilters.category || '';
+        this.id_province = routeFilters.province || '';
         this.salary_min = routeFilters.salary_min;
         this.salary_max = routeFilters.salary_max;
       }
