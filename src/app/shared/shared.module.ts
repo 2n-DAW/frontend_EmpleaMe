@@ -14,6 +14,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
 import { SearchComponent } from './components/search/search.component';
 
+import { ShowAuthedDirective } from './show-authed.directive';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { SearchComponent } from './components/search/search.component';
     CardJobComponent,
     FiltersComponent,
     PaginationComponent,
-    SearchComponent
+    SearchComponent,
+    ShowAuthedDirective
     //  MultiRangeSliderComponent
   ],
   exports: [
@@ -43,7 +45,8 @@ import { SearchComponent } from './components/search/search.component';
     CardJobComponent,
     FiltersComponent,
     PaginationComponent,
-    SearchComponent
+    SearchComponent,
+    ShowAuthedDirective
     // MultiRangeSliderComponent
   ],
 })

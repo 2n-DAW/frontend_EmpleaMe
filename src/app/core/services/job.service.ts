@@ -13,9 +13,15 @@ export class JobService {
         private apiService: ApiService
     ) {}
 
-    // GET ALL
+    // GET ALL - NO USAR
     getJobs(): Observable<Job[]> {
         return this.apiService.get(`/jobs/`);
+    }
+
+    // GET ALL JOBS WITH FILTERS
+    getJobsFilter(filters: Filters): Observable<Job[]> {
+        // Just pass the filters object directly
+        return this.apiService.get('/jobs', filters);
     }
 
     // GET ONE
@@ -39,7 +45,7 @@ export class JobService {
     // }
 
     // DELETE ONE
-    deleteJob(slug: any): Observable<Job[]> {
+    deleteJob(slug: String): Observable<Job[]> {
         return this.apiService.delete(`/jobs/${slug}`);
     }
 
@@ -51,11 +57,6 @@ export class JobService {
     // SEARCH
     findJobsName(search: string): Observable<{ jobs: Job[] }> {
         return this.apiService.get(`/jobs?name=${search}`);
-    }
-    
-    getJobsFilter(filters: Filters): Observable<Job[]> {
-        // Just pass the filters object directly
-        return this.apiService.get('/jobs', filters);
     }
     
 }

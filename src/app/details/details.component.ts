@@ -16,7 +16,8 @@ import { RouterLink } from '@angular/router';
 export class DetailsComponent implements OnInit {
 
   job!: Job;
-  slug!: string | null;
+  // slug!: string | null;
+  slug!: string;
   //@Input() page!: CarouselDetails[];
   comments!: Comment[];
   user_image!: string;
