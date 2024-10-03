@@ -1,5 +1,6 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { DetailsResolver } from './core/services';
+import { NoAuthGuard } from './core/services';
 
 export const routes: Routes = [
     {
@@ -21,4 +22,14 @@ export const routes: Routes = [
         loadComponent: () => import('./details/details.component').then(c => c.DetailsComponent),
         resolve: { job: DetailsResolver } // 
     },
+    {
+        path: 'login',
+        loadComponent: () => import('./auth/auth.component').then(c => c.AuthComponent),
+        //canActivate: [NoAuthGuard]
+    },
+    {
+        path: 'register',
+        loadComponent: () => import('./auth/auth.component').then(c => c.AuthComponent),
+        // canActivate: [NoAuthGuard]
+    }
 ];

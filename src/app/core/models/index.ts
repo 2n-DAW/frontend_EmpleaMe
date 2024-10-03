@@ -6,3 +6,5 @@ export * from './contract.model';
 export * from './workingDay.model';
 export * from './province.model';
 export * from './slide.model';
+export * from './user.model';
+export * from './error.model';

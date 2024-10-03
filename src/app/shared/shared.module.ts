@@ -13,6 +13,7 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
 import { SearchComponent } from './components/search/search.component';
+import { ListErrorsComponent } from './components/list-errors/list-errors.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SearchComponent } from './components/search/search.component';
     CardJobComponent,
     FiltersComponent,
     PaginationComponent,
-    SearchComponent
+    SearchComponent,
+    ListErrorsComponent
     //  MultiRangeSliderComponent
   ],
   exports: [
@@ -43,7 +45,8 @@ import { SearchComponent } from './components/search/search.component';
     CardJobComponent,
     FiltersComponent,
     PaginationComponent,
-    SearchComponent
+    SearchComponent,
+    ListErrorsComponent
     // MultiRangeSliderComponent
   ],
 })
