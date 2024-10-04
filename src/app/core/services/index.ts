@@ -10,3 +10,4 @@ export * from './user.service';
 export * from './auth-guard.service';
 export * from './jwt.service';
 export * from './no-auth-guard.service';
+export * from './profiles.service';

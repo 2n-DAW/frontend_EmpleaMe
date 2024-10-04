@@ -49,7 +49,7 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm() {
-    this.isSubmitting = true;
+    this.isSubmitting = true; 
     this.errors = { errors: {} };
     console.log(this.authForm.value);
 

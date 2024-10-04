@@ -31,5 +31,9 @@ export const routes: Routes = [
         path: 'register',
         loadComponent: () => import('./auth/auth.component').then(c => c.AuthComponent),
         // canActivate: [NoAuthGuard]
-    }
+    },
+    {
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.routes')
+    },
 ];

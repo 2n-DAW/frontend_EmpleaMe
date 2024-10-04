@@ -14,6 +14,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
 import { SearchComponent } from './components/search/search.component';
 import { ListErrorsComponent } from './components/list-errors/list-errors.component';
+import { FollowButtonComponent } from './components/follow-button/follow-button.component';
+
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { ListErrorsComponent } from './components/list-errors/list-errors.compon
     FiltersComponent,
     PaginationComponent,
     SearchComponent,
-    ListErrorsComponent
+    ListErrorsComponent,
+    FollowButtonComponent,
+
     //  MultiRangeSliderComponent
   ],
   exports: [
@@ -46,7 +50,8 @@ import { ListErrorsComponent } from './components/list-errors/list-errors.compon
     FiltersComponent,
     PaginationComponent,
     SearchComponent,
-    ListErrorsComponent
+    ListErrorsComponent,
+    FollowButtonComponent
     // MultiRangeSliderComponent
   ],
 })

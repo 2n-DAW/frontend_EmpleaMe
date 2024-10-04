@@ -8,3 +8,4 @@ export * from './province.model';
 export * from './slide.model';
 export * from './user.model';
 export * from './error.model';
+export * from './profile.model';
