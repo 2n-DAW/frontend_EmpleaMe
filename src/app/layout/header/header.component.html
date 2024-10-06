@@ -1,21 +1,23 @@
 <header class="bg-color1 p-4 fixed w-full top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-white text-xl font-bold">EmpleaMe</h1>
-        <nav class="space-x-4">
+        <nav class="space-x-4 flex items-center">
             <a routerLink="/home" class="text-white hover:text-color4">Inicio</a>
             <a routerLink="/shop" routerLinkActive="active" class="text-white hover:text-color4">Ofertas</a>
             <a href="#" class="text-white hover:text-color4">Nosotros</a>
             <a href="#" class="text-white hover:text-color4">Contacto</a>
-            <!-- Show this for logged out users -->
-            <div *appShowAuthed="false">
-                <a routerLink="/auth/login" routerLinkActive="active"class="text-white hover:text-color4">Login</a>
-                <a routerLink="/auth/register" routerLinkActive="active"class="text-white hover:text-color4">Registro</a>
-            </div>
-            <!-- Show this for logged in users -->
-            <div *appShowAuthed="true">
-                <a [routerLink]="['/profile', currentUser.username]" routerLinkActive="active"class="text-white hover:text-color4">{{ currentUser.username }}</a>
-                <a routerLink="/register" routerLinkActive="active"class="text-white hover:text-color4">Logout</a>
-            </div> 
+            @if (!isAuthenticated) {
+                <a routerLink="/login" routerLinkActive="active" class="text-white hover:text-color4">Login</a>
+                <a routerLink="/register" routerLinkActive="active" class="text-white hover:text-color4">Register</a>
+            } @else {
+                <div class="flex items-center space-x-1">
+                    <a [routerLink]="['/profile', currentUser.username]" routerLinkActive="active" class="text-white hover:text-color4 flex flex-col items-center">
+                        <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" class="w-8 h-8" alt="user image" />
+                        <span class="text-xs">{{ currentUser.username }}</span>
+                    </a>
+                </div>
+                <a routerLink="/home" routerLinkActive="active" class="text-white hover:text-color4" (click)="logout()">Logout</a>
+            }
         </nav>
     </div>
 </header>

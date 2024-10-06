@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
-
+import { map ,  distinctUntilChanged } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { User } from '../models/user.model';
-import { map ,  distinctUntilChanged } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  // objeto User con la información del usuario
   private currentUserSubject = new BehaviorSubject<User>({} as User);
-  public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
+  public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged()); // emite valores solo si hay cambios
 
+  // gugarda el estado de la autentificación
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
@@ -27,15 +28,21 @@ export class UserService {
   populate() {
     // If JWT detected, attempt to get & store user's info
     const token = this.jwtService.getToken();
+    // console.log(token);
     if (token) {
       this.apiService.get("/user").subscribe(
         (data) => {
-          return this.setAuth({ ...data.user, token });
+          // console.log(data);
+          return this.setAuth({ ...data.currentUser, token });
         },
-        (err) => this.purgeAuth()
+        (err) => {
+          console.log(err);
+          this.purgeAuth();
+        }
       );
     } else {
       // Remove any potential remnants of previous auth states
+      console.log('No hay token')
       this.purgeAuth();
     }
   }
@@ -80,8 +87,8 @@ export class UserService {
     .put(`/user`, { user })
     .pipe(map(data => {
       // Update the currentUser observable
-      this.currentUserSubject.next(data.user);
-      return data.user;
+      this.currentUserSubject.next(data);
+      return data;
     }));
   }
 

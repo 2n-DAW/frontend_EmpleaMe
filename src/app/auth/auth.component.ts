@@ -3,13 +3,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../core/services/user.service';
 import { CommonModule } from '@angular/common';
-import { ShowAuthedDirective } from '../shared/show-authed.directive';
 // import { Errors } from '../core';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ CommonModule, RouterLink, ReactiveFormsModule, ShowAuthedDirective],
+  imports: [ CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

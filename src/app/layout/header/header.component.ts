@@ -2,13 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { RouterLink } from '@angular/router';
 import { User } from '../../core/models/user.model';
 import { UserService } from '../../core/services/user.service';
-import { SharedModule } from '../../shared';
-
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, SharedModule],
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush // estrategia para que Angular solo verifique los cambios cuando las entradas del componente o los observables de los que depende cambian explícitamente
@@ -20,14 +18,30 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   currentUser!: User;
+  isAuthenticated!: boolean;
 
   ngOnInit() {
+    this.userService.populate();
+
     this.userService.currentUser.subscribe(
       (userData) => {
+        console.log(userData);
         this.currentUser = userData;
-        console.log(this.currentUser);
         this.cd.markForCheck(); // indica a Angular que debe verificar el componente para ver si necesita actualizar la vista
       }
     );
+
+    this.userService.isAuthenticated.subscribe(
+      (data) => {
+        console.log('isAuthenticated', data);
+        this.isAuthenticated = data;
+        this.cd.markForCheck();
+         // indica a Angular que debe verificar el componente para ver si necesita actualizar la vista
+      }
+    );
+  }
+
+  logout() {
+    this.userService.purgeAuth();
   }
 }

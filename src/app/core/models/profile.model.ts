@@ -3,5 +3,4 @@ export interface Profile {
   bio: string;
   image: string;
   following: boolean;
-  // followingUsers: boolean;
 }

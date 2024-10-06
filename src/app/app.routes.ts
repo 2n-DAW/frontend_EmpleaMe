@@ -1,17 +1,15 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { DetailsResolver } from './core/services';
-import { HomeAuthResolver } from './core/services/home-auth-resolver.service';
+import { AuthGuard } from './core/services/auth-guard.service';
 
 export const routes: Routes = [
     {
         path: '',
         loadComponent: () => import('./home/home.component').then(c => c.HomeComponent),
-        // resolve: { isAuthenticated: HomeAuthResolver }
     },
     {
         path: 'home',
         loadComponent: () => import('./home/home.component').then(c => c.HomeComponent),
-        // resolve: { isAuthenticated: HomeAuthResolver }
     },
     {
         path: 'shop',
@@ -23,11 +21,16 @@ export const routes: Routes = [
         resolve: { job: DetailsResolver }
     },
     {
-        path: 'auth',
+        path: '',
         loadChildren: () => import('./auth/auth.routes')
     },
-    // {
-    //     path: 'profile',
-    //     loadChildren: () => import('./profile/profile.routes')
-    // },
+    {
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.routes')
+    },
+    {
+        path: 'settings',
+        loadComponent: () => import('./settings/settings.component').then(c => c.SettingsComponent),
+        canActivate: [AuthGuard]
+    },
 ];

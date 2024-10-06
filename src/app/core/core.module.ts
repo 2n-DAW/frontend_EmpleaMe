@@ -12,7 +12,8 @@ import { httpTokenInterceptor } from './interceptor/http-token.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,
-      useValue: httpTokenInterceptor,
+      useFactory: () => httpTokenInterceptor,
+      // useValue: httpTokenInterceptor,
       multi: true
     }
   ],

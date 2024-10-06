@@ -6,26 +6,27 @@ import { UserService } from './user.service';
 import { take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private router: Router,
-    private userService: UserService
-  ) {}
+    constructor(
+        private router: Router,
+        private userService: UserService
+    ) {}
 
+    // verifica si el usuario puede activar una ruta
+    canActivate(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ): Observable<boolean> {
 
-  // verifica si el usuario puede activar una ruta
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
+        return this.userService.isAuthenticated.pipe(take(1));
+        // take(1): Toma el primer valor que emite el observable isAuthenticated y luego completa
+        //     Esto asegura que solo observamos el estado de autenticación una vez y luego nos desconectamos del observable
 
-    return this.userService.isAuthenticated.pipe(take(1));
-    // cuando el observable isAuthenticated emita su primer valor (sea true o false),
-    // la suscripción se completará automáticamente (suscripción temporal) y no escuchará más emisiones posteriores (take(1))
+        // resumen: deja acceder a las rutas cuando el usuario está autenticado
 
-  }
+    }
 }
 
 // ENFOQUE FUNCIONAL

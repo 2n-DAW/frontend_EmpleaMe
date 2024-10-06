@@ -13,7 +13,7 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent {
   constructor() {
-    console.log('HomeComponent constructor');
+    // console.log('HomeComponent constructor');
   }
 
 
