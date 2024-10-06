@@ -22,11 +22,16 @@ export class UserService {
         private jwtService: JwtService
     ) { }
 
+    getCurrentUserObservable(): Observable<User> { // Retorna un Observable de tipo User
+        return this.currentUser;
+    }
+
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     populate() {
-        // If JWT detected, attempt to get & store user's info
+
         const token = this.jwtService.getToken();
+        //console.log(token);
         if (token) {
             this.apiService.get("/user").subscribe(
                 (data) => {
@@ -86,5 +91,4 @@ export class UserService {
                 return data.user;
             }));
     }
-
 }

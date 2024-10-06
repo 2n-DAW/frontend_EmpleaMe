@@ -17,6 +17,22 @@ export class ApiService {
   }
 
   get(path: string, paramsObj: any = {}): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Token ' + localStorage.getItem('jwtToken')
+    });
+
+
+
+
+
+
+
+
+
+
+
     let params_result = {};
     
     for(const key in paramsObj) {
@@ -24,15 +40,12 @@ export class ApiService {
         params_result = { ...params_result, [key]: paramsObj[key] };  
       }
     }
-    // console.log(params_result);
-
     const params = new HttpParams({ fromObject: params_result });
-    // console.log(params.toString());
-    
+
     const url = `${environment.api_url}${path}?${params.toString()}`;
     console.log(url);
     
-    return this.http.get(url).pipe(catchError(this.formatErrors));
+    return this.http.get(url, { headers }).pipe(catchError(this.formatErrors));
   }
 
   put(path: string, body: Object = {}): Observable<any> {

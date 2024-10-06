@@ -27,10 +27,9 @@ export class ProfileComponent implements OnInit {
   isUser: boolean = false;
 
   ngOnInit() {
-    this.route.data.pipe(
+    this.route.data.pipe(  // obtiene los datos de la ruta que vienen del resolver
       concatMap((data: any) => {
         this.profile = data.profile;
-        // Load the current user's data.
         return this.userService.currentUser.pipe(tap(
           (userData: User) => {
             this.currentUser = userData;

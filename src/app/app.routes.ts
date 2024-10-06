@@ -1,6 +1,7 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { DetailsResolver } from './core/services';
 import { NoAuthGuard } from './core/services';
+import { ProfileResolver } from './core/services';
 
 export const routes: Routes = [
     {
@@ -20,7 +21,7 @@ export const routes: Routes = [
     {
         path: 'details/:slug',
         loadComponent: () => import('./details/details.component').then(c => c.DetailsComponent),
-        resolve: { job: DetailsResolver } // 
+        resolve: { job: DetailsResolver }
     },
     {
         path: 'login',
@@ -34,6 +35,7 @@ export const routes: Routes = [
     },
     {
         path: 'profile',
-        loadChildren: () => import('./profile/profile.routes')
+        loadChildren: () => import('./profile/profile.routes'),
+
     },
 ];

@@ -1,4 +1,4 @@
-<div class="profile-page">
+<div class="profile-page" style="margin-top: 200px;">
 
     <div class="user-info">
         <div class="container">
@@ -11,9 +11,11 @@
                     <p>{{ profile.bio }}</p>
                     <app-follow-button [hidden]="isUser" [profile]="profile" (toggle)="onToggleFollowing($event)">
                     </app-follow-button>
+                    
                     <a [routerLink]="['/settings']" [hidden]="!isUser"
                         class="btn btn-sm btn-outline-secondary action-btn">
                         <i class="ion-gear-a"></i> Edit Profile Settings
+                    
                     </a>
                 </div>
 
