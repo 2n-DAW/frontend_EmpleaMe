@@ -15,22 +15,32 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
+
+
   constructor(
     private userService: UserService,
     private cd: ChangeDetectorRef
   ) { }
 
   currentUser: User = {} as User;
-
+  isLogged: boolean = false;
   ngOnInit() {
     this.userService.populate();
     this.userService.currentUser.subscribe(
       (userData) => {
         this.currentUser = userData;
         this.cd.markForCheck();
+        this.isLogged = this.userState();
       }
     );
+
   }
+
+  userState() {
+    return this.currentUser.username ? true : false;
+  }
+
+
 }
 
 

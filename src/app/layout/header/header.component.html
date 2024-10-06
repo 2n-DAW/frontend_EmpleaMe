@@ -1,18 +1,24 @@
 <header class="bg-color1 p-4 fixed w-full top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-white text-xl font-bold">EmpleaMe</h1>
-        <nav class="space-x-4">
+        <nav class="flex space-x-4 items-center">
             <a routerLink="/home" class="text-white hover:text-color4">Inicio</a>
             <a routerLink="/shop" class="text-white hover:text-color4">Ofertas</a>
-                <a routerLink="/register" class="text-white hover:text-color4" routerLinkActive="active">Sign up/in</a>
-            <a *appShowAuthed="true" class="nav-link" [routerLink]="['/profile/', currentUser.username]" routerLinkActive="active">
-                    <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'"
-                        *ngIf="currentUser.image" class="user-pic" alt="user image" />
-                    {{ currentUser.username }}
-                </a>
-            
             <a href="#" class="text-white hover:text-color4">Nosotros</a>
             <a href="#" class="text-white hover:text-color4">Contacto</a>
+            <a *ngIf="isLogged"
+                class="bg-color3 text-white px-2 py-0.5 rounded-md hover:bg-color4 focus:ring-2 focus:ring-blue-500 focus:outline-none flex items-center"
+                [routerLink]="['/profile/', currentUser.username]" routerLinkActive="active">
+                <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'"
+                    *ngIf="currentUser.image" alt="user image" class="user-image mr-3" />
+                {{ currentUser.username }}
+            </a>
+
+            <a *ngIf="!isLogged" routerLink="/register"
+                class="bg-color3 text-white px-6 py-2.5 rounded-md hover:bg-color4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                Sign up/in
+            </a>
+
         </nav>
     </div>
 </header>
