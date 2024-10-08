@@ -1,6 +1,7 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
-import { map ,  distinctUntilChanged } from 'rxjs/operators';
+import { map , distinctUntilChanged } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { User } from '../models/user.model';
@@ -20,7 +21,8 @@ export class UserService {
 
   constructor (
     private apiService: ApiService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private router: Router
   ) {}
 
   // Verify JWT in localstorage with server & load user's info.
@@ -33,7 +35,7 @@ export class UserService {
       this.apiService.get("/user").subscribe(
         (data) => {
           // console.log(data);
-          return this.setAuth({ ...data.currentUser, token });
+          return this.setAuth({ ...data.currentUser });
         },
         (err) => {
           console.log(err);
@@ -44,6 +46,7 @@ export class UserService {
       // Remove any potential remnants of previous auth states
       console.log('No hay token')
       this.purgeAuth();
+      // this.router.navigate(['/login']);
     }
   }
 
@@ -90,6 +93,17 @@ export class UserService {
       this.currentUserSubject.next(data);
       return data;
     }));
+  }
+
+  logout() {
+    this.apiService.get("/user/logout").subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }

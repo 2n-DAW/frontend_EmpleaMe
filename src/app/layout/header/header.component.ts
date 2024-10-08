@@ -21,6 +21,11 @@ export class HeaderComponent implements OnInit {
   isAuthenticated!: boolean;
 
   ngOnInit() {
+    setTimeout(() => {
+      window.location.reload();
+      this.cd.markForCheck();
+    }, 600000);
+
     this.userService.populate();
 
     this.userService.currentUser.subscribe(
@@ -42,6 +47,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.userService.logout();
     this.userService.purgeAuth();
   }
 }
