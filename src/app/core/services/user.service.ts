@@ -69,13 +69,13 @@ export class UserService {
   }
 
   attemptAuth(type: any, credentials: any): Observable<User> {
-    const route = (type === 'login') ? '/login' : '';
+    const route = (type === 'login') ? '/login' : '/register';
     return this.apiService.post(`/users${route}`, {user: credentials})
       .pipe(map(
       data => {
-        console.log(data);
-        this.setAuth(data);
-        return data;
+        if (type === 'login') this.setAuth(data.user);
+        console.log(data.user);
+        return data.user;
       }
     ));
   }
@@ -90,8 +90,8 @@ export class UserService {
     .put(`/user`, { user })
     .pipe(map(data => {
       // Update the currentUser observable
-      this.currentUserSubject.next(data);
-      return data;
+      this.currentUserSubject.next(data.user);
+      return data.user;
     }));
   }
 

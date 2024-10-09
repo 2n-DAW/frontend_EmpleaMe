@@ -59,8 +59,9 @@ export class AuthComponent implements OnInit {
       .attemptAuth(this.authType, credentials)
       .subscribe(
         data => {
-          console.log(data),
-          this.router.navigateByUrl('/')
+          console.log(data);
+          if (this.authType === 'login') this.router.navigateByUrl('/');
+          if (this.authType === 'register') this.router.navigateByUrl('/login');
         }, 
         err => {
           console.log(err);
