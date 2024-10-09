@@ -4,7 +4,6 @@ import { SharedModule } from '../shared';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -14,7 +13,7 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent {
   constructor() {
-    console.log('HomeComponent constructor');
+    // console.log('HomeComponent constructor');
   }
 
 
