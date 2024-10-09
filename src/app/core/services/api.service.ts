@@ -19,7 +19,8 @@ export class ApiService {
   get(path: string, paramsObj: any = {}): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Token ' + localStorage.getItem('jwtToken')
+      'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+      'Refresh': 'Token ' + localStorage.getItem('refreshToken')
     });
 
     let params_result = {};
@@ -50,11 +51,20 @@ export class ApiService {
   }
 
   post(path: string, body: Object = {}): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+      'Refresh': 'Token ' + localStorage.getItem('refreshToken')
+    });
+
     console.log(path, body);
-    return this.http.post(
-      `${environment.api_url}${path}`,
-      body
-    ).pipe(catchError(this.formatErrors));
+    const ruta = `${environment.api_url}${path}`;
+    console.log(ruta);
+    const res = this.http.post(ruta, body, { headers }).pipe(
+      catchError(this.formatErrors)
+    );
+    console.log(res);
+    return res;
   }
 
   delete(path: string): Observable<any> {

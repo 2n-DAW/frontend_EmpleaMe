@@ -29,39 +29,76 @@ export class UserService {
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     populate() {
+        console.log('populate called');
 
-        const token = this.jwtService.getToken();
-        //console.log(token);
-        if (token) {
+        const accessToken = this.jwtService.getAccessToken() || " ";
+        const refreshToken = this.jwtService.getRefreshToken() || " ";
+        console.log('Access Token:', accessToken);
+        console.log('Refresh Token:', refreshToken);
+
+        if (accessToken) {
+            console.log('Access token found, calling apiService.get("/user")');
             this.apiService.get("/user").subscribe(
                 (data) => {
-                    return this.setAuth({ ...data.user, token });
+                    console.log('apiService.get("/user") success:', data);
+                    return this.setAuth({ ...data.user, accessToken });
                 },
-                (err) => this.purgeAuth()
+                (err) => {
+                    this.generateAccessToken().subscribe(
+                        (data) => {
+                            return this.setAuth({ ...data.user });
+                        },
+                        (err) => {
+                            console.log('generateAccessToken() error:', err);
+                            this.purgeAuth();
+                        }
+                    );
+                }
             );
         } else {
+            console.log('No access token found, calling purgeAuth()');
             // Remove any potential remnants of previous auth states
             this.purgeAuth();
         }
     }
 
     setAuth(user: User) {
+
+        console.log(user.accessToken);
+        console.log(user);
         // Save JWT sent from server in localstorage
-        this.jwtService.saveToken(user.token);
+        this.jwtService.saveAccessToken(user.accessToken);
+
+        user.refreshToken && this.jwtService.saveRefreshToken(user.refreshToken);
         // Set current user data into observable
         this.currentUserSubject.next(user);
         // Set isAuthenticated to true
         this.isAuthenticatedSubject.next(true);
     }
 
+
     purgeAuth() {
         // Remove JWT from localstorage
-        this.jwtService.destroyToken();
+        this.jwtService.destroyAccessToken();
+        this.jwtService.destroyRefreshToken();
         // Set current user to an empty object
         this.currentUserSubject.next({} as User);
         // Set auth status to false
         this.isAuthenticatedSubject.next(false);
     }
+
+
+    generateAccessToken(): Observable<any> {
+        console.log('shadkfasdhfkjlsdahfkljasdhfkljasdfh');
+        return this.apiService.post('/user/refresh')
+            .pipe(map(data => {
+                this.setAuth(data.user);
+                return data;
+            }));
+    }
+
+
+
 
     attemptAuth(type: any, credentials: any): Observable<User> {
         const route = (type === 'login') ? '/login' : '';
