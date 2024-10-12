@@ -25,6 +25,7 @@ export class CardJobComponent implements OnInit{
     ) {}
 
     ngOnInit(): void {
+        console.log('------------------------------------------');
         // if (this.jobs) {
         //   this.contract = this.jobs.id_contract;
         //   console.log(this.jobs.id_contract.contract_name);

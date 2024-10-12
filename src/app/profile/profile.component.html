@@ -8,11 +8,11 @@
                 <img [src]="profile.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" alt="user image" class="user-img" />
                 <h4>{{ profile.username }}</h4>
                 <p>{{ profile.bio }}</p>
-                <!-- <app-follow-button
+                <app-follow-button
                     [hidden]="isUser"
                     [profile]="profile"
                     (toggle)="onToggleFollowing($event)">
-                </app-follow-button> -->
+                </app-follow-button>
                 <a [routerLink]="['/settings']"
                     [hidden]="!isUser"
                     class="btn btn-sm btn-outline-secondary action-btn">
@@ -34,7 +34,7 @@
                     <a class="nav-link"
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }"
-                    [routerLink]="['/profile', profile.username]">
+                    [routerLink]="['/profile', profile.username, 'jobs']">
                     My Posts
                     </a>
                 </li>

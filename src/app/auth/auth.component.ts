@@ -52,19 +52,17 @@ export class AuthComponent implements OnInit {
   submitForm() {
     this.isSubmitting = true;
     // this.errors = {errors: {}};
-    console.log(this.authForm.value)
+
 
     const credentials = this.authForm.value;
     this.userService
       .attemptAuth(this.authType, credentials)
       .subscribe(
         data => {
-          console.log(data);
           if (this.authType === 'login') this.router.navigateByUrl('/');
           if (this.authType === 'register') this.router.navigateByUrl('/login');
         }, 
         err => {
-          console.log(err);
           // this.errors = err;
           this.isSubmitting = false;
           this.cd.markForCheck();
