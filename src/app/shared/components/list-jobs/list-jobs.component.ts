@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { Job, Category, Contract, WorkingDay, Province, Filters } from '../../../core/models';
 import { JobService, CategoryService, ContractService, WorkingDayService, ProvinceService } from '../../../core/services';
 import { ActivatedRoute } from '@angular/router'
-import { CommonModule, Location } from '@angular/common';
 import { SharedModule } from '../../shared.module';
 
 
@@ -14,7 +14,6 @@ import { SharedModule } from '../../shared.module';
   styleUrl: './list-jobs.component.css'
 })
 export class ListJobsComponent implements OnInit {
-
   routeFilters!: string | null;
   jobs: Job[] = [];
   jobCount: number = 0;

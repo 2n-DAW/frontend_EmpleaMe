@@ -9,11 +9,11 @@ const profileRoutes: Routes = [
     // children: [
     //   {
     //     path: '',
-    //     loadComponent: () => import('./profile.component').then(c => c.ProfileComponent),
-    //   }
+    //     loadComponent: () => import('./profile-jobs.component').then(c => c.ProfileJobsComponent),
+    //   },
     //   {
     //     path: 'favorites',
-    //     component: ProfileFavoritesComponent
+    //     loadComponent: () => import('./profile-favorites.component').then(c => c.ProfileFavoritesComponent),
     //   }
     // ]
   },

@@ -1,5 +1,6 @@
 export * from './carousel.model';
 export * from './category.model';
+export * from './comment.model';
 export * from './contract.model';
 export * from './filters.model';
 export * from './job.model';

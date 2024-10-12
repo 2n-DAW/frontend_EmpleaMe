@@ -8,6 +8,7 @@ import { ListCategoriesComponent } from './components/list-categories/list-categ
 import { CardCategoryComponent } from './components/card-category/card-category.component';
 import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
 import { CardJobComponent } from './components/card-job/card-job.component';
+import { CommentsJobComponent } from './components/comments-job/comments-job.component';
 import { CarouselItemsComponent } from './components/carousel-items/carousel-items.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
@@ -16,6 +17,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 // import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
 import { SearchComponent } from './components/search/search.component';
 import { FollowButtonComponent } from './components/buttons/follow-button/follow-button.component';
+import { FavoriteButtonComponent } from './components/buttons/favorite-button/favorite-button.component';
 
 
 @NgModule({
@@ -31,10 +33,12 @@ import { FollowButtonComponent } from './components/buttons/follow-button/follow
     CarouselComponent,
     ListJobsComponent,
     CardJobComponent,
+    CommentsJobComponent,
     FiltersComponent,
     PaginationComponent,
     SearchComponent,
-    FollowButtonComponent
+    FollowButtonComponent,
+    FavoriteButtonComponent
   ],
   exports: [
     CommonModule,
@@ -48,10 +52,12 @@ import { FollowButtonComponent } from './components/buttons/follow-button/follow
     CarouselComponent,
     ListJobsComponent,
     CardJobComponent,
+    CommentsJobComponent,
     FiltersComponent,
     PaginationComponent,
     SearchComponent,
-    FollowButtonComponent
+    FollowButtonComponent,
+    FavoriteButtonComponent
   ],
 })
 export class SharedModule { }

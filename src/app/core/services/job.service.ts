@@ -24,7 +24,12 @@ export class JobService {
         return this.apiService.get('/jobs', filters);
     }
 
-    // GET ONE
+    // GET FEED ALL JOBS WITH FILTERS
+    getFeedJobsFilter(filters: Filters): Observable<Job[]> {
+        return this.apiService.get('/jobs/feed', filters);
+    }
+
+    // GET ONE JOB
     getJob(slug: String): Observable<Job> {
         return this.apiService.get(`/jobs/${slug}`);
     }
@@ -49,14 +54,17 @@ export class JobService {
         return this.apiService.delete(`/jobs/${slug}`);
     }
 
-    // DELETE ALL
-    // delete_all_jobs(): Observable<Job[]> {
-    //     return this.http.delete<Job[]>(`${URL}`);
-    // }
-
     // SEARCH
     findJobsName(search: string): Observable<{ jobs: Job[] }> {
         return this.apiService.get(`/jobs?name=${search}`);
+    }
+
+    favorite(slug: String): Observable<Job> {
+        return this.apiService.post(`/${slug}/favorite`);
+    }
+
+    unfavorite(slug: String): Observable<Job> {
+        return this.apiService.delete(`/${slug}/unfavorite`);
     }
     
 }
