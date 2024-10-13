@@ -29,17 +29,6 @@
                     {{ job.salary | number }} €
                 </div>
     
-                <!-- Opciones de edición o eliminación si es permitido -->
-                <!-- <div class="mt-4" *ngIf="canModify === true">
-                    <a class="bg-[#240046] text-white py-2 px-4 rounded hover:bg-purple-800 inline-block mr-2"
-                        [routerLink]="['/editor', job.slug]">
-                        <i class="ion-edit"></i> Edit job
-                    </a>
-                    <button class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 inline-block">
-                        <i class="ion-trash-a"></i> Delete job
-                    </button>
-                </div> -->
-    
                 <!-- Botones para favoritos o seguir al autor si no se puede modificar -->
                 @if (canModify === false) {
                     <div class="flex space-x-4 mt-4">
@@ -57,39 +46,7 @@
     <!-- Sección de comentarios -->
     <div class="comments-section space-y-6 ml-10 mr-10">
         <h3 class="text-2xl font-bold text-color8 mt-4 mb-3">Comentarios</h3>
-
-        <!-- Comentarios existentes -->
-        @for (comment of comments; track comment.id) {
-            <app-comments-job
-                [comment]="comment"
-                (deleteComment)="onDeleteComment(comment)"
-                (canModifyComment)="onCanModifyComment()">
-            </app-comments-job>
-        }
-
-        <!-- Crear comentario si el usuario está logueado -->
-        @if (canModifyComment) {
-            <div class="create-comment">
-                <form (ngSubmit)="addComment()">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-full">
-                            <textarea
-                                class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-color3"
-                                name="enter-comment"
-                                placeholder="Escribe un comentario..."
-                                [formControl]="commentControl">
-                            </textarea>
-                            <div class="flex space-x-4 mt-2">
-                                <button class="bg-color5 text-white py-2 px-4 rounded hover:bg-color4"
-                                    type="submit">COMENTAR</button>
-                                <button class="bg-rojo_pastel text-white py-2 px-4 rounded hover:bg-color4"
-                                    type="button" (click)="cancelComment()">CANCELAR</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        }
+        <app-list-comments-details [isAuthenticated]="isAuthenticated" [currentUser]="currentUser"></app-list-comments-details>
 
         <!-- Mensaje si no está logueado -->
         @if (isAuthenticated === false) {

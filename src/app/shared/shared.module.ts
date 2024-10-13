@@ -8,7 +8,6 @@ import { ListCategoriesComponent } from './components/list-categories/list-categ
 import { CardCategoryComponent } from './components/card-category/card-category.component';
 import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
 import { CardJobComponent } from './components/card-job/card-job.component';
-import { CommentsJobComponent } from './components/comments-job/comments-job.component';
 import { CarouselItemsComponent } from './components/carousel-items/carousel-items.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
@@ -33,7 +32,6 @@ import { FavoriteButtonComponent } from './components/buttons/favorite-button/fa
     CarouselComponent,
     ListJobsComponent,
     CardJobComponent,
-    CommentsJobComponent,
     FiltersComponent,
     PaginationComponent,
     SearchComponent,
@@ -52,7 +50,6 @@ import { FavoriteButtonComponent } from './components/buttons/favorite-button/fa
     CarouselComponent,
     ListJobsComponent,
     CardJobComponent,
-    CommentsJobComponent,
     FiltersComponent,
     PaginationComponent,
     SearchComponent,

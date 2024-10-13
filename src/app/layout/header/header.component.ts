@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../../core/models/user.model';
 import { UserService } from '../../core/services/user.service';
 
@@ -14,6 +14,7 @@ import { UserService } from '../../core/services/user.service';
 export class HeaderComponent implements OnInit {
   constructor(
     private userService: UserService,
+    private router: Router,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -49,5 +50,6 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.userService.logout();
     this.userService.purgeAuth();
+    this.router.navigate(['/']);
   }
 }
