@@ -17,9 +17,9 @@ const profileRoutes: Routes = [
         loadComponent: () => import('./ui/profile-likes/profile-likes.component').then(c => c.ProfileLikesComponent),
       },
       {
-        path: 'followers',
-        outlet: 'followers', // Define que esta ruta se cargará en el outlet con nombre 'sidebar'
-        loadComponent: () => import('./ui/profile-likes/profile-likes.component').then(c => c.ProfileLikesComponent),
+        path: '',
+        outlet: 'users',
+        loadComponent: () => import('./ui/profile-followers/profile-followers.component').then(c => c.ProfileFollowersComponent),
       }
     ]
   },
