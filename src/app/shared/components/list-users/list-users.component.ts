@@ -22,17 +22,19 @@ export class ListUsersComponent implements OnInit {
 
   // Inicia 
   ngOnInit(): void {
-    this.getUsers();
+    this.ActivatedRoute.parent?.paramMap.subscribe(params => {
+      const username = params.get('username') ?? '';
+      if (username !== this.username) {
+        this.username = username;
+        this.offset = 0;
+        this.users = [];  
+        this.getUsers();
+      }
+    });
   }
 
-  // Cargamos las categorias
+  // Cargamos los usuarios
   getUsers() {
-    this.ActivatedRoute.parent?.paramMap.subscribe(params => {
-      this.username = params.get('username') ?? '';
-      // Creamos objeto con offset y limit
-
-    });
-
     const params = this.getRequestParams(this.offset, this.limit);
 
     this.ProfilesService.allFollowers(this.username, params).subscribe(
