@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CardUserComponent } from '../card-user/card-user.component';
 import { ProfilesService } from '../../../core/services';
 import { User } from '../../../core/models';
@@ -18,6 +18,8 @@ export class ListUsersComponent implements OnInit {
   users: User[] = [];
   username: string = '';
 
+  @Input() mode: number = 0;
+
   constructor(private ProfilesService: ProfilesService, private ActivatedRoute: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 
   // Inicia 
@@ -28,16 +30,33 @@ export class ListUsersComponent implements OnInit {
         this.username = username;
         this.offset = 0;
         this.users = [];  
-        this.getUsers();
+        if (this.mode === 0) {
+          this.getFollowers();
+        } else if (this.mode === 1) {
+          this.getFollowing();
+        }
+
       }
     });
   }
 
   // Cargamos los usuarios
-  getUsers() {
+  getFollowers() {
     const params = this.getRequestParams(this.offset, this.limit);
 
     this.ProfilesService.allFollowers(this.username, params).subscribe(
+      (data: any) => {
+        this.users = data.users;
+        console.log(this.users);
+        this.limit = this.limit + 4;
+        this.cdr.detectChanges();
+      }
+    );
+  }
+
+  getFollowing() {
+    const params = this.getRequestParams(this.offset, this.limit);
+    this.ProfilesService.allFollowing(this.username, params).subscribe(
       (data: any) => {
         this.users = data.users;
         console.log(this.users);
@@ -57,6 +76,10 @@ export class ListUsersComponent implements OnInit {
   }
 
   scroll() {
-    this.getUsers();
+    if (this.mode === 0) {
+      this.getFollowers();
+    } else if (this.mode === 1) {
+      this.getFollowing();
+    }
   }
 }

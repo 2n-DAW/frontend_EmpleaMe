@@ -31,5 +31,9 @@ export class ProfilesService {
     return this.apiService.get(`/profiles/${username}/followers`, params);
   }
 
+  allFollowing(username: string, params: any): Observable<UserList> {
+    return this.apiService.get(`/profiles/${username}/following`, params);
+  }
+
 
 }

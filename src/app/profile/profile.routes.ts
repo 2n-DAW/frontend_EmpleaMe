@@ -17,9 +17,14 @@ const profileRoutes: Routes = [
         loadComponent: () => import('./ui/profile-likes/profile-likes.component').then(c => c.ProfileLikesComponent),
       },
       {
-        path: '',
-        outlet: 'users',
+        path: 'followers',
+        // outlet: 'users',
         loadComponent: () => import('./ui/profile-followers/profile-followers.component').then(c => c.ProfileFollowersComponent),
+      },
+      {
+        path: 'following',
+        // outlet: 'users',
+        loadComponent: () => import('./ui/profile-following/profile-following.component').then(c => c.ProfileFollowingComponent),
       }
     ]
   },
