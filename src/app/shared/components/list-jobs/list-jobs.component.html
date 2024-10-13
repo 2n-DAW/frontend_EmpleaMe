@@ -13,20 +13,16 @@
     </ng-container>
 
 <ng-container *ngIf="mode === 1">
-    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-24">
+    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-6">
         <div class="flex-1">
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
-            <!-- <app-pagination [jobCount]="jobCount" [currentPage]="currentPage"
-                (pageChange)="updateFilters($event)"></app-pagination> -->
         </div>
     </div>
 </ng-container>
 <ng-container *ngIf="mode === 2">
-    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-24">
+    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-6 ">
         <div class="flex-1">
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
-            <!-- <app-pagination [jobCount]="jobCount" [currentPage]="currentPage"
-                (pageChange)="updateFilters($event)"></app-pagination> -->
         </div>
     </div>
 </ng-container>

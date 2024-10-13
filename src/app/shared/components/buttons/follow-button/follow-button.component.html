@@ -1,8 +1,9 @@
-<button
-    class="btn btn-sm action-btn"
-    [ngClass]="{ 'disabled': isSubmitting, 'btn-outline-secondary': !profile.following, 'btn-secondary': profile.following }"
-    (click)="toggleFollowing()">
+<button class="py-2 px-4 rounded text-white hover:bg-color4" [ngClass]="{
+        'bg-color3 ': !profile.following,
+        'bg-color2 ': profile.following,
+        'disabled': isSubmitting
+    }" (click)="toggleFollowing()">
     <i class="ion-plus-round"></i>
     &nbsp;
-    {{ profile.following ? 'Siguiendo' : 'Sigue' }} {{ profile.username }}
+    {{ profile.following ? 'Dejar de seguir' : 'Seguir' }}
 </button>
