@@ -1,27 +1,32 @@
-<app-filters
-    [listCategories]="listCategories"
-    [listContracts]="listContracts"
-    [listWorkingDays]="listWorkingDays"
-    [listProvinces]="listProvinces"
-    (eventofiltros)="updateFilters($event)"
->
-</app-filters>
+<ng-container *ngIf="mode === 0">
+    <app-filters [listCategories]="listCategories" [listContracts]="listContracts" [listWorkingDays]="listWorkingDays"
+        [listProvinces]="listProvinces" (eventofiltros)="updateFilters($event)">
+    </app-filters>
 
-<div class="container mx-auto px-10 pt-4 pb-2 flex mt-24">
-    <div class="flex-1">
-        <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
-        <app-pagination [jobCount]="jobCount" [currentPage]="currentPage" (pageChange)="updateFilters($event)"></app-pagination>
-    </div>
-    
-    <!-- <div class="w-2/5 ">
-        <div class="sticky top-52 mb-6">
-            <div class="bg-white h-[30vh] mb-6 rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-bold text-color1 mb-4">Detalles</h3>
-            </div>
-
-            <div class="bg-white h-[43vh]  rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-bold text-color1 mb-4">Mapa</h3>
-            </div>
+    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-24">
+        <div class="flex-1">
+            <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
+            <app-pagination [jobCount]="jobCount" [currentPage]="currentPage"
+                (pageChange)="updateFilters($event)"></app-pagination>
         </div>
-    </div> -->
-</div>
+    </div>
+    </ng-container>
+
+<ng-container *ngIf="mode === 1">
+    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-24">
+        <div class="flex-1">
+            <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
+            <!-- <app-pagination [jobCount]="jobCount" [currentPage]="currentPage"
+                (pageChange)="updateFilters($event)"></app-pagination> -->
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="mode === 2">
+    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-24">
+        <div class="flex-1">
+            <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
+            <!-- <app-pagination [jobCount]="jobCount" [currentPage]="currentPage"
+                (pageChange)="updateFilters($event)"></app-pagination> -->
+        </div>
+    </div>
+</ng-container>

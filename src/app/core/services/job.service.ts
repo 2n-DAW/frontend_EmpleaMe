@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Job } from '../models/job.model';
+import { Job, UserJobs } from '../models/job.model';
 import { ApiService } from './api.service';
 import { Filters } from '../models/filters.model';
 
@@ -37,6 +37,14 @@ export class JobService {
     // GET JOBS BY CATEGORY
     getJobsByCategory(slug: String): Observable<Job[]> {
         return this.apiService.get(`/jobsByCategory/${slug}`);
+    }
+
+    getUserJobs(userId: string): Observable<UserJobs> {
+        return this.apiService.get(`/profiles/${userId}/jobs`);
+    }
+
+    getUserLikes(userId: string): Observable<UserJobs> {
+        return this.apiService.get(`/profiles/${userId}/likes`);
     }
 
     // CREATE

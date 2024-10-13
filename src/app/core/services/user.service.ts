@@ -38,13 +38,13 @@ export class UserService {
           return this.setAuth({ ...data.currentUser });
         },
         (err) => {
-          console.log(err);
+
           this.purgeAuth();
         }
       );
     } else {
       // Remove any potential remnants of previous auth states
-      console.log('No hay token')
+
       this.purgeAuth();
       // this.router.navigate(['/login']);
     }

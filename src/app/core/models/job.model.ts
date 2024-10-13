@@ -20,5 +20,14 @@ export interface Job {
     favorited: boolean;
     favoritesCount: number;
     createdAt: Date;
-    // comments: Comment[];
+    updatedAt: Date;
+    comments: Comment[];
+}
+
+
+
+export interface UserJobs {
+    jobs: Job[];
+    job_count: number;
+    is_owner: boolean;
 }

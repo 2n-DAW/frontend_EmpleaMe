@@ -1,0 +1,14 @@
+<a routerLink="/profile/{{ user.username }}" class="block">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden w-80 mb-8">
+        <a href="#">
+            <div class="relative h-48">
+                <img [src]="'img_categories/'+ user.image" alt="{{user.username}}"
+                    class="mt-8 w-full h-full object-contain">
+            </div>
+        </a>
+        <div class="p-6 text-center">
+            <h4 class="h-14 text-xl font-bold text-color3">{{user.username}}</h4>
+            <!-- <p class="text-gray-500">29 ofertas</p> -->
+        </div>
+    </div>
+</a>

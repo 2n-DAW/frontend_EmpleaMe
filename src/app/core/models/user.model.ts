@@ -5,3 +5,10 @@ export interface User {
   bio: string;
   image: string;
 }
+
+
+export interface UserList {
+  users: User[];
+  user_count: number;
+  is_owner: boolean;
+}

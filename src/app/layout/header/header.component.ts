@@ -31,7 +31,6 @@ export class HeaderComponent implements OnInit {
 
     this.userService.currentUser.subscribe(
       (userData) => {
-        console.log(userData);
         this.currentUser = userData;
         this.cd.markForCheck(); // indica a Angular que debe verificar el componente para ver si necesita actualizar la vista
       }
@@ -39,7 +38,6 @@ export class HeaderComponent implements OnInit {
 
     this.userService.isAuthenticated.subscribe(
       (data) => {
-        console.log('isAuthenticated', data);
         this.isAuthenticated = data;
         this.cd.markForCheck();
          // indica a Angular que debe verificar el componente para ver si necesita actualizar la vista

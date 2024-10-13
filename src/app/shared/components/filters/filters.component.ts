@@ -117,8 +117,7 @@ export class FiltersComponent implements OnInit {
       }
     }
     
-    nameFilter(search: string) {
-      console.log("filtros",this.filters);
+  nameFilter(search: string) {
       this.filters.name = search;
      
     }

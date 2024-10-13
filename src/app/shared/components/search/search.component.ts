@@ -34,10 +34,10 @@ export class SearchComponent implements OnInit {
     if (this.query) {
       this.jobServices.findJobsName(this.query).subscribe((res: { jobs: Job[] }) => {
         this.jobs = res.jobs;
-        console.log(this.jobs);
+
        
       this.suggestions = this.jobs.map(j => j.name);
-       console.log(this.suggestions);
+
        
       });
     } else {
@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit {
     }, 200);
   }
   onSearch() {
-    console.log(this.selectedSuggestion);
+
     localStorage.setItem('search', this.selectedSuggestion);
   }
 }
