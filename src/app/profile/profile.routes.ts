@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { ProfileResolver } from '../core/services/profile-resolver.service';
-import { JobsResolverService } from '../core/services/jobs-resolver.service';
 
 const profileRoutes: Routes = [
   {
@@ -9,20 +8,22 @@ const profileRoutes: Routes = [
     resolve: { profile: ProfileResolver },
     children: [
       {
-        path: 'jobs',
+        path: '',
         loadComponent: () => import('./ui/profile-jobs/profile-jobs.component').then(c => c.ProfileJobsComponent),
 
       },
-    // {
-      //   path: 'favorites',
-      //   loadComponent: () => import('./profile-favorites.component').then(c => c.ProfileFavoritesComponent),
-      // }
+      {
+        path: 'favorites',
+        loadComponent: () => import('./ui/profile-likes/profile-likes.component').then(c => c.ProfileLikesComponent),
+      },
+      {
+        path: 'followers',
+        outlet: 'followers', // Define que esta ruta se cargará en el outlet con nombre 'sidebar'
+        loadComponent: () => import('./ui/profile-likes/profile-likes.component').then(c => c.ProfileLikesComponent),
+      }
     ]
   },
-  // {
-  //   path: ':username/jobs',
-  //   loadComponent: () => import('./ui/profile-jobs/profile-jobs.component').then(c => c.ProfileJobsComponent),
-  // }
+
 
 ];
 

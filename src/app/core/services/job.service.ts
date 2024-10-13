@@ -43,6 +43,10 @@ export class JobService {
         return this.apiService.get(`/profiles/${userId}/jobs`);
     }
 
+    getUserLikes(userId: string): Observable<UserJobs> {
+        return this.apiService.get(`/profiles/${userId}/likes`);
+    }
+
     // CREATE
     // create_job(product: Job): Observable<Job[]> {
     //     return this.http.post<Job[]>(URL, product);

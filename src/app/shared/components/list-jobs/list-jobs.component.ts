@@ -42,13 +42,15 @@ export class ListJobsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.mode === 0) {
-      this.handleMode0();
+      this.mode0();
     } else if (this.mode === 1) {
-      this.handleMode1();
+      this.mode1();
+    } else if (this.mode === 2) {
+      this.mode2();
     }
   }
 
-  handleMode0(): void {
+  mode0(): void {
     // Modo 0: Obtén slug y filters de la URL (codificados)
     this.slug_Category = this.activatedRoute.snapshot.paramMap.get('slug');
     this.routeFilters = this.activatedRoute.snapshot.paramMap.get('filters');
@@ -72,7 +74,6 @@ export class ListJobsComponent implements OnInit {
     } else if (this.routeFilters !== null) {
       this.filters.name = localStorage.getItem('search') ?? undefined;
       this.get_list_filtered(this.filters);
-      console.log('1111111111111111111111111111');
     } else {
       this.filters.name = localStorage.getItem('search') ?? undefined;
       this.updateFilters(this.filters);
@@ -80,13 +81,23 @@ export class ListJobsComponent implements OnInit {
     }
   }
 
-  handleMode1(): void {
+  mode1(): void {
     // Modo 1: Obtén username de la URL (no codificada)
     this.activatedRoute.parent?.paramMap.subscribe(params => {
       this.username = params.get('username') ?? '';
 
       if (this.username) {
         this.loadUserJobs(this.username);
+      }
+    });
+  }
+
+  mode2(): void {
+    this.activatedRoute.parent?.paramMap.subscribe(params => {
+      this.username = params.get('username') ?? '';
+
+      if (this.username) {
+        this.loadUserLikes(this.username);
       }
     });
   }
@@ -103,6 +114,19 @@ export class ListJobsComponent implements OnInit {
       }
     );
   }
+
+  loadUserLikes(username: string): void {
+    this.jobService.getUserLikes(username).subscribe(
+      (data: any) => {
+        this.jobs = data.jobs;
+        this.jobCount = data.job_count;
+
+        console.log(this.jobs);
+        console.log(this.jobCount);
+        this.cdr.detectChanges();
+      });
+  }
+
 
   get_list_filtered(filters: Filters) {
     this.filters = filters;
