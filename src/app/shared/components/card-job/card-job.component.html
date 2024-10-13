@@ -12,17 +12,10 @@
             <div class="flex justify-between items-center mb-2">
                 <h3 class="text-xl font-bold text-color1">{{job.name}}</h3>
                 <div class="">
-                    <!-- <svg xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-gray-500 cursor-pointer hover:text-color1" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                    </svg> -->
                     <app-favorite-button
                         [job]="job"
                         (toggle)="onToggleFavorite($event)"
-                        (click)="$event.stopPropagation()"
-                        class="pull-xs-right">
-                        {{job.favoritesCount}}
+                        (click)="$event.stopPropagation()">
                     </app-favorite-button>
                 </div>
             </div>
