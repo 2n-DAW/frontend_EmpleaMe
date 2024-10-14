@@ -52,7 +52,6 @@ export class AuthComponent implements OnInit {
   submitForm() {
     this.isSubmitting = true;
     // this.errors = {errors: {}};
-    console.log(this.authForm.value)
 
     const credentials = this.authForm.value;
     this.userService
@@ -60,7 +59,7 @@ export class AuthComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          if (this.authType === 'login') this.router.navigateByUrl('/');
+          if (this.authType === 'login') this.router.navigateByUrl('/home');
           if (this.authType === 'register') this.router.navigateByUrl('/login');
         }, 
         err => {

@@ -1,12 +1,12 @@
-<div class="relative inline-block cursor-pointer right-2" (click)="toggleFavorite()">
+<div class="relative inline-block cursor-pointer right-2 hover:scale-110 duration-200 ease-in-out" (click)="toggleFavorite()">
     <img 
         [src]="job.favorited ? 'icons/favorite.png' : 'icons/unfavorite.png'" 
         alt="Favorite" 
-        class="w-7 h-7 transition-transform duration-200 ease-in-out" 
+        class="w-6 h-6 transition-transform duration-200 ease-in-out" 
         [ngClass]="{'scale-110': isSubmitting}"
     />
     @if (job.favoritesCount > 0) {
-        <span class="absolute top-0 left-8 text-md text-color8">{{ job.favoritesCount }}</span>
+        <span class="absolute top-0.5 left-7 text-sm text-color8">{{ job.favoritesCount }}</span>
     }
 </div>
 
