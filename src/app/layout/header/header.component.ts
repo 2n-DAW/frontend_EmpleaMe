@@ -49,5 +49,6 @@ export class HeaderComponent implements OnInit {
     this.userService.logout();
     this.userService.purgeAuth();
     this.router.navigate(['/']);
+    // window.location.reload();
   }
 }

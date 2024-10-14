@@ -20,8 +20,14 @@
                 {{ comment.createdAt | date: 'longDate' }}
             </span>
             @if (currentUser.username === comment.author.username) {
-                <span class="mod-options cursor-pointer">
-                    <i class="ion-trash-a text-rojo_pastel hover:underline" (click)="deleteComment(comment)">Eliminar</i>
+                <span
+                    class="mod-options cursor-pointer flex items-center text-sm text-rojo_pastel
+                    pl-1 hover:scale-105 duration-200 ease-in-out" (click)="deleteComment(comment)">
+                        <img 
+                            src="icons/eliminar.png" 
+                            alt="Eliminar" 
+                            class="w-6 h-6 mr-1 inline-block cursor-pointer hover:underline"/>
+                        Eliminar
                 </span>
             }
         </div>

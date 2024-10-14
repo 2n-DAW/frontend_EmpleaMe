@@ -1,71 +1,74 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CarouselDetails, CarouselHome } from '../../../core/models';
-import { CarouselService, JobService } from '../../../core/services';
+import { CarouselService } from '../../../core/services';
 import { ActivatedRoute } from '@angular/router';
 import { CarouselItemsComponent } from '../carousel-items/carousel-items.component';
 
 
 @Component({
-  selector: 'app-carousel',
-  standalone: true,
-  imports: [CarouselItemsComponent],
-  templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.css'
+    selector: 'app-carousel',
+    standalone: true,
+    imports: [CarouselItemsComponent],
+    templateUrl: './carousel.component.html',
+    styleUrl: './carousel.component.css'
 })
 
 export class CarouselComponent implements OnInit {
 
-  items_carousel!: CarouselHome[];
-  items_details!: CarouselDetails[];
-  slug_details!: string | null;
-  page!: String;
+    items_categories!: CarouselHome[];
+    items_details!: CarouselDetails[];
+    slug_details!: string | null;
+    page!: string;
 
-  constructor(private CarouselService: CarouselService, private ActivatedRoute: ActivatedRoute) { }
+    currentSlide = 0;
+    totalSlides = 0;
 
-  ngOnInit(): void {
-    this.slug_details = this.ActivatedRoute.snapshot.paramMap.get('slug');
-    this.carousel_categories();
-    this.carousel_shop_details();
-  }
+    constructor(
+        private CarouselService: CarouselService,
+        private ActivatedRoute: ActivatedRoute
+    ) { }
 
-  carousel_categories(): void {
-    this.page = "categories";
-    this.CarouselService.getCarouselHome().subscribe((data: any) => {
-      this.items_carousel = data.categories;
-      // Asegúrate de que los datos ya están cargados antes de loguearlos
-      
-    });
-  }
+    ngOnInit(): void {
+        this.slug_details = this.ActivatedRoute.snapshot.paramMap.get('slug');
 
-  carousel_shop_details(): void {
-    if (this.slug_details) {
-      this.page = "details";
-      this.CarouselService.getCarouselDetails(this.slug_details).subscribe((data: any) => {
-        this.items_details = data.products.images;
-        // Asegúrate de que los datos ya están cargados antes de loguearlos
-      });
+        if (this.slug_details) {
+            this.carousel_details();
+        } else {
+            this.carousel_categories();
+        }
     }
-  }
 
-  currentSlide = 0;
-  totalSlides = 0;
-
-  next() {
-    this.totalSlides =  Math.ceil(this.items_carousel.length / 10); // Número de "grupos" de 7 ítems
-    this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-    this.updateCarousel();
-  }
-
-  prev() {
-    this.totalSlides = Math.ceil(this.items_carousel.length / 10); // Número de "grupos" de 7 ítems
-    this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-    this.updateCarousel();
-  }
-
-  updateCarousel() {
-    const carousel = document.getElementById('carousel-items');
-    if (carousel) {
-      carousel.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+    carousel_categories(): void {
+        this.page = "home";
+        this.CarouselService.getCarouselHome().subscribe((data: any) => {
+            this.items_categories = data.categories;
+            this.totalSlides =  Math.ceil(this.items_categories.length / 10); // 10 items por slide
+        });
     }
-  }
+
+    carousel_details(): void {
+        this.page = "details";
+        this.CarouselService.getCarouselDetails(this.slug_details).subscribe((data: any) => {
+            this.items_details = data.job.images;
+            this.totalSlides =  Math.ceil(this.items_details.length / 3); // 3 items por slide
+        });
+    }
+
+    next() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateCarousel();
+    }
+
+    prev() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateCarousel();
+    }
+
+    updateCarousel() {
+        const carousel = document.getElementById('carousel-items');
+        if (carousel) {
+            carousel.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+            // carousel.style.transform = `translateX(-${this.currentSlide * (100 / 3)}%)`;
+        }
+    }
 }
