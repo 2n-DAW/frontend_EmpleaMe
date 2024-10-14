@@ -12,10 +12,10 @@ import {MatSliderModule} from '@angular/material/slider';
   styleUrls: ['./multi-range-slider.component.css']
 })
 export class MultiRangeSliderComponent {
-  @Input() min: number = 900;
-  @Input() max: number = 5000;
-  @Input() downValue: number = 900;
-  @Input() upValue: number = 5000;
+  @Input() min: number = 1000;
+  @Input() max: number = 50000;
+  @Input() downValue: number = 1000;
+  @Input() upValue: number = 50000;
   
   @Output() minpriceChange = new EventEmitter<number>();
   @Output() maxpriceChange = new EventEmitter<number>();
