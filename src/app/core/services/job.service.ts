@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Job } from '../models/job.model';
+import { Job, UserJobs } from '../models/job.model';
 import { ApiService } from './api.service';
 import { Filters } from '../models/filters.model';
 
@@ -24,7 +24,12 @@ export class JobService {
         return this.apiService.get('/jobs', filters);
     }
 
-    // GET ONE
+    // GET FEED ALL JOBS WITH FILTERS
+    getFeedJobsFilter(filters: Filters): Observable<Job[]> {
+        return this.apiService.get('/jobs/feed', filters);
+    }
+
+    // GET ONE JOB
     getJob(slug: String): Observable<Job> {
         return this.apiService.get(`/jobs/${slug}`);
     }
@@ -32,6 +37,14 @@ export class JobService {
     // GET JOBS BY CATEGORY
     getJobsByCategory(slug: String): Observable<Job[]> {
         return this.apiService.get(`/jobsByCategory/${slug}`);
+    }
+
+    getUserJobs(userId: string): Observable<UserJobs> {
+        return this.apiService.get(`/profiles/${userId}/jobs`);
+    }
+
+    getUserLikes(userId: string): Observable<UserJobs> {
+        return this.apiService.get(`/profiles/${userId}/likes`);
     }
 
     // CREATE
@@ -49,14 +62,17 @@ export class JobService {
         return this.apiService.delete(`/jobs/${slug}`);
     }
 
-    // DELETE ALL
-    // delete_all_jobs(): Observable<Job[]> {
-    //     return this.http.delete<Job[]>(`${URL}`);
-    // }
-
     // SEARCH
     findJobsName(search: string): Observable<{ jobs: Job[] }> {
         return this.apiService.get(`/jobs?name=${search}`);
+    }
+
+    favorite(slug: String): Observable<Job> {
+        return this.apiService.post(`/${slug}/favorite`);
+    }
+
+    unfavorite(slug: String): Observable<Job> {
+        return this.apiService.delete(`/${slug}/unfavorite`);
     }
     
 }

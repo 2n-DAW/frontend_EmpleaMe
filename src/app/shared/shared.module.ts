@@ -16,6 +16,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 // import { MultiRangeSliderComponent } from './components/multi-range-slider/multi-range-slider.component';
 import { SearchComponent } from './components/search/search.component';
 import { FollowButtonComponent } from './components/buttons/follow-button/follow-button.component';
+import { FavoriteButtonComponent } from './components/buttons/favorite-button/favorite-button.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { FollowButtonComponent } from './components/buttons/follow-button/follow
     FiltersComponent,
     PaginationComponent,
     SearchComponent,
-    FollowButtonComponent
+    FollowButtonComponent,
+    FavoriteButtonComponent
   ],
   exports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { FollowButtonComponent } from './components/buttons/follow-button/follow
     FiltersComponent,
     PaginationComponent,
     SearchComponent,
-    FollowButtonComponent
+    FollowButtonComponent,
+    FavoriteButtonComponent
   ],
 })
 export class SharedModule { }

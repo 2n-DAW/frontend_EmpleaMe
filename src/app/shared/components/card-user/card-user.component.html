@@ -1,0 +1,32 @@
+<a routerLink="/profile/{{ user.username }}" class="block">
+    <div class="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden flex">
+        <!-- Sección de la imagen -->
+        <div class="bg-color3 flex items-center justify-center w-1/4">
+            <img [src]="user.image" alt="{{ user.username }}" class="w-full h-full object-cover ">
+        </div>
+    
+        <!-- Sección de la información -->
+        <div class="w-3/4 p-6">
+            <div class="flex justify-between items-center">
+                <!-- Nombre y título -->
+                <div>
+                    <h4 class="text-2xl font-bold text-color3 mb-1">{{ user.username }}</h4>
+                    <p class="text-gray-600 text-sm">formacion</p>
+                </div>
+                <!-- Iconos de redes sociales -->
+                <div class="flex space-x-4">
+                    <a href="#" class="text-color3 hover:text-color4"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-color3 hover:text-color4"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-color3 hover:text-color4"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+    
+            <!-- Información adicional -->
+            <div class="mt-4 text-gray-700 text-sm">
+                <p><i class="fas fa-envelope mr-2"></i> {{ user.email }}</p>
+                <p><i class="fas fa-phone mr-2"></i> 654365541</p>
+                <p><i class="fas fa-map-marker-alt mr-2"></i> Valencia</p>
+            </div>
+    </div>
+    </div>
+</a>

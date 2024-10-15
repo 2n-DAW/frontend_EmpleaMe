@@ -1,42 +1,54 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CarouselDetails, CarouselHome } from '../../../core/models';
 import { CommonModule } from '@angular/common';
 import { NgbModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-carousel-items',
-  standalone: true,
-  imports: [CommonModule, NgbModule, NgbCarouselModule],
-  templateUrl: './carousel-items.component.html',
-  styleUrl: './carousel-items.component.css'
+    selector: 'app-carousel-items',
+    standalone: true,
+    imports: [CommonModule, NgbModule, NgbCarouselModule],
+    templateUrl: './carousel-items.component.html',
+    styleUrl: './carousel-items.component.css'
 })
 export class CarouselItemsComponent implements OnChanges {
 
-  @Input() categories!: CarouselHome[];
-  @Input() products_details!: CarouselDetails[];
-  @Input() page!: String;
+    @Input() categories!: CarouselHome[];
+    @Input() jobDetails!: CarouselDetails[];
+    @Input() page!: String;
 
-  slides: CarouselHome[][] = []; // Array de arrays para agrupar los ítems en bloques de 7.
+    // Array de arrays para agrupar los ítems en slides
+    slidesCategories: CarouselHome[][] = [];
+    slidesDetails: CarouselDetails[][] = [];
 
-  selectIndex = 0;
-  selectIndex_product_img = 0;
+    constructor() { }
 
-  constructor() { }
+    ngOnChanges(): void {
+        if (this.categories?.length) {
+            // Slide de categorías de 10 items
+            this.createSlides(10);
+        }
 
-  ngOnChanges(): void {
-    if (this.categories?.length) {
-      this.createSlides();
+        if (this.jobDetails?.length) {
+            // Slide de details de 3 items
+            this.createSlides(3);
+        }
+        
     }
-  }
 
-  createSlides(): void {
-    const itemsPerSlide = 10;
-    this.slides = [];
+    createSlides(itemsPerSlide: number): void {
+        if (this.page === "home") {
+            this.slidesCategories = [];
+            for (let i = 0; i < this.categories.length; i += itemsPerSlide) {
+                this.slidesCategories.push(this.categories.slice(i, i + itemsPerSlide));
+            }
+        }
 
-    for (let i = 0; i < this.categories.length; i += itemsPerSlide) {
-      // Dividimos las categorías en bloques de 7.
-      this.slides.push(this.categories.slice(i, i + itemsPerSlide));
+        if (this.page === "details") {
+            this.slidesDetails = [];
+            for (let i = 0; i < this.jobDetails.length; i += itemsPerSlide) {
+                this.slidesDetails.push(this.jobDetails.slice(i, i + itemsPerSlide));
+            }
+        }
     }
-  }
 
 }

@@ -1,20 +1,20 @@
-<app-filters
-    [listCategories]="listCategories"
-    [listContracts]="listContracts"
-    [listWorkingDays]="listWorkingDays"
-    [listProvinces]="listProvinces"
-    (eventofiltros)="updateFilters($event)"
->
-</app-filters>
-<div class="container px-0 mx-auto flex mt-24">
-    <div class="w-3/5 ">
-     
-        <app-card-job *ngFor="let job of jobs" [jobs]="job" [listProvinces]="listProvinces"></app-card-job>
-        <app-pagination [jobCount]="jobCount" [currentPage]="currentPage" (pageChange)="updateFilters($event)"></app-pagination>
+<!-- List Jobs -->
+<ng-container *ngIf="mode === 0">
+    <app-filters [listCategories]="listCategories" [listContracts]="listContracts" [listWorkingDays]="listWorkingDays"
+        [listProvinces]="listProvinces" (eventofiltros)="updateFilters($event)">
+    </app-filters>
+
+    <div class="list-jobscontainer max-w-screen-xl mx-auto px-10 pt-4 pb-2 flex mt-24" style="min-height: calc(100vh - 310px);">
+        <div class="flex-1">
+            <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
+            <app-pagination
+                [jobCount]="jobCount"
+                [currentPage]="currentPage"
+                (pageChange)="updateFilters($event)">
+            </app-pagination>
+        </div>
     </div>
-    
-    <div class="w-2/5 ">
-        <!-- Primer div fijo (máximo 20vh, no excede mt-20) -->
+    <!-- <div class="w-2/5 ">
         <div class="sticky top-52 mb-6">
             <div class="bg-white h-[30vh] mb-6 rounded-lg shadow-lg p-6">
                 <h3 class="text-xl font-bold text-color1 mb-4">Detalles</h3>
@@ -24,7 +24,23 @@
                 <h3 class="text-xl font-bold text-color1 mb-4">Mapa</h3>
             </div>
         </div>
-        
-        <!-- Segundo div fijo (máximo 40vh, no excede mt-20) -->
+    </div> -->
+</ng-container>
+
+<!-- List Profile Posts -->
+<ng-container *ngIf="mode === 1">
+    <div class="profile-posts container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
+        <div class="flex-1">
+            <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
+        </div>
     </div>
-</div>
+</ng-container>
+
+<!-- List Profile Favorites -->
+<ng-container *ngIf="mode === 2">
+    <div class="profile-favorites container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
+        <div class="flex-1">
+            <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
+        </div>
+    </div>
+</ng-container>

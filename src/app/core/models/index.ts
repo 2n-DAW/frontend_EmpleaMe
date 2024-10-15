@@ -1,5 +1,6 @@
 export * from './carousel.model';
 export * from './category.model';
+export * from './comment.model';
 export * from './contract.model';
 export * from './filters.model';
 export * from './job.model';
@@ -8,3 +9,4 @@ export * from './province.model';
 export * from './slide.model';
 export * from './user.model';
 export * from './workingDay.model';
+export * from './job-list-config.model';

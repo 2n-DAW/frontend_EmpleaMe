@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
       // Get the last piece of the URL (it's either 'login' or 'register')
       this.authType = data[data.length - 1].path;
       // Set a title for the page accordingly
-      this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
+      this.title = (this.authType === 'login') ? 'Login' : 'Register';
       // add form control for username if this is the register page
       if (this.authType === 'register') {
         this.authForm.addControl('username', new FormControl());
@@ -52,7 +52,6 @@ export class AuthComponent implements OnInit {
   submitForm() {
     this.isSubmitting = true;
     // this.errors = {errors: {}};
-    console.log(this.authForm.value)
 
     const credentials = this.authForm.value;
     this.userService
@@ -60,11 +59,10 @@ export class AuthComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          if (this.authType === 'login') this.router.navigateByUrl('/');
+          if (this.authType === 'login') this.router.navigateByUrl('/home');
           if (this.authType === 'register') this.router.navigateByUrl('/login');
         }, 
         err => {
-          console.log(err);
           // this.errors = err;
           this.isSubmitting = false;
           this.cd.markForCheck();

@@ -1,4 +1,4 @@
-<header class="bg-color1 p-4 fixed w-full top-0 z-50">
+<header class="bg-color1 p-4 fixed w-full top-0 " style="z-index: 31;">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-white text-xl font-bold">EmpleaMe</h1>
         <nav class="space-x-4 flex items-center">
@@ -7,15 +7,21 @@
             <a href="#" class="text-white hover:text-color4">Nosotros</a>
             <a href="#" class="text-white hover:text-color4">Contacto</a>
             @if (!isAuthenticated) {
-                <a routerLink="/login" routerLinkActive="active" class="text-white hover:text-color4">Login</a>
+                <a routerLink="/login" routerLinkActive="active"
+                    class="bg-color3 text-white px-3 pt-1.5 pb-2 rounded-full hover:bg-color4">
+                    <span class="">Login/Register</span>
+                </a>
                 <!-- <a routerLink="/register" routerLinkActive="active" class="text-white hover:text-color4">Register</a> -->
             } @else {
-                <div class="flex items-center space-x-1">
-                    <a [routerLink]="['/profile', currentUser.username]" routerLinkActive="active" class="text-white hover:text-color4 flex flex-col items-center">
-                        <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" class="w-8 h-8" alt="user image" />
-                        <span class="text-xs">{{ currentUser.username }}</span>
-                    </a>
-                </div>
+                <a class="flex items-center bg-color3 pr-3 hover:bg-color4 rounded-full overflow-hidden"
+                    [routerLink]="['/profile/', currentUser.username]" routerLinkActive="active">
+                    <img
+                        [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'"
+                        alt="user image"
+                        class="user-image mr-2 w-9 h-9 rounded-full"
+                        style="box-shadow: 0 0 5px rgb(54, 54, 54);"/>
+                    <span class="pb-0.5 text-base text-white">{{ currentUser.username }}</span>
+                </a>
                 <a routerLink="/home" routerLinkActive="active" class="text-white hover:text-color4" (click)="logout()">Logout</a>
             }
         </nav>

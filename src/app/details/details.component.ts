@@ -1,72 +1,70 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { Job } from '../core/models';
-import { JobService } from '../core/services';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgControlStatusGroup } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Job, User } from '../core/models';
+import { UserService } from '../core/services';
+import { ListCommentsDetailsComponent } from './list-comments-details.component';
+import { SharedModule } from '../shared';
 
 @Component({
-  selector: 'app-details',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './details.component.html',
-  styleUrl: './details.component.css'
+    selector: 'app-details',
+    standalone: true,
+    imports: [RouterLink, ListCommentsDetailsComponent, SharedModule ],
+    templateUrl: './details.component.html',
+    styleUrl: './details.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailsComponent implements OnInit {
+    job!: Job;
+    slug!: string;
+    currentUser!: User;
+    isAuthenticated!: boolean;
+    user_image!: string;
+    canModify!: boolean;
 
-  job!: Job;
-  // slug!: string | null;
-  slug!: string;
-  //@Input() page!: CarouselDetails[];
-  comments!: Comment[];
-  user_image!: string;
-  canModify!: boolean;
-  cd: any;
-  isSubmitting!: boolean;
-
-  logged!: boolean;
-  NoComments!: boolean;
-  isDeleting!: boolean;
-
-
-  constructor(
+    constructor(
+    private userService: UserService,
     private route: ActivatedRoute,
-    private JobService: JobService,
-    private ActivatedRoute: ActivatedRoute,
-    private router: Router,
-    // private ToastrService: ToastrService,
-  ) { }
+    private cd: ChangeDetectorRef
+    ) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+        this.route.data.subscribe(
+            (jobData: any) => {
+                this.slug = jobData.job.job.slug;
+                this.job = jobData.job.job;
+                console.log(this.job);
+                this.cd.markForCheck();
+            }
+        );
 
+        this.userService.currentUser.subscribe(
+            (userData: User) => {
+                this.currentUser = userData;
+                this.canModify = (this.currentUser.username === this.job.author.username);
+                this.cd.markForCheck();
+            }
+        );
 
-    this.route.data.subscribe(
-      (data: any) => {
-        console.log(data);
-        this.slug = data.job.job.slug;
-        this.job = data.job.job;
+        this.userService.isAuthenticated.subscribe(
+            (data: any) => {
+                this.isAuthenticated = data;
+                this.cd.markForCheck();
+            }
+        );
+    }
 
-
-      }
-    );
-  }
-
-
-
-
-  deleteJob() {
-    this.isDeleting = true;
-
-    this.JobService.deleteJob(this.slug).subscribe(
-        (data: any) => {
-          // console.log(data);
-          this.router.navigateByUrl('/shop');
-          console.log("Comment deleted successfully");
-          // console.log(this.comments);                
-        });
-  }
-
-
+    onToggleFavorite(favorited: boolean) {
+        this.job.favorited = favorited;
+    
+        if (favorited) {
+            this.job.favoritesCount++;
+        } else {
+            this.job.favoritesCount--;
+        }
+    }
+    
+    onToggleFollowing(following: boolean) {
+        this.job.author.following = following;
+    }
 
 }

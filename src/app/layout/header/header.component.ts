@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../../core/models/user.model';
 import { UserService } from '../../core/services/user.service';
 
@@ -14,6 +14,7 @@ import { UserService } from '../../core/services/user.service';
 export class HeaderComponent implements OnInit {
   constructor(
     private userService: UserService,
+    private router: Router,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -30,7 +31,6 @@ export class HeaderComponent implements OnInit {
 
     this.userService.currentUser.subscribe(
       (userData) => {
-        console.log(userData);
         this.currentUser = userData;
         this.cd.markForCheck(); // indica a Angular que debe verificar el componente para ver si necesita actualizar la vista
       }
@@ -38,7 +38,6 @@ export class HeaderComponent implements OnInit {
 
     this.userService.isAuthenticated.subscribe(
       (data) => {
-        console.log('isAuthenticated', data);
         this.isAuthenticated = data;
         this.cd.markForCheck();
          // indica a Angular que debe verificar el componente para ver si necesita actualizar la vista
@@ -49,5 +48,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.userService.logout();
     this.userService.purgeAuth();
+    this.router.navigate(['/']);
+    // window.location.reload();
   }
 }

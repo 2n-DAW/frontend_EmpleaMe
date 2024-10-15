@@ -22,7 +22,9 @@ module.exports = {
         color9: '#4d4d4d', // gris DESCRIPTION2
         color10: '#d9d9d9', // gris HR
         color11: '#89D2CA', // azul tiffany BUTTON CANCEL
-
+        rojo_pastel: '#ff6666', // rojo pastel
+        color13: '#f2f2f2', // gris fondo pestañas profile
+        color14: '#e6e6e6', // gris borde pestañas profile
       },
     },
   },

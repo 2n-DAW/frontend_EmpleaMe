@@ -1,10 +1,9 @@
-<button
-    class="btn btn-sm action-btn"
-    [ngClass]="{ 'disabled': isSubmitting,
-                'btn-outline-secondary': !profile.following,
-                'btn-secondary': profile.following }"
-    (click)="toggleFollowing()">
-    <i class="ion-plus-round"></i>
-    &nbsp;
-    {{ profile.following ? 'Unfollow' : 'Follow' }} {{ profile.username }}
-</button>
+<div class="relative inline-block cursor-pointer right-1 hover:scale-105 duration-200 ease-in-out" (click)="toggleFollowing()">
+    <img 
+        [src]="profile.following ? 'icons/follow.png' : 'icons/unfollow.png'" 
+        alt="Favorite" 
+        class="w-7 h-7 transition-transform duration-200 ease-in-out" 
+        [ngClass]="{'scale-110': isSubmitting}"
+    />
+    <span class="absolute top-0.5 left-7 text-sm text-color8 bg-gray-100 px-2.5 py-1 rounded-2xl">{{ profile.following ? 'Siguiendo' : 'Sígueme' }}</span>
+</div>
