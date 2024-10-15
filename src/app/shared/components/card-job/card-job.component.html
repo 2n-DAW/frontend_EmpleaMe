@@ -1,9 +1,8 @@
 <div (click)="goToDetails(job.slug)" class="block w-full cursor-pointer">
     <div class="w-full bg-white rounded-lg shadow-lg overflow-hidden p-6 mb-6 flex">
         <!-- Logo de la empresa -->
-        <div class="w-16 h-16 mr-4">
-            <img class="w-full h-full object-cover rounded-full" src="https://via.placeholder.com/64"
-                alt="Logo empresa">
+        <div class="w-20 h-20 mr-5">
+            <img class="w-full h-full object-cover rounded-full" src="img_jobs/{{job.img}}" alt="logo empresa">
         </div>
 
         <!-- Información del trabajo -->
@@ -21,22 +20,22 @@
             </div>
 
             <!-- Empresa, ubicación, modalidad y fecha -->
-            <div class="text-sm text-color8 mb-2">
-                <span class="font-medium text-color9">{{job.author.username}}</span>
-                &middot; {{job.id_province.province_name}}
-                &middot; {{job.createdAt | date: 'longDate'}}
+            <div class="block text-sm text-color8 mb-2">
+                <span class="text-lg text-color1">{{job.author.username}}</span>
+                <!-- {{job.id_province.province_name}} -->
+                <span class="block text-color8 mt-2">{{job.createdAt | date: 'longDate'}}</span>
             </div>
 
             <!-- Descripción -->
-            <p class="text-color8 mb-4">
+            <p class="text-color8 mb-3">
                 {{job.description}}
             </p>
 
             <!-- Detalles adicionales -->
             <div class="text-sm text-color8">
-                <span>{{job.id_contract.contract_name}}</span> &middot;
-                <span>{{job.id_workingDay.workingDay_name}}</span> &middot;
-                <span>{{job.salary}} € Bruto/año</span>
+                <!-- <span>{{job.id_contract.contract_name}}</span>
+                <span>{{job.id_workingDay.workingDay_name}}</span> -->
+                <span>{{ job.salary | number }} € Bruto/año</span>
             </div>
         </div>
     </div>

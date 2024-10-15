@@ -1,64 +1,76 @@
-<div class="profile-page mb-8">
-    <div class="user-info bg-white rounded-lg shadow-lg py-8 px-6 top-0 left-0 right-0 mt-20">
-        <div class="container mx-auto flex items-center justify-center">
-    
+<div class="profile-page">
+    <div class="user-info container pt-20">
+        <div class="container mx-auto my-6 flex items-center justify-center">
             <div class="flex items-center">
                 <img [src]="profile.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" alt="user image"
-                    class="w-32 h-32 rounded-full mr-6 object-cover" />
-                <div>
-                    <h4 class="text-2xl font-bold text-color1 mb-2">{{ profile.username }}</h4>
-                    <app-follow-button [hidden]="isUser" [profile]="profile" (toggle)="onToggleFollowing($event)"
-                        class="py-2 px-4 rounded text-white hover:opacity-80 mb-2" style="background-color: var(--color3);">
-                    </app-follow-button>
-                    <a [routerLink]="['/settings']" [hidden]="!isUser" class="py-2 px-4 rounded text-white hover:bg-color4"
-                        [ngClass]="{
-                                                                                                                                                                        'bg-color3': !profile.following,
-                                                                                                                                                                        'bg-color2': profile.following
-                                                                                                                                                                    }">
-                        <i class="ion-gear-a"></i> Edit Profile Settings
+                    class="w-24 h-24 rounded-full mr-6 object-cover" />
+                <div class="content flex flex-col">
+                    <h4 class="text-2xl font-bold text-color1">{{ profile.username }}</h4>
+                    <p class="mt-0.5 mb-3 text-color8">{{ profile.bio }}</p>
+                    <a
+                        [routerLink]="['/settings']"
+                        [hidden]="!isUser"
+                        class="mb-2 py-2 px-4 text-white no-underline hover:bg-color4 rounded-full"
+                        style="box-shadow: inset 0 0 10px rgba(67, 67, 67, 0.15);"
+                        [ngClass]="{ 'bg-color3': profile, 'bg-color10': !profile }">
+                        Editar perfil
                     </a>
-<p class="text-gray-700">{{ profile.bio }}</p>
-</div>
-</div>
-</div>
+                    <app-follow-button [hidden]="isUser" [profile]="profile" (toggle)="onToggleFollowing($event)">
+                    </app-follow-button>
+                </div>
+            </div>
+        </div>
 
         <!-- Navegación de pestañas con la misma estética de botones -->
-        <div class="mt-6">
-            <ul class="nav nav-pills outline-active flex justify-center gap-4">
+        <!-- <div class="mt-6"> -->
+        <div class="container max-w-screen-xl flex mx-auto px-10 pt-2 pb-1.5">
+            <ul class="outline-active flex justify-center">
                 <!-- Botón "My Posts" -->
                 <li class="nav-item">
-                    <a [routerLink]="['/profile', profile.username]" routerLinkActive="bg-[#39a296] text-white"
-                        [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2 px-4 rounded bg-color3 text-white hover:bg-color4">
+                    <a
+                        [routerLink]="['/profile', profile.username]"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
                         My Posts
                     </a>
-                    </li>
-<!-- Botón "Favorited Posts" -->
+                </li>
+                <!-- Botón "Favorited Posts" -->
                 <li class="nav-item">
-                    <a [routerLink]="['/profile', profile.username, 'favorites']" routerLinkActive="bg-[#39a296] text-white"
-                        [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2 px-4 rounded bg-color3 text-white hover:bg-color4">
+                    <a
+                        [routerLink]="['/profile', profile.username, 'favorites']"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
                         Favorited Posts
                     </a>
-                    </li>
-<!-- Botón "Followers" -->
+                </li>
+                <!-- Botón "Followers" -->
                 <li class="nav-item">
-                    <a [routerLink]="['/profile', profile.username, 'followers']" routerLinkActive="bg-[#39a296] text-white"
-                        [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2 px-4 rounded bg-color3 text-white hover:bg-color4">
+                    <a
+                        [routerLink]="['/profile', profile.username, 'followers']"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
                         Followers
                     </a>
-                    </li>
-<!-- Botón "Following" -->
+                </li>
+                <!-- Botón "Following" -->
                 <li class="nav-item">
-                    <a [routerLink]="['/profile', profile.username, 'following']" routerLinkActive="bg-[#39a296] text-white"
-                        [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2 px-4 rounded bg-color3 text-white hover:bg-color4">
+                    <a
+                        [routerLink]="['/profile', profile.username, 'following']"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
                         Following
                     </a>
-                    </li>
-                    </ul>
-                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
     
     <!-- Contenido de las pestañas -->
-    <div class="container" style="min-height: calc(100vh - 504px);">
+    <div class="container bg-color13 rounded-t-md border border-color14 shadow" style="min-height: calc(100vh - 504px);">
         <router-outlet></router-outlet>
     </div>
-    </div>
+</div>

@@ -9,10 +9,18 @@
                     [formControl]="commentControl">
                 </textarea>
                 <div class="flex space-x-4 mt-2">
-                    <button class="bg-color5 text-white py-2 px-4 rounded hover:bg-color4"
-                        type="submit" [disabled]="isSubmitting">Comentar</button>
-                    <button class="bg-rojo_pastel text-white py-2 px-4 rounded hover:bg-color4"
-                        type="button" (click)="cancelComment()">Cancelar</button>
+                    <button
+                        class="bg-color5 text-white py-2 px-4 hover:bg-color4 rounded-full"
+                        style="box-shadow: inset 0 0 10px rgba(67, 67, 67, 0.15);"
+                        type="submit" [disabled]="isSubmitting">
+                        Comentar
+                    </button>
+                    <button
+                        class="bg-rojo_pastel text-white py-2 px-4 hover:bg-color4 rounded-full"
+                        style="box-shadow: inset 0 0 10px rgba(67, 67, 67, 0.3);"
+                        type="button" (click)="cancelComment()">
+                        Cancelar
+                    </button>
                 </div>
             </div>
         </div>

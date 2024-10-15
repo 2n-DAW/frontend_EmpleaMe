@@ -1,5 +1,5 @@
-<div class="categorias grid grid-cols-1 md:grid-cols-2 gap-4 mt-12 mb-4" infiniteScroll
-    [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="scroll()">
+<div class="categorias grid grid-cols-1 md:grid-cols-2 gap-10 px-10 pt-10 pb-12"
+    infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="scroll()">
     @for (user of users; track user.username) {
         <app-card-user class="item" [user]="user"></app-card-user>
     }

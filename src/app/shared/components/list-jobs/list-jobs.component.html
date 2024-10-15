@@ -1,9 +1,10 @@
+<!-- List Jobs -->
 <ng-container *ngIf="mode === 0">
     <app-filters [listCategories]="listCategories" [listContracts]="listContracts" [listWorkingDays]="listWorkingDays"
         [listProvinces]="listProvinces" (eventofiltros)="updateFilters($event)">
     </app-filters>
 
-    <div class="container max-w-screen-xl mx-auto px-10 pt-4 pb-2 flex mt-24" style="min-height: calc(100vh - 310px);">
+    <div class="list-jobscontainer max-w-screen-xl mx-auto px-10 pt-4 pb-2 flex mt-24" style="min-height: calc(100vh - 310px);">
         <div class="flex-1">
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
             <app-pagination
@@ -26,16 +27,18 @@
     </div> -->
 </ng-container>
 
+<!-- List Profile Posts -->
 <ng-container *ngIf="mode === 1">
-    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-6">
+    <div class="profile-posts container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
         <div class="flex-1">
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
         </div>
     </div>
 </ng-container>
 
+<!-- List Profile Favorites -->
 <ng-container *ngIf="mode === 2">
-    <div class="container mx-auto px-10 pt-4 pb-2 flex mt-6 ">
+    <div class="profile-favorites container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
         <div class="flex-1">
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
         </div>
