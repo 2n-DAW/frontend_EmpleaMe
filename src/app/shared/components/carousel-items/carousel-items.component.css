@@ -15,10 +15,9 @@
 }
 
 .slideDetails img {
-    transition: transform 0.4s ease, z-index 0.1s ease-in-out;
+    transition: transform 0.3s ease;
 }
 
 .slideDetails:hover img {
-    transform: scale(1.1);
-    z-index: 10;
+    transform: scale(1.2);
 }
