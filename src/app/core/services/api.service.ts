@@ -1,5 +1,4 @@
-
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Observable ,  throwError } from 'rxjs';
@@ -9,15 +8,20 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
+  userType: string = '';
+
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+    window.localStorage['userType'] ? this.userType = window.localStorage['userType'] : "";
+    console.log(this.userType);
+  }
 
   private formatErrors(error: any) {
     return  throwError(error.error);
   }
 
-  // PRUEBA INTERCEPTOR ============================
+  // PRUEBA INTERCEPTOR ==============================================
   private createAuthorizationHeader(): HttpHeaders {
     const token = localStorage.getItem('jwtToken');
     let setHeaders = new HttpHeaders();
@@ -28,7 +32,27 @@ export class ApiService {
 
     return setHeaders;
   }
-  // ==================================================
+  // =================================================================
+
+  private getBaseUrl(): string {
+    if (this.userType === 'client') {
+      return environment.api_url1;
+    } else if (this.userType === 'company') {
+      return environment.api_url2;
+    } else if (this.userType === 'recruit') {
+      return environment.api_url3;
+    }
+    return environment.api_url1;
+  }
+
+  login_register(path: string, body: Object = {}): Observable<any> {
+    const url = `${this.getBaseUrl()}${path}`;
+    return this.http.post(
+      url,
+      body,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
 
   get(path: string, paramsObj: any = {}): Observable<any> {
     let params_result = {};
@@ -42,8 +66,8 @@ export class ApiService {
 
     const params = new HttpParams({ fromObject: params_result });
     // console.log(params.toString());
-    const url = `${environment.api_url}${path}?${params.toString()}`;
-    console.log(url);
+    const url = `${environment.api_url1}${path}?${params.toString()}`;
+    // console.log(url);
     
     // return this.http.get(url).pipe(catchError(this.formatErrors));
     return this.http.get(url, { headers: this.createAuthorizationHeader() }).pipe(catchError(this.formatErrors));
@@ -51,7 +75,7 @@ export class ApiService {
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(
-      `${environment.api_url}${path}`,
+      `${environment.api_url1}${path}`,
       body,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
@@ -59,7 +83,7 @@ export class ApiService {
 
   post(path: string, body: Object = {}): Observable<any> {
     return this.http.post(
-      `${environment.api_url}${path}`,
+      `${environment.api_url1}${path}`,
       body,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
@@ -67,7 +91,7 @@ export class ApiService {
 
   delete(path: string): Observable<any> {
     return this.http.delete(
-      `${environment.api_url}${path}`,
+      `${environment.api_url1}${path}`,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
   }

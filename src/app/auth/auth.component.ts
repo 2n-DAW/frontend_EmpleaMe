@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../core/services/user.service';
 import { CommonModule } from '@angular/common';
+import { UserType } from '../core/models/user.model';
 // import { Errors } from '../core';
 
 @Component({
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
 export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
+  userType: UserType = {} as UserType;
   // errors: Errors = {errors: {}};
   isSubmitting = false;
   authForm: FormGroup;
@@ -54,19 +56,54 @@ export class AuthComponent implements OnInit {
     // this.errors = {errors: {}};
 
     const credentials = this.authForm.value;
-    this.userService
-      .attemptAuth(this.authType, credentials)
+
+    if (this.authType === 'login') {
+      // Obtener el tipo de usuario primero
+      this.userService
+      .getUserType(credentials)
       .subscribe(
         data => {
-          console.log(data);
-          if (this.authType === 'login') this.router.navigateByUrl('/home');
-          if (this.authType === 'register') this.router.navigateByUrl('/login');
+          this.userType = data;
+          console.log('User Type:', data);
+
+          // Después de obtener el tipo de usuario, proceder con login
+          this.userService
+          .attemptAuth(this.authType, this.userType)
+          .subscribe(
+            dataUser => {
+              console.log('User', dataUser);
+              this.router.navigateByUrl('/home');
+            }, 
+            err => {
+              // this.errors = err;
+              console.error('Login Error:', err);
+              this.isSubmitting = false;
+              this.cd.markForCheck();
+            }
+          );
         }, 
         err => {
-          // this.errors = err;
+          console.error('User Type Error:', err);
           this.isSubmitting = false;
           this.cd.markForCheck();
         }
-    );
+      );
+    } else {
+      // Proceder con register
+      this.userService
+      .attemptAuth(this.authType, this.userType)
+      .subscribe(
+        msg => {
+          console.log('Register', msg);
+          this.router.navigateByUrl('/login');
+        }, 
+        err => {
+          // this.errors = err;
+          console.error('Register Error:', err);
+          this.isSubmitting = false;
+          this.cd.markForCheck();
+        }
+      );
+    }
   }
 }
