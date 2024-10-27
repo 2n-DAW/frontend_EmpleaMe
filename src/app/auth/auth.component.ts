@@ -68,7 +68,7 @@ export class AuthComponent implements OnInit {
 
           // Después de obtener el tipo de usuario, proceder con login
           this.userService
-          .attemptAuth(this.authType, this.userType, credentials)
+          .attemptAuth(this.authType, this.userType)
           .subscribe(
             dataUser => {
               console.log('User', dataUser);
@@ -91,7 +91,7 @@ export class AuthComponent implements OnInit {
     } else {
       // Proceder con register
       this.userService
-      .attemptAuth(this.authType, this.userType, credentials)
+      .attemptAuth(this.authType, this.userType)
       .subscribe(
         msg => {
           console.log('Register', msg);

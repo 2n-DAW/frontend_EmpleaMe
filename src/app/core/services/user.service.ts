@@ -75,9 +75,9 @@ export class UserService {
         ));
     }
 
-    attemptAuth(type: any, userType: UserType, credentials: any): Observable<User> {
+    attemptAuth(type: any, userType: UserType): Observable<User> {
         const route = (type === 'login') ? '/login' : '/register';
-        return this.apiService.login_register(`/users${route}`, {user: credentials, userType: userType})
+        return this.apiService.login_register(`/users${route}`, {user: userType})
             .pipe(map(
                 data => {
                     if (type === 'login')
