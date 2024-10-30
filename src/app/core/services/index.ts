@@ -1,5 +1,4 @@
 export * from './api.service';
-export * from './auth-guard.service';
 export * from './carousel.service';
 export * from './category.service';
 export * from './comment.service';
@@ -7,7 +6,6 @@ export * from './contract.service';
 export * from './details-resolver.service';
 export * from './job.service';
 export * from './jwt.service';
-export * from './no-auth-guard.service';
 export * from './profile-resolver.service';
 export * from './profiles.service';
 export * from './province.service';
