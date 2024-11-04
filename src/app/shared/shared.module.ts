@@ -17,6 +17,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { SearchComponent } from './components/search/search.component';
 import { FollowButtonComponent } from './components/buttons/follow-button/follow-button.component';
 import { FavoriteButtonComponent } from './components/buttons/favorite-button/favorite-button.component';
+import { InscriptionButtonComponent } from './components/buttons/inscription-button/inscription-button.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { FavoriteButtonComponent } from './components/buttons/favorite-button/fa
     PaginationComponent,
     SearchComponent,
     FollowButtonComponent,
-    FavoriteButtonComponent
+    FavoriteButtonComponent,
+    InscriptionButtonComponent
   ],
   exports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { FavoriteButtonComponent } from './components/buttons/favorite-button/fa
     PaginationComponent,
     SearchComponent,
     FollowButtonComponent,
-    FavoriteButtonComponent
+    FavoriteButtonComponent,
+    InscriptionButtonComponent
   ],
 })
 export class SharedModule { }

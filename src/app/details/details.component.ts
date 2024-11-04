@@ -17,9 +17,12 @@ export class DetailsComponent implements OnInit {
     job!: Job;
     slug!: string;
     currentUser!: User;
+    user_email!: string;
     isAuthenticated!: boolean;
+    currentUserType!: String;
     user_image!: string;
     canModify!: boolean;
+    canInscription!: boolean;
 
     constructor(
     private userService: UserService,
@@ -40,7 +43,8 @@ export class DetailsComponent implements OnInit {
         this.userService.currentUser.subscribe(
             (userData: User) => {
                 this.currentUser = userData;
-                this.canModify = (this.currentUser.username === this.job.author.username);
+                this.user_email = this.currentUser.email;
+                // this.canModify = (this.currentUser.username === this.job.author.username);
                 this.cd.markForCheck();
             }
         );
@@ -48,6 +52,20 @@ export class DetailsComponent implements OnInit {
         this.userService.isAuthenticated.subscribe(
             (data: any) => {
                 this.isAuthenticated = data;
+                this.cd.markForCheck();
+            }
+        );
+
+        this.userService.currentUserType.subscribe(
+            (userType) => {
+                this.currentUserType = userType;
+                console.log(this.currentUserType);
+                this.canModify =
+                    (this.currentUser.username !== this.job.author.username) &&
+                    ((this.currentUserType === 'client') || (this.currentUserType === 'company'));
+                //! Añadir que no se pueda inscribir con isIncripted !== 0
+                this.canInscription =
+                    (this.currentUser.username !== this.job.author.username) && (this.currentUserType === 'client');
                 this.cd.markForCheck();
             }
         );

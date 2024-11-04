@@ -12,10 +12,25 @@
             <!-- Información del trabajo -->
             <div class="mb-4 flex justify-between items-center">
                 <h3 class="relative text-2xl font-bold text-color1">{{ job.name }}</h3>
-                <!-- Boton para favoritos -->
-                @if (canModify === false) {
-                    <app-favorite-button [job]="job" (toggle)="onToggleFavorite($event)"></app-favorite-button>
-                }
+                <!-- Botones para favoritos y inscripción -->
+                <div>
+                    @if (canModify === true) {
+                        <app-favorite-button
+                            [job]="job"
+                            (toggle)="onToggleFavorite($event)"
+                            class="">
+                        </app-favorite-button>
+                    }
+                    @if (canInscription === true) {
+                        <app-inscription-button
+                            [slug]="slug"
+                            [user_email]="user_email"
+                            [currentUserType]="currentUserType"
+                            [isAuthenticated]="isAuthenticated"
+                            class="pl-10">
+                        </app-inscription-button>
+                    }
+                </div>
             </div>
             <div class="space-y-4 text-color8">
                 <div class="description">
@@ -30,7 +45,7 @@
                         </a>
                     </strong>
                     <!-- Boton para seguir -->
-                    @if (canModify === false) {
+                    @if (canModify === true) {
                         <div class="pl-6">
                             <app-follow-button [profile]="job.author" (toggle)="onToggleFollowing($event)"></app-follow-button>
                         </div>

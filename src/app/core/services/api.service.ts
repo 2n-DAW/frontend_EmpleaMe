@@ -9,8 +9,6 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class ApiService {
-  private userType: String = '';
-
   constructor(
     private http: HttpClient,
   ) {}
@@ -87,7 +85,7 @@ export class ApiService {
     ).pipe(catchError(this.formatErrors));
   }
 
-  login_register(path: string, body: Object = {}): Observable<any> {
+  postLoginRegister(path: string, body: Object = {}): Observable<any> {
     return this.http.post(
       `${environment.api_url4}${path}`,
       body,
@@ -95,10 +93,28 @@ export class ApiService {
     ).pipe(catchError(this.formatErrors));
   }
 
-  getCurrentUser(path: string, userType: String): Observable<any> {
+  getFromBaseUrl(path: string, userType: String): Observable<any> {
     const url = this.getBaseUrl(userType);
     return this.http.get(
       `${url}${path}`,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  postFromBaseUrl(path: string, userType: String, body: Object = {}): Observable<any> {
+    const url = this.getBaseUrl(userType);
+    return this.http.post(
+      `${url}${path}`,
+      body,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  putFromBaseUrl(path: string, userType: String, body: Object = {}): Observable<any> {
+    const url = this.getBaseUrl(userType);
+    return this.http.put(
+      `${url}${path}`,
+      body,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
   }

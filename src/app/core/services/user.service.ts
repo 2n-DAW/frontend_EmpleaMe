@@ -24,6 +24,8 @@ export class UserService {
     private currentUserTypeSubject = new BehaviorSubject<String>('null');
     public currentUserType = this.currentUserTypeSubject.asObservable().pipe(distinctUntilChanged()); // emite valores solo si hay cambios
 
+    private userType: String = '';
+
     constructor (
         private apiService: ApiService,
         private jwtService: JwtService,
@@ -36,10 +38,10 @@ export class UserService {
     populate() {
         // If JWT detected, attempt to get & store user's info
         const token = this.jwtService.getToken();
-        const userType = this.getCurrentTypeUser();
+        this.userType = this.getCurrentTypeUser();
         
         if (token) {
-            this.apiService.getCurrentUser("/user", userType).subscribe(
+            this.apiService.getFromBaseUrl("/user", this.userType).subscribe(
                 (data) => {
                     return this.setAuth(data.user, data.type, 'populate');
                 },
@@ -85,7 +87,7 @@ export class UserService {
         const route = (type === 'login') ? '/login' : '';
         const body = (type === 'login') ? { user: credentials } : { user: credentials, userType: userType };
         
-        return this.apiService.login_register(`/user${route}`, body)
+        return this.apiService.postLoginRegister(`/user${route}`, body)
             .pipe(map(
                 data => {
                     if (type === 'login') {

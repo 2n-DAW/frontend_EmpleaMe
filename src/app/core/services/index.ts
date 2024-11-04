@@ -4,6 +4,7 @@ export * from './category.service';
 export * from './comment.service';
 export * from './contract.service';
 export * from './details-resolver.service';
+export * from './inscription.service';
 export * from './job.service';
 export * from './jwt.service';
 export * from './profile-resolver.service';
