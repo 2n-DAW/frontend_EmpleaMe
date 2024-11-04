@@ -4,7 +4,7 @@
         [listProvinces]="listProvinces" (eventofiltros)="updateFilters($event)">
     </app-filters>
 
-    <div class="list-jobscontainer max-w-screen-xl mx-auto px-10 pt-4 pb-2 flex mt-24" style="min-height: calc(100vh - 310px);">
+    <div class="list-jobscontainer max-w-screen-xl mx-auto px-10 pb-2 flex mt-28" style="min-height: calc(100vh - 310px); padding-top: 35px">
         <div class="flex-1">
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
             <app-pagination

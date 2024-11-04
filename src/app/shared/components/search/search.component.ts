@@ -35,10 +35,10 @@ export class SearchComponent implements OnInit {
       this.jobServices.findJobsName(this.query).subscribe((res: { jobs: Job[] }) => {
         this.jobs = res.jobs;
 
-       
+      
       this.suggestions = this.jobs.map(j => j.name);
 
-       
+      
       });
     } else {
       this.suggestions = [];
@@ -49,7 +49,7 @@ export class SearchComponent implements OnInit {
     this.searchQuery = suggestion; // Asigna la sugerencia al campo de búsqueda
     this.suggestions = []; // Limpia las sugerencias
     this.selectedSuggestion = suggestion;
-   
+  
   }
 
   onBlur() {
