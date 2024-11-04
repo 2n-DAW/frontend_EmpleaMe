@@ -3,7 +3,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../core/services/user.service';
 import { CommonModule } from '@angular/common';
-import { UserType } from '../core/models/user.model';
+// import { UserType } from '../core/models/user.model';
 // import { Errors } from '../core';
 
 @Component({
@@ -17,7 +17,8 @@ import { UserType } from '../core/models/user.model';
 export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
-  userType: UserType = {} as UserType;
+  // userType: UserType = {} as UserType;
+  userType: String = '';
   // errors: Errors = {errors: {}};
   isSubmitting = false;
   authForm: FormGroup;
@@ -31,6 +32,7 @@ export class AuthComponent implements OnInit {
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
+      'userType': [''],
       'email': ['', Validators.required],
       'password': ['', Validators.required]
     });
@@ -57,33 +59,23 @@ export class AuthComponent implements OnInit {
 
     const credentials = this.authForm.value;
 
-    if (this.authType === 'login') {
-      // Obtener el tipo de usuario primero
-      this.userService
-      .getUserType(credentials)
-      .subscribe(
-        data => {
-          this.userType = data;
-          console.log('User Type:', data);
+    if (this.authType === 'register') {
+      this.userType = credentials.userType;
+      delete credentials.userType;
+    }
 
-          // Después de obtener el tipo de usuario, proceder con login
-          this.userService
-          .attemptAuth(this.authType, this.userType)
-          .subscribe(
-            dataUser => {
-              console.log('User', dataUser);
-              this.router.navigateByUrl('/home');
-            }, 
-            err => {
-              // this.errors = err;
-              console.error('Login Error:', err);
-              this.isSubmitting = false;
-              this.cd.markForCheck();
-            }
-          );
+    if (this.authType === 'login') {
+      // Proceder con login
+      this.userService
+      .attemptAuth(this.authType, credentials)
+      .subscribe(
+        dataUser => {
+          console.log('Login', dataUser);
+          this.router.navigateByUrl('/home');
         }, 
         err => {
-          console.error('User Type Error:', err);
+          // this.errors = err;
+          console.error('Login Error:', err);
           this.isSubmitting = false;
           this.cd.markForCheck();
         }
@@ -91,10 +83,10 @@ export class AuthComponent implements OnInit {
     } else {
       // Proceder con register
       this.userService
-      .attemptAuth(this.authType, this.userType)
+      .attemptAuth(this.authType, credentials, this.userType)
       .subscribe(
-        msg => {
-          console.log('Register', msg);
+        dataUser => {
+          console.log('Register', dataUser);
           this.router.navigateByUrl('/login');
         }, 
         err => {

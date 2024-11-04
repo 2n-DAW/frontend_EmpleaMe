@@ -4,7 +4,8 @@ import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
 import { map, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
-import { User, UserType } from '../models/user.model';
+import { UserTypeService } from './userType.service';
+import { User } from '../models/user.model';
 
 
 @Injectable({
@@ -15,13 +16,18 @@ export class UserService {
     private currentUserSubject = new BehaviorSubject<User>({} as User);
     public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged()); // emite valores solo si hay cambios
 
-    // gugarda el estado de la autentificación
+    // guarda el estado de la autentificación
     private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
     public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+
+    // guarda el tipo de usuario
+    private currentUserTypeSubject = new BehaviorSubject<String>('null');
+    public currentUserType = this.currentUserTypeSubject.asObservable().pipe(distinctUntilChanged()); // emite valores solo si hay cambios
 
     constructor (
         private apiService: ApiService,
         private jwtService: JwtService,
+        private userTypeService: UserTypeService,
         private router: Router
     ) {}
 
@@ -30,12 +36,12 @@ export class UserService {
     populate() {
         // If JWT detected, attempt to get & store user's info
         const token = this.jwtService.getToken();
-        // console.log(token);
+        const userType = this.getCurrentTypeUser();
+        
         if (token) {
-            this.apiService.get("/user").subscribe(
+            this.apiService.getCurrentUser("/user", userType).subscribe(
                 (data) => {
-                    // console.log(data);
-                    return this.setAuth({ ...data.currentUser });
+                    return this.setAuth(data.user, data.type, 'populate');
                 },
                 (err) => {
                     this.purgeAuth();
@@ -47,48 +53,55 @@ export class UserService {
         }
     }
 
-    setAuth(user: User) {
-        // Save JWT sent from server in localstorage
-        this.jwtService.saveToken(user.token);
+    setAuth(user: User, userType: String, from: String) {
+        if (from === 'login') {
+            // Save JWT sent from server in localstorage
+            this.jwtService.saveToken(user.token);
+        }
+        // Save userType from server in localstorage
+        this.userTypeService.saveUserType(userType);
         // Set current user data into observable
         this.currentUserSubject.next(user);
         // Set isAuthenticated to true
         this.isAuthenticatedSubject.next(true);
+        // Set current Role User
+        this.currentUserTypeSubject.next(userType);
     }
 
     purgeAuth() {
         // Remove JWT from localstorage
         this.jwtService.destroyToken();
+        // Remove userType from localstorage
+        this.userTypeService.destroyUserType();
         // Set current user to an empty object
         this.currentUserSubject.next({} as User);
         // Set auth status to false
         this.isAuthenticatedSubject.next(false);
+        // Set current Role User to null
+        this.currentUserTypeSubject.next('null');
     }
 
-    getUserType(credentials: any): Observable<UserType> {
-        return this.apiService.post(`/users/userType`, {user: credentials})
+    attemptAuth(type: String, credentials: {}, userType?: String): Observable<User> {
+        const route = (type === 'login') ? '/login' : '';
+        const body = (type === 'login') ? { user: credentials } : { user: credentials, userType: userType };
+        
+        return this.apiService.login_register(`/user${route}`, body)
             .pipe(map(
                 data => {
-                    window.localStorage['userType'] = data.user.userType;
-                    return data.user;
-                }
-        ));
-    }
-
-    attemptAuth(type: any, userType: UserType): Observable<User> {
-        const route = (type === 'login') ? '/login' : '/register';
-        return this.apiService.login_register(`/users${route}`, {user: userType})
-            .pipe(map(
-                data => {
-                    if (type === 'login')
-                        this.setAuth(data.user);
-                        return data.user;
+                    if (type === 'login') {
+                        this.setAuth(data.user.user, data.type, 'login');
+                        return data.user; 
+                    };
                 }
             ));
     }
 
     getCurrentUser(): User {
         return this.currentUserSubject.value;
+    }
+
+    getCurrentTypeUser(): String {
+        return this.userTypeService.getUserType();
     }
 
     // Update the user on the server (email, pass, etc)
@@ -103,15 +116,17 @@ export class UserService {
     }
 
     logout() {
-        this.apiService.get("/user/logout").subscribe(
-            (data) => {
-                window.localStorage.removeItem('userType');
-                console.log(data);
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
+        const userType = this.getCurrentTypeUser();
+        if (userType === 'client') {
+            this.apiService.get("/user/logout").subscribe(
+                (data) => {
+                    console.log(data);
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
+        }
     }
 
 }

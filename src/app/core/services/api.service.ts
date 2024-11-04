@@ -3,19 +3,17 @@ import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Observable ,  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  userType: string = '';
+  private userType: String = '';
 
   constructor(
-    private http: HttpClient
-  ) {
-    window.localStorage['userType'] ? this.userType = window.localStorage['userType'] : "";
-    console.log(this.userType);
-  }
+    private http: HttpClient,
+  ) {}
 
   private formatErrors(error: any) {
     return  throwError(error.error);
@@ -34,24 +32,17 @@ export class ApiService {
   }
   // =================================================================
 
-  private getBaseUrl(): string {
-    if (this.userType === 'client') {
-      return environment.api_url1;
-    } else if (this.userType === 'company') {
-      return environment.api_url2;
-    } else if (this.userType === 'recruit') {
-      return environment.api_url3;
+  private getBaseUrl(userType: String): string {
+    switch (userType) {
+      case 'client':
+        return environment.api_url1;
+      case 'company':
+        return environment.api_url2;
+      case 'recruit':
+        return environment.api_url3;
+      default:
+        return environment.api_url3;
     }
-    return environment.api_url1;
-  }
-
-  login_register(path: string, body: Object = {}): Observable<any> {
-    const url = `${this.getBaseUrl()}${path}`;
-    return this.http.post(
-      url,
-      body,
-      { headers: this.createAuthorizationHeader() }
-    ).pipe(catchError(this.formatErrors));
   }
 
   get(path: string, paramsObj: any = {}): Observable<any> {
@@ -92,6 +83,22 @@ export class ApiService {
   delete(path: string): Observable<any> {
     return this.http.delete(
       `${environment.api_url1}${path}`,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  login_register(path: string, body: Object = {}): Observable<any> {
+    return this.http.post(
+      `${environment.api_url4}${path}`,
+      body,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  getCurrentUser(path: string, userType: String): Observable<any> {
+    const url = this.getBaseUrl(userType);
+    return this.http.get(
+      `${url}${path}`,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
   }
