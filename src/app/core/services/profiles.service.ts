@@ -20,7 +20,7 @@ export class ProfilesService {
   }
 
   getInscriptionUser(userEmail: string): Observable<Profile> {
-    return this.apiService.get(`/profiles/user_email`, userEmail)
+    return this.apiService.get(`/profiles/email/${userEmail}`)
       .pipe(map((data: { profile: Profile }) => data.profile));
   }
 

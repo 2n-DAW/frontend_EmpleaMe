@@ -29,20 +29,18 @@
             <div class="block text-sm text-color8 mb-2">
                 <span class="text-lg text-color1">{{job.author.username}}</span>
                 <!-- {{job.id_province.province_name}} -->
-                <span class="block text-color8 mt-2">{{job.createdAt | date: 'longDate'}}</span>
+                <span class="block text-color8 mt-2">{{inscription.date | date: 'longDate'}}</span>
             </div>
 
             <!-- Descripción -->
-            <p class="text-color8 mb-3">
+            <!-- <p class="text-color8 mb-3">
                 {{job.description}}
-            </p>
+            </p> -->
 
             <!-- Detalles adicionales -->
-            <div class="text-sm text-color8">
-                <!-- <span>{{job.id_contract.contract_name}}</span>
-                <span>{{job.id_workingDay.workingDay_name}}</span> -->
+            <!-- <div class="text-sm text-color8">
                 <span>{{ job.salary | number }} € Bruto/año</span>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

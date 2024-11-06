@@ -24,7 +24,7 @@ export class ListInscriptionsComponent implements OnInit {
   ngOnInit(): void {
     this.inscriptionService.getInscriptions().subscribe(
       (data: any) => {
-        this.inscriptions = data.inscription;
+        this.inscriptions = data;
         console.log(data);
         this.cdr.detectChanges();
       });
