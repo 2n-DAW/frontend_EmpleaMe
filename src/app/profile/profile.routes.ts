@@ -13,7 +13,19 @@ const profileRoutes: Routes = [
 
       },
       {
-        path: 'inscriptions',
+        path: 'create-job',
+        loadComponent: () => import('./ui/profile-create-job/profile-create-job.component').then(c => c.ProfileCreateJobComponent),
+      },
+      {
+        path: 'pending-inscriptions',
+        loadComponent: () => import('./ui/profile-inscriptions/profile-inscriptions.component').then(c => c.ProfileInscriptionsComponent),
+      },
+      {
+        path: 'accepted-inscriptions',
+        loadComponent: () => import('./ui/profile-inscriptions/profile-inscriptions.component').then(c => c.ProfileInscriptionsComponent),
+      },
+      {
+        path: 'rejected-inscriptions',
         loadComponent: () => import('./ui/profile-inscriptions/profile-inscriptions.component').then(c => c.ProfileInscriptionsComponent),
       },
       {

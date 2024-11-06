@@ -20,7 +20,6 @@ export class DetailsComponent implements OnInit {
     user_email!: string;
     isAuthenticated!: boolean;
     currentUserType!: String;
-    // user_image!: string;
     canModify!: boolean;
     canInscription!: boolean;
 

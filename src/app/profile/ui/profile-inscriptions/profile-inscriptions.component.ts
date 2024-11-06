@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListInscriptionsComponent } from '../../../shared/components/list-inscriptions/list-inscriptions.component';
 
@@ -8,7 +8,6 @@ import { ListInscriptionsComponent } from '../../../shared/components/list-inscr
   imports: [CommonModule, ListInscriptionsComponent],
   templateUrl: './profile-inscriptions.component.html',
   styleUrl: './profile-inscriptions.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileInscriptionsComponent {
 

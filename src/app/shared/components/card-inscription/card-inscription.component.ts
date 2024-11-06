@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute  } from '@angular/router';
 import { User, Job, Profile, InscriptionList } from '../../../core/models';
 import { UserService, JobService, ProfilesService } from '../../../core/services';
 import { InscriptionButtonComponent } from '../buttons/inscription-button/inscription-button.component';
@@ -21,7 +21,8 @@ export class CardInscriptionComponent implements OnInit{
   user_email!: string;
   isAuthenticated!: boolean;
   currentUserType!: String;
-  jobs: Job[] = [];
+  currentRoute: string = '';
+  // jobs: Job[] = [];
   job!: Job;
   profile!: Profile;
   canModify!: boolean;
@@ -29,6 +30,7 @@ export class CardInscriptionComponent implements OnInit{
 
   constructor(
       private router: Router,
+      private route: ActivatedRoute,
       private userService: UserService,
       private jobService: JobService,
       private profilesService: ProfilesService,
@@ -63,10 +65,19 @@ export class CardInscriptionComponent implements OnInit{
         }
     );
 
+    // this.route.url.subscribe(urlSegments => {
+    //   this.currentRoute = urlSegments.map(segment => segment.path).join('/');
+    // });
+
+    this.route.url.subscribe(urlSegments => {
+      this.currentRoute = urlSegments[urlSegments.length - 1].path;
+      console.log(this.currentRoute);
+    });
+
     this.jobService.getJob(this.inscription.job).subscribe(
       (data: any) => {
-        this.jobs = data.jobs;
-        console.log(this.jobs);
+        this.job = data;
+        console.log(this.job);
         // this.jobCount = data.job_count;
       });
 

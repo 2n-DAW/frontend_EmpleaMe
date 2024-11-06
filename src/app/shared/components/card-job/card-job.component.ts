@@ -41,6 +41,9 @@ export class CardJobComponent implements OnInit{
         //   this.workingDay = this.jobs.id_workingDay;
         //   this.province = this.jobs.id_province;
         // }
+
+        console.log(this.job);
+
         this.userService.currentUser.subscribe(
             (userData: User) => {
                 this.currentUser = userData;

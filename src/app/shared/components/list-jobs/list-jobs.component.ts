@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { Job, Category, Contract, WorkingDay, Province, Filters, User, UserJobs, InscriptionList } from '../../../core/models';
-import { JobService, CategoryService, ContractService, WorkingDayService, ProvinceService, InscriptionService } from '../../../core/services';
+import { Job, Category, Contract, WorkingDay, Province, Filters, User, UserJobs } from '../../../core/models';
+import { JobService, CategoryService, ContractService, WorkingDayService, ProvinceService } from '../../../core/services';
 import { ActivatedRoute } from '@angular/router'
 import { SharedModule } from '../../shared.module';
 import { CardJobComponent } from '../card-job/card-job.component';
@@ -21,7 +21,6 @@ export class ListJobsComponent implements OnInit {
   routeFilters!: string | null;
   jobs: Job[] = [];
   jobCount: number = 0;
-  inscriptions: InscriptionList[] = [];
   slug_Category!: string | null;
   listCategories: Category[] = [];
   listContracts: Contract[] = [];
@@ -34,7 +33,6 @@ export class ListJobsComponent implements OnInit {
   @Input() mode: number = 0;
 
   constructor(private jobService: JobService,
-    private inscriptionService: InscriptionService,
     private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
     private provinceService: ProvinceService,
@@ -51,8 +49,6 @@ export class ListJobsComponent implements OnInit {
       this.mode1();
     } else if (this.mode === 2) {
       this.mode2();
-    } else if (this.mode === 3) {
-      this.mode3();
     }
   }
 
@@ -108,16 +104,6 @@ export class ListJobsComponent implements OnInit {
     });
   }
 
-  mode3(): void {
-    this.activatedRoute.parent?.paramMap.subscribe(params => {
-      this.username = params.get('username') ?? '';
-
-      if (this.username) {
-        this.loadInscriptions();
-      }
-    });
-  }
-
   loadUserJobs(username: string): void {
     this.jobService.getUserJobs(username).subscribe(
       (data: any) => {
@@ -135,23 +121,12 @@ export class ListJobsComponent implements OnInit {
     this.jobService.getUserLikes(username).subscribe(
       (data: any) => {
         this.jobs = data.jobs;
-        this.jobCount = data.job_count;
-
+        this.jobCount = data.jobs_count;
         console.log(this.jobs);
         console.log(this.jobCount);
         this.cdr.detectChanges();
       });
   }
-
-  loadInscriptions(): void {
-    this.inscriptionService.getInscriptions().subscribe(
-      (data: any) => {
-        this.inscriptions = data.inscription;
-        console.log(data);
-        this.cdr.detectChanges();
-      });
-  }
-
 
   get_list_filtered(filters: Filters) {
     this.filters = filters;
