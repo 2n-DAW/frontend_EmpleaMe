@@ -38,9 +38,12 @@ export class CardInscriptionComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    console.log(this.inscription);
+
     this.userService.currentUser.subscribe(
         (userData: User) => {
             this.currentUser = userData;
+            console.log(this.currentUser);
             this.user_email = this.currentUser.email;
             this.cd.markForCheck();
         }
@@ -56,6 +59,7 @@ export class CardInscriptionComponent implements OnInit{
     this.userService.currentUserType.subscribe(
         (userType: String) => {
             this.currentUserType = userType;
+            console.log(this.currentUserType)
             this.canModify =
                 (this.currentUser.username !== this.job.author.username) &&
                 ((this.currentUserType === 'client') || (this.currentUserType === 'company'));
@@ -65,10 +69,6 @@ export class CardInscriptionComponent implements OnInit{
         }
     );
 
-    // this.route.url.subscribe(urlSegments => {
-    //   this.currentRoute = urlSegments.map(segment => segment.path).join('/');
-    // });
-
     this.route.url.subscribe(urlSegments => {
       this.currentRoute = urlSegments[urlSegments.length - 1].path;
       console.log(this.currentRoute);
@@ -76,16 +76,15 @@ export class CardInscriptionComponent implements OnInit{
 
     this.jobService.getJob(this.inscription.job).subscribe(
       (data: any) => {
-        this.job = data;
+        this.job = data.job;
         console.log(this.job);
-        // this.jobCount = data.job_count;
       });
 
-      // this.profilesService.getInscriptionUser(this.user_email).subscribe(
-      //   (data: any) => {
-      //     this.profile = data.profile;
-      //     console.log(data);
-      //   });
+      this.profilesService.getInscriptionUser(this.user_email).subscribe(
+        (data: any) => {
+          this.profile = data;
+          console.log(data);
+        });
   }
 
   goToDetails(slug: string) {

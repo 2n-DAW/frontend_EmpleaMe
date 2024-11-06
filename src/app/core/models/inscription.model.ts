@@ -9,5 +9,5 @@ export interface InscriptionList {
     job: string;
     user_email: string;
     status: Number;
-    createdAt: Date;
+    date: Date;
 }
