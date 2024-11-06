@@ -28,13 +28,9 @@ export class SettingsComponent implements OnInit {
     // create form group using the form builder
     this.settingsForm = this.fb.group({
       image: '',
-      username: '',
       bio: '',
-      email: '',
       password: ''
     });
-    // Optional: subscribe to changes on the form
-    // this.settingsForm.valueChanges.subscribe(values => this.updateUser(values));
   }
 
   ngOnInit() {
