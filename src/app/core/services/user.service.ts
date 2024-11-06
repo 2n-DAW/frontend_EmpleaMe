@@ -39,6 +39,8 @@ export class UserService {
         // If JWT detected, attempt to get & store user's info
         const token = this.jwtService.getToken();
         this.userType = this.getCurrentTypeUser();
+        console.log('UserType:', this.userType);
+        console.log('Token:', token);
         
         if (token) {
             this.apiService.getFromBaseUrl("/user", this.userType).subscribe(

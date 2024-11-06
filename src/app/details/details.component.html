@@ -23,11 +23,12 @@
                     }
                     @if (canInscription === true) {
                         <app-inscription-button
-                            [slug]="slug"
+                            class="pl-10"
+                            [job]="job"
                             [user_email]="user_email"
                             [currentUserType]="currentUserType"
                             [isAuthenticated]="isAuthenticated"
-                            class="pl-10">
+                            (isInscripted)="handleInscription($event)">
                         </app-inscription-button>
                     }
                 </div>

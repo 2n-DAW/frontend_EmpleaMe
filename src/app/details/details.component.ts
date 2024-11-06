@@ -20,7 +20,7 @@ export class DetailsComponent implements OnInit {
     user_email!: string;
     isAuthenticated!: boolean;
     currentUserType!: String;
-    user_image!: string;
+    // user_image!: string;
     canModify!: boolean;
     canInscription!: boolean;
 
@@ -44,7 +44,6 @@ export class DetailsComponent implements OnInit {
             (userData: User) => {
                 this.currentUser = userData;
                 this.user_email = this.currentUser.email;
-                // this.canModify = (this.currentUser.username === this.job.author.username);
                 this.cd.markForCheck();
             }
         );
@@ -57,13 +56,12 @@ export class DetailsComponent implements OnInit {
         );
 
         this.userService.currentUserType.subscribe(
-            (userType) => {
+            (userType: String) => {
                 this.currentUserType = userType;
                 console.log(this.currentUserType);
                 this.canModify =
                     (this.currentUser.username !== this.job.author.username) &&
                     ((this.currentUserType === 'client') || (this.currentUserType === 'company'));
-                //! Añadir que no se pueda inscribir con isIncripted !== 0
                 this.canInscription =
                     (this.currentUser.username !== this.job.author.username) && (this.currentUserType === 'client');
                 this.cd.markForCheck();
@@ -83,6 +81,11 @@ export class DetailsComponent implements OnInit {
     
     onToggleFollowing(following: boolean) {
         this.job.author.following = following;
+    }
+
+    handleInscription(data: number) {
+        this.job.isInscripted = data;
+        console.log(this.job.isInscripted);
     }
 
 }

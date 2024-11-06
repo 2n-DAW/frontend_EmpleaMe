@@ -11,13 +11,6 @@
             <div class="flex justify-between items-center mb-2">
                 <h3 class="text-xl font-bold text-color1">{{job.name}}</h3>
                 <div>
-                    @if (canModify) {
-                        <app-favorite-button
-                            [job]="job"
-                            (toggle)="onToggleFavorite($event)"
-                            (click)="$event.stopPropagation()">
-                        </app-favorite-button>
-                    }
                     @if (canInscription === true) {
                         <app-inscription-button
                             class="pl-10"

@@ -28,11 +28,21 @@
                 <!-- Botón "My Posts" -->
                 <li class="nav-item">
                     <a
-                        [routerLink]="['/profile', profile.username]"
+                        [routerLink]="['/profile', profile.username, 'jobs']"
                         routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
                         [routerLinkActiveOptions]="{ exact: true }"
                         class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
                         Mis ofertas
+                    </a>
+                </li>
+                <!-- Botón "My inscriptions" -->
+                <li class="nav-item">
+                    <a
+                        [routerLink]="['/profile', profile.username, 'inscriptions']"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
+                        Mis inscripciones
                     </a>
                 </li>
                 <!-- Botón "Favorited Posts" -->

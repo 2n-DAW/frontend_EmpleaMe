@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
     this.userService.currentUserType.subscribe(
       (data) => {
         this.currentUserType = data;
-        console.log('UserType:', this.currentUserType);
+        // console.log('UserType:', this.currentUserType);
         this.cd.markForCheck();
          // indica a Angular que debe verificar el componente para ver si necesita actualizar la vista
       }

@@ -3,6 +3,7 @@ export * from './category.model';
 export * from './comment.model';
 export * from './contract.model';
 export * from './filters.model';
+export * from './inscription.model';
 export * from './job.model';
 export * from './profile.model';
 export * from './province.model';

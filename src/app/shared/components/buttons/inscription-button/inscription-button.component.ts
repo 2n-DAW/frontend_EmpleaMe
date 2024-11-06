@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Job } from '../../../../core/models';
 import { InscriptionService } from '../../../../core/services/';
 
 @Component({
@@ -17,18 +18,16 @@ export class InscriptionButtonComponent {
         private router: Router,
     ) {}
 
-    @Input() slug!: string;
+    @Input() job!: Job;
     @Input() user_email!: string;
     @Input() currentUserType!: String;
     @Input() isAuthenticated!: boolean;
-    // @Output() inscription = new EventEmitter<boolean>();
-    //! isInscripted debe de ser un input de details, que con el clic actualizaremos
-    isIncripted = false;
+    @Output() isInscripted = new EventEmitter<number>();
     isSubmitting = false;
 
     inscriptionMode() {
         // Prevent multiple submissions
-        if (this.isSubmitting || this.isIncripted) {
+        if (this.isSubmitting || this.job.isInscripted !== 0) {
             return;
         }
 
@@ -40,20 +39,17 @@ export class InscriptionButtonComponent {
             return;
         }
 
-        const inscriptionData = { job: this.slug, user_email: this.user_email };
-        console.log(inscriptionData);
-        // return;
+        const inscriptionData = { job: this.job.slug, user_email: this.user_email };
 
         const inscriptionObservable = this.currentUserType === 'client' 
-            ? this.inscriptionService.createInsciption(inscriptionData)
-            : this.inscriptionService.updateInsciption(inscriptionData);
+            ? this.inscriptionService.createInscription(inscriptionData)
+            : this.inscriptionService.updateInscription(inscriptionData);
         
         inscriptionObservable.subscribe(
             data => {
-                console.log(data);
+                console.log('Inscription done:', data);
                 this.isSubmitting = false;
-                this.isIncripted = true;
-                // this.inscription.emit(true);
+                this.isInscripted.emit(1);
             },
             err => {
                 console.error(err);

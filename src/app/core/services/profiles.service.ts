@@ -19,6 +19,11 @@ export class ProfilesService {
       .pipe(map((data: { profile: Profile }) => data.profile));
   }
 
+  getInscriptionUser(userEmail: string): Observable<Profile> {
+    return this.apiService.get(`/profiles/user_email`, userEmail)
+      .pipe(map((data: { profile: Profile }) => data.profile));
+  }
+
   follow(username: string): Observable<Profile> {
     return this.apiService.post(`/profiles/${username}/follow`);
   }

@@ -8,9 +8,13 @@ const profileRoutes: Routes = [
     resolve: { profile: ProfileResolver },
     children: [
       {
-        path: '',
+        path: 'jobs',
         loadComponent: () => import('./ui/profile-jobs/profile-jobs.component').then(c => c.ProfileJobsComponent),
 
+      },
+      {
+        path: 'inscriptions',
+        loadComponent: () => import('./ui/profile-inscriptions/profile-inscriptions.component').then(c => c.ProfileInscriptionsComponent),
       },
       {
         path: 'favorites',
