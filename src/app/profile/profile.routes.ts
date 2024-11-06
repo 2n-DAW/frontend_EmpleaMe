@@ -41,7 +41,7 @@ const profileRoutes: Routes = [
         path: 'following',
         // outlet: 'users',
         loadComponent: () => import('./ui/profile-following/profile-following.component').then(c => c.ProfileFollowingComponent),
-      }
+      },
     ]
   },
 

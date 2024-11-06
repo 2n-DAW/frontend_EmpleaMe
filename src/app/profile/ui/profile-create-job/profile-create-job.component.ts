@@ -10,5 +10,4 @@ import { JobFormComponent } from '../../../shared/components/job-form/job-form.c
   styleUrl: './profile-create-job.component.css',
 })
 export class ProfileCreateJobComponent {
-
 }

@@ -47,10 +47,9 @@ export class JobService {
         return this.apiService.get(`/profiles/${userId}/likes`);
     }
 
-    // CREATE
-    // create_job(product: Job): Observable<Job[]> {
-    //     return this.http.post<Job[]>(URL, product);
-    // }
+    createJob(job: Job): Observable<Job> {
+        return this.apiService.post('/jobs', { job });
+    }
 
     // UPDATE ONE
     // update_job(product: Job, slug: String): Observable<Job[]> {

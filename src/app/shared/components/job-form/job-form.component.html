@@ -1,1 +1,119 @@
-<p>job-form works!</p>
+<div class="auth-page pt-4">
+    <div class="container page max-w-2xl mx-auto">
+        <div class="w-full">
+            <h1 class="text-lg text-color1 font-bold py-2">Crear Trabajo</h1>
+            <form autocomplete="on" [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+                <fieldset [disabled]="isSubmitting">
+
+                    <!-- Nombre del Trabajo -->
+                    <fieldset class="form-group mb-2.5">
+                        <input formControlName="name" placeholder="Nombre del trabajo"
+                            class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                            type="text" required />
+                        <div *ngIf="isFieldInvalid('name')" class="text-red-500 text-sm">
+                            {{ getErrorMessage('name') }}
+                        </div>
+                    </fieldset>
+
+                    <!-- Tipo de Contrato y Salario-->
+                    <div class="flex space-x-4">
+                        <fieldset class="form-group w-1/2 mb-2.5 relative">
+                            <select formControlName="id_contract"
+                                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                                required>
+                                <option value="" disabled selected>Seleccione tipo de contrato</option>
+                                <option *ngFor="let contract of listContracts" [value]="contract.id_contract">
+                                    {{ contract.contract_name }}
+                                </option>
+                            </select>
+                            <div *ngIf="isFieldInvalid('id_contract')" class="text-red-500 text-sm">
+                                {{ getErrorMessage('id_contract') }}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group w-1/2 mb-2.5">
+                            <input formControlName="salary" placeholder="Salario"
+                                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                                type="number" required />
+                            <div *ngIf="isFieldInvalid('salary')" class="text-red-500 text-sm">
+                                {{ getErrorMessage('salary') }}
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- Jornada Laboral y Provincia -->
+                    <div class="flex space-x-4">
+                        <fieldset class="form-group w-1/2 mb-2.5 relative">
+                            <select formControlName="id_workingDay"
+                                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                                required>
+                                <option value="" disabled selected>Seleccione jornada laboral</option>
+                                <option *ngFor="let day of listWorkingDays" [value]="day.id_workingDay">
+                                    {{ day.workingDay_name }}
+                                </option>
+                            </select>
+                            <div *ngIf="isFieldInvalid('id_workingDay')" class="text-red-500 text-sm">
+                                {{ getErrorMessage('id_workingDay') }}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group w-1/2 mb-2.5 relative">
+                            <select formControlName="id_province"
+                                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                                required>
+                                <option value="" disabled selected>Seleccione provincia</option>
+                                <option *ngFor="let province of listProvinces" [value]="province.id_province">
+                                    {{ province.province_name }}
+                                </option>
+                            </select>
+                            <div *ngIf="isFieldInvalid('id_province')" class="text-red-500 text-sm">
+                                {{ getErrorMessage('id_province') }}
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- Categoría -->
+                    <fieldset class="form-group mb-2.5 relative">
+                        <select formControlName="id_cat"
+                            class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                            required>
+                            <option value="" disabled selected>Seleccione categoría</option>
+                            <option *ngFor="let category of listCategories" [value]="category.id_cat">
+                                {{ category.category_name }}
+                            </option>
+                        </select>
+                        <div *ngIf="isFieldInvalid('id_cat')" class="text-red-500 text-sm">
+                            {{ getErrorMessage('id_cat') }}
+                        </div>
+                    </fieldset>
+
+                    <!-- Descripción -->
+                    <fieldset class="form-group mb-2.5">
+                        <textarea formControlName="description" placeholder="Descripción"
+                            class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                            rows="4" required></textarea>
+                        <div *ngIf="isFieldInvalid('description')" class="text-red-500 text-sm">
+                            {{ getErrorMessage('description') }}
+                        </div>
+                    </fieldset>
+
+                    <!-- Imagen destacada -->
+                    <fieldset class="form-group mb-2.5">
+                        <input formControlName="img" placeholder="Imagen destacada (URL)"
+                            class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                            type="text" required />
+                        <div *ngIf="isFieldInvalid('img')" class="text-red-500 text-sm">
+                            {{ getErrorMessage('img') }}
+                        </div>
+                    </fieldset>
+
+                    <!-- Botón de enviar -->
+                    <button class="bg-color3 text-white px-4 py-2 rounded-full hover:bg-color4 cursor-pointer w-full"
+                        [disabled]="isSubmitting" type="submit">
+                        <span class="text-base">Crear Trabajo</span>
+                    </button>
+                    </fieldset>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
