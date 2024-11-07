@@ -4,13 +4,41 @@
         [listProvinces]="listProvinces" (eventofiltros)="updateFilters($event)">
     </app-filters>
 
-    <div class="list-jobscontainer max-w-screen-xl mx-auto px-10 pb-2 flex mt-28" style="min-height: calc(100vh - 310px); padding-top: 35px">
+    <div class="list-jobscontainer max-w-screen-xl mx-auto px-10 pb-2 flex mt-28"
+        style="min-height: calc(100vh - 310px); padding-top: 35px">
         <div class="flex-1">
+
+
+
+            <ng-container *ngIf="jobs.length === 0">
+
+                <div class="block w-full cursor-pointer">
+                    <div class="w-full bg-white rounded-lg shadow-lg overflow-hidden p-6 mb-6 flex">
+                        <div class="w-20 h-20 mr-5 bg-gray-200 rounded-full flex items-center justify-center">
+                            <span class="text-gray-500">!</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-gray-600">No existen trabajos disponibles</h3>
+                            </div>
+
+                            <div class="block text-sm text-gray-500 mb-2">
+                                <p class="text-lg">No hemos encontrado ningún trabajo con las características
+                                    seleccionadas.</p>
+                                <p class="mt-2">Intenta ajustar los filtros o vuelve a buscar más tarde.</p>
+                            </div>
+
+                            <div class="text-sm text-gray-400 mt-4">
+                                <span>Explora otras categorías o modifica los criterios de búsqueda.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </ng-container>
+
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
-            <app-pagination
-                [jobCount]="jobCount"
-                [currentPage]="currentPage"
-                (pageChange)="updateFilters($event)">
+            <app-pagination [jobCount]="jobCount" [currentPage]="currentPage" (pageChange)="updateFilters($event)">
             </app-pagination>
         </div>
     </div>
@@ -31,6 +59,38 @@
 <ng-container *ngIf="mode === 1">
     <div class="profile-posts container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
         <div class="flex-1">
+            
+            <ng-container *ngIf="jobs.length === 0">
+
+                <div class="block w-full cursor-pointer">
+                    <div class="w-full bg-white rounded-lg shadow-lg overflow-hidden p-6 mb-6 flex">
+                        <div class="w-20 h-20 mr-5 bg-gray-200 rounded-full flex items-center justify-center">
+                            <span class="text-gray-500">!</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-gray-600">Aún no has creado ningún trabajo</h3>
+                            </div>
+
+                            <div class="block text-sm text-gray-500 mb-2">
+                                <p class="text-lg">A que esperas? ¡Hay miles de candidatos esperando!</p>
+                            </div>
+
+                            <div class="text-sm text-gray-400 mt-4">
+                                <span>Establece el perfil de trabajador que deseas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </ng-container>
+            
+            
+            
+            
+            
+            
+            
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
         </div>
     </div>
@@ -39,6 +99,36 @@
 <!-- List Profile Favorites -->
 <ng-container *ngIf="mode === 2">
     <div class="profile-favorites container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
+        
+        
+        
+        <ng-container *ngIf="jobs.length === 0">
+
+            <div class="block w-full cursor-pointer">
+                <div class="w-full bg-white rounded-lg shadow-lg overflow-hidden p-6 mb-6 flex">
+                    <div class="w-20 h-20 mr-5 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500">!</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-gray-600">Aún no le has dado like a nada</h3>
+                        </div>
+
+                        <div class="block text-sm text-gray-500 mb-2">
+                            <p class="text-lg">Seguro que hay algun trabajo que te gusta o que estas interesado</p>
+                            <p class="mt-2">Los likes tambien es una forma de guardar ofertas para verlas más tarde</p>
+                        </div>
+
+                        <div class="text-sm text-gray-400 mt-4">
+                            <span>¿A que esperas? Empieza a explorar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </ng-container>
+
+        
         <div class="flex-1">
             <app-card-job *ngFor="let job of jobs" [job]="job" [listProvinces]="listProvinces"></app-card-job>
         </div>

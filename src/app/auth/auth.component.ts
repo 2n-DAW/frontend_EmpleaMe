@@ -56,17 +56,21 @@ export class AuthComponent implements OnInit {
 
 	submitForm() {
 		this.isSubmitting = true;
-		this.authForm.markAllAsTouched(); //! No funciona
-
+		this.authForm.markAllAsTouched();
+	
 		if (this.authForm.valid) {
-			const credentials = this.authForm.value;
-
+			const data = this.authForm.value;
+	
 			if (this.authType === 'register') {
-				delete credentials.confirmPassword; 
+				delete data.confirmPassword; // Eliminar confirmPassword antes de enviar
 			}
-
-			this.userService.attemptAuth(this.authType, credentials).subscribe(
+		
+			// Mostrar los datos del usuario antes de enviarlos
+			console.log('Datos del formulario a enviar:', data);
+	
+			this.userService.attemptAuth(this.authType, data).subscribe(
 				(dataUser) => {
+					console.log('DataUser', dataUser);
 					console.log(this.authType === 'login' ? 'Login' : 'Register', dataUser);
 					this.router.navigateByUrl(this.authType === 'login' ? '/home' : '/login');
 				},
@@ -81,6 +85,7 @@ export class AuthComponent implements OnInit {
 			this.isSubmitting = false;
 		}
 	}
+	
 
 	isFieldInvalid(fieldName: string): boolean | null {
 		const field = this.authForm.get(fieldName);
