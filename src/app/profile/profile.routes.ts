@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { ProfileResolver } from '../core/services/profile-resolver.service';
+import { ClientGuard } from '../core/guards/client/client-guard.service';
+import { CompanyGuard } from '../core/guards/company/company-guard.service';
+import { NoRecruiterGuard } from '../core/guards/recruit/no-recruiter-guard.service';
 
 const profileRoutes: Routes = [
   {
@@ -10,11 +13,12 @@ const profileRoutes: Routes = [
       {
         path: 'jobs',
         loadComponent: () => import('./ui/profile-jobs/profile-jobs.component').then(c => c.ProfileJobsComponent),
-
+        canActivate: [CompanyGuard]
       },
       {
         path: 'create-job',
         loadComponent: () => import('./ui/profile-create-job/profile-create-job.component').then(c => c.ProfileCreateJobComponent),
+        canActivate: [CompanyGuard]
       },
       {
         path: 'pending-inscriptions',
@@ -31,16 +35,19 @@ const profileRoutes: Routes = [
       {
         path: 'favorites',
         loadComponent: () => import('./ui/profile-likes/profile-likes.component').then(c => c.ProfileLikesComponent),
+        canActivate: [NoRecruiterGuard]
       },
       {
         path: 'followers',
         // outlet: 'users',
         loadComponent: () => import('./ui/profile-followers/profile-followers.component').then(c => c.ProfileFollowersComponent),
+        canActivate: [NoRecruiterGuard]
       },
       {
         path: 'following',
         // outlet: 'users',
         loadComponent: () => import('./ui/profile-following/profile-following.component').then(c => c.ProfileFollowingComponent),
+        canActivate: [NoRecruiterGuard]
       },
     ]
   },

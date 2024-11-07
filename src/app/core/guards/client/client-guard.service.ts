@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Observable } from 'rxjs';
 
 import { UserService } from '../../services/user.service';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
 export class ClientGuard implements CanActivate {
     constructor(
         private router: Router,
-        private UserService: UserService
+        private userService: UserService
     ) {}
 
     // verifica si el usuario puede activar una ruta
@@ -20,9 +20,15 @@ export class ClientGuard implements CanActivate {
         state: RouterStateSnapshot
     ): Observable<boolean> {
 
-        return this.UserService.isAuthenticated.pipe(take(1));
-        // take(1): Toma el primer valor que emite el observable isAuthenticated y luego completa
-        // Esto asegura que solo observamos el estado de autenticación una vez y luego nos desconectamos del observable
-        // Deja acceder a las rutas cuando el usuario está autenticado
+        return this.userService.currentUserType.pipe(
+            take(1),  // Toma el primer valor emitido
+            map(userType => {
+                if (userType === 'client') {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+        );
     }
 }

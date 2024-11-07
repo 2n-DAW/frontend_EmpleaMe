@@ -22,11 +22,8 @@ export class NoAuthGuard implements CanActivate {
 
         return this.userService.isAuthenticated.pipe(take(1), map(isAuth => !isAuth));
         // take(1): Toma el primer valor que emite el observable isAuthenticated y luego completa
-        //     Esto asegura que solo observamos el estado de autenticación una vez y luego nos desconectamos del observable
-
-        // map(isAuth => !isAuth): Se utiliza para invertir el valor de isAuth.
-        //     Si isAuth true el guard devolverá false. Si isAuth es false, el guard devolverá true
-
-        // resumen: deja acceder a las rutas cuando el usuario no está autenticado
+        // Esto asegura que solo observamos el estado de autenticación una vez y luego nos desconectamos del observable
+        // map(isAuth => !isAuth): Invierte el valor de isAuth.
+        // Deja acceder a las rutas cuando el usuario no está autenticado
     }
 }
