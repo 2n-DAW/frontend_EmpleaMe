@@ -1,71 +1,105 @@
 <div class="auth-page mt-28 mb-10 pt-4">
-    <div class="container page">
-      <div class="row flex justify-center">
-        <div class="w-full max-w-md">
-          <h1 class="text-lg text-color1 font-bold py-2">{{ title }}</h1>
-          <p class="text-color8 pb-2">
-            @if (authType === 'register') {
-              <a
-                [routerLink]="['/login']">
-                  ¿Tienes una cuenta?
-              </a>
-            }
-            @if (authType === 'login') {
-              <a
-                [routerLink]="['/register']">
-                  ¿Necesitas una cuenta?
-              </a>
-            }
-          </p>
-          <!-- <app-list-errors [errors]="errors"></app-list-errors> -->
-          <form autocomplete="on" [formGroup]="authForm" (ngSubmit)="submitForm()">
-            <fieldset [disabled]="isSubmitting">
-                @if (authType === 'register') {
-                  <fieldset class="form-group mb-2.5">
-                    <select
-                      formControlName="userType"
-                      class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3">
-                      <option value="" disabled selected>Selecciona tipo de usuario</option>
-                      <option value="client">Client</option>
-                      <option value="company">Company</option>
-                      <option value="recruiter">Recruiter</option>
-                    </select>
-                  </fieldset>
-                  <fieldset class="form-group mb-2.5">
-                    <input
-                    formControlName="username"
-                    placeholder="Nombre de usuario"
-                    class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
-                    type="text"
-                    autocomplete="username"/>
-                  </fieldset>
-                }
-              <fieldset class="form-group mb-2.5">
-                <input
-                  formControlName="email"
-                  placeholder="Email"
-                  class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
-                  type="email"
-                  autocomplete="email"/>
-              </fieldset>
-              <fieldset class="form-group mb-3">
-                <input
-                  formControlName="password"
-                  placeholder="Contraseña"
-                  class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
-                  type="password"
-                  autocomplete="new-password"/>
-              </fieldset>
-              <button
-                class="bg-color3 text-white px-4 py-2 rounded-full hover:bg-color4 cursor-pointer"
-                style="box-shadow: inset 0 0 10px rgba(67, 67, 67, 0.15);"
-                [disabled]="!authForm.valid" type="submit">
-                  <span class="text-base">{{ title }}</span>
-              </button>
+  <div class="container page">
+    <div class="row flex justify-center">
+      <div class="w-full max-w-md">
+        <h1 class="text-lg text-color1 font-bold py-2">{{ title }}</h1>
+        <p class="text-color8 pb-2">
+          <span *ngIf="authType === 'register'">
+            <a [routerLink]="['/login']">¿Tienes una cuenta?</a>
+          </span>
+          <span *ngIf="authType === 'login'">
+            <a [routerLink]="['/register']">¿Necesitas una cuenta?</a>
+          </span>
+        </p>
+
+        <form autocomplete="on" [formGroup]="authForm" (ngSubmit)="submitForm()">
+          <fieldset [disabled]="isSubmitting">
+
+            <!-- Nombre de usuario (solo para registro) -->
+            <fieldset *ngIf="authType === 'register'" class="form-group mb-2.5">
+              <input
+                formControlName="username"
+                placeholder="Nombre de usuario"
+                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                type="text"
+                autocomplete="username"
+              />
+              <div *ngIf="isFieldInvalid('username')" class="text-red-500 text-sm">
+                {{ getErrorMessage('username') }}
+              </div>
             </fieldset>
-          </form>
-        </div>
+
+            <!-- Email -->
+            <fieldset class="form-group mb-2.5">
+              <input
+                formControlName="email"
+                placeholder="Email"
+                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                type="email"
+                autocomplete="email"
+              />
+              <div *ngIf="isFieldInvalid('email')" class="text-red-500 text-sm">
+                {{ getErrorMessage('email') }}
+              </div>
+            </fieldset>
+
+            <!-- Contraseña -->
+            <fieldset class="form-group mb-2.5">
+              <input
+                formControlName="password"
+                placeholder="Contraseña"
+                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                type="password"
+                autocomplete="new-password"
+              />
+              <div *ngIf="isFieldInvalid('password')" class="text-red-500 text-sm">
+                {{ getErrorMessage('password') }}
+              </div>
+            </fieldset>
+
+            <!-- Repetir Contraseña (solo para registro) -->
+            <fieldset *ngIf="authType === 'register'" class="form-group mb-3">
+              <input
+                formControlName="confirmPassword"
+                placeholder="Repetir Contraseña"
+                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+                type="password"
+                autocomplete="new-password"
+              />
+              <div *ngIf="isFieldInvalid('confirmPassword')" class="text-red-500 text-sm">
+                {{ getErrorMessage('confirmPassword') }}
+              </div>
+            </fieldset>
+
+            <!-- Tipo de usuario (solo para registro) -->
+            <fieldset *ngIf="authType === 'register'" class="form-group mb-2.5">
+              <select
+                formControlName="userType"
+                class="form-control form-control-lg w-full text-base shadow-sm focus:outline-none focus:border-color3 focus:ring-1 focus:ring-color3"
+              >
+                <option value="" disabled selected>Selecciona tipo de usuario</option>
+                <option value="client">Client</option>
+                <option value="company">Company</option>
+                <option value="recruiter">Recruiter</option>
+              </select>
+              <div *ngIf="isFieldInvalid('userType')" class="text-red-500 text-sm">
+                {{ getErrorMessage('userType') }}
+              </div>
+            </fieldset>
+
+            <!-- Botón de envío -->
+            <button
+              class="bg-color3 text-white px-4 py-2 rounded-full hover:bg-color4 cursor-pointer"
+              style="box-shadow: inset 0 0 10px rgba(67, 67, 67, 0.15);"
+              [disabled]="!authForm.valid"
+              type="submit"
+            >
+              <span class="text-base">{{ title }}</span>
+            </button>
+
+          </fieldset>
+        </form>
       </div>
     </div>
   </div>
-  
+</div>
