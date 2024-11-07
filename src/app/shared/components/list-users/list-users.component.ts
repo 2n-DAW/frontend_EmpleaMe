@@ -4,11 +4,12 @@ import { ProfilesService } from '../../../core/services';
 import { User } from '../../../core/models';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-users',
   standalone: true,
-  imports: [CardUserComponent, InfiniteScrollDirective],
+  imports: [CardUserComponent, InfiniteScrollDirective, CommonModule],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.css'
 })
