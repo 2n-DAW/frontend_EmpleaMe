@@ -14,7 +14,7 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 export class ListCategoriesComponent implements OnInit {
 
   offset = 0;
-  limit = 4;
+  limit = 12;
   categories: Category[] = [];
 
   constructor(private CategoryService: CategoryService) { }
