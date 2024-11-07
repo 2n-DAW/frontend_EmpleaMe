@@ -5,6 +5,13 @@ import { provideHttpClient } from '@angular/common/http'; // Importa HttpClient 
 import { CoreModule } from './core/core.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // Importa el módulo Core
 
+// Importa el idioma español
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+// Registra el idioma español
+registerLocaleData(localeEs, 'es');
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -13,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimationsAsync(),
     provideAnimationsAsync(), // Agrega HttpClient como proveedor
+    { provide: LOCALE_ID, useValue: 'es' }
   ]
 };
