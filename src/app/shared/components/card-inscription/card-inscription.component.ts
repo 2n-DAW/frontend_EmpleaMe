@@ -22,9 +22,8 @@ export class CardInscriptionComponent implements OnInit{
   isAuthenticated!: boolean;
   currentUserType!: String;
   currentRoute: string = '';
-  // jobs: Job[] = [];
-  job!: Job;
-  profile!: Profile;
+  job: Job = {} as Job;
+  inscriptedUserProfile!: Profile;
   canModify!: boolean;
   canInscription!: boolean;
 
@@ -38,16 +37,36 @@ export class CardInscriptionComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    console.log(this.inscription);
+    console.log('Inscription', this.inscription);
+
+    this.jobService.getJob(this.inscription.job).subscribe(
+      (data: any) => {
+        this.job = data.job;
+        console.log('Job', this.job);
+        this.cd.detectChanges();
+      });
+
+    this.route.url.subscribe(urlSegments => {
+      this.currentRoute = urlSegments[urlSegments.length - 1].path;
+      console.log('Route', this.currentRoute);
+      this.cd.markForCheck();
+    });
 
     this.userService.currentUser.subscribe(
         (userData: User) => {
             this.currentUser = userData;
-            console.log(this.currentUser);
+            console.log('Current User', this.currentUser);
             this.user_email = this.currentUser.email;
             this.cd.markForCheck();
         }
     );
+
+    this.profilesService.getInscriptedUser(this.user_email).subscribe(
+      (data: any) => {
+        this.inscriptedUserProfile = data;
+        console.log('Inscripted User Profile', data);
+        this.cd.detectChanges();
+      });
 
     this.userService.isAuthenticated.subscribe(
         (data: any) => {
@@ -56,10 +75,12 @@ export class CardInscriptionComponent implements OnInit{
         }
     );
 
-    this.userService.currentUserType.subscribe(
+    setTimeout(() => {
+      this.userService.currentUserType.subscribe(
         (userType: String) => {
             this.currentUserType = userType;
-            console.log(this.currentUserType)
+            console.log('Current User Type', this.currentUserType)
+            console.log('Job Author', this.job.author.username)
             this.canModify =
                 (this.currentUser.username !== this.job.author.username) &&
                 ((this.currentUserType === 'client') || (this.currentUserType === 'company'));
@@ -67,29 +88,13 @@ export class CardInscriptionComponent implements OnInit{
                 (this.currentUser.username !== this.job.author.username) && (this.currentUserType === 'client');
             this.cd.markForCheck();
         }
-    );
-
-    this.route.url.subscribe(urlSegments => {
-      this.currentRoute = urlSegments[urlSegments.length - 1].path;
-      console.log(this.currentRoute);
-    });
-
-    this.jobService.getJob(this.inscription.job).subscribe(
-      (data: any) => {
-        this.job = data.job;
-        console.log(this.job);
-      });
-
-      this.profilesService.getInscriptionUser(this.user_email).subscribe(
-        (data: any) => {
-          this.profile = data;
-          console.log(data);
-        });
+      );
+    }, 50);
   }
 
-  goToDetails(slug: string) {
-      this.router.navigate(['/details', slug]);
-  }
+  // goToDetails(slug: string) {
+  //     this.router.navigate(['/details', slug]);
+  // }
 
   handleInscription(data: number) {
       this.job.isInscripted = data;
