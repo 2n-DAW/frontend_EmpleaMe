@@ -9,7 +9,7 @@
             [ngClass]="{'scale-110': isSubmitting}"/>
 
         <span class="text-sm text-color8 bg-gray-100 px-2.5 py-1 rounded-2xl ml-1">
-            {{ job.isInscripted === 1 || job.isInscripted === 2 ? 'Inscrito' : 'Inscríbete' }}
+            {{ getInscriptedStatus() }}
         </span>
     }
 </div>

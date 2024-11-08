@@ -51,4 +51,19 @@ export class InscriptionButtonComponent {
             }
         );
     }
+
+    getInscriptedStatus(): string {
+        switch (this.job.isInscripted) {
+            case -1:
+                return 'Rechazado';
+            case 1:
+                return 'Inscrito';
+            case 2:
+                return 'Aceptado. Pendiente revisión de empresa';
+            case 3:
+                return 'Aceptado';
+            default:
+                return 'Inscríbete';
+        }
+    }
 }

@@ -4,20 +4,40 @@
             {{ getInscriptedStatus() }}
         </span>
 
-        <div class="pl-2 cursor-pointer hover:scale-110 duration-200 ease-in-out" (click)="updateInscription(status)">
-            <img 
-                src="icons/aceptar.png" 
-                alt="Accept inscription" 
-                class="w-7 h-7 transition-transform duration-200 ease-in-out" 
-                [ngClass]="{'scale-115': isSubmitting}"/>
-        </div>
+        @if (job.isInscripted === 0) {
+            <div class="pl-2 cursor-pointer hover:scale-110 duration-200 ease-in-out" (click)="updateInscription(status)">
+                <img 
+                    src="icons/aceptar.png" 
+                    alt="Accept inscription" 
+                    class="w-7 h-7 transition-transform duration-200 ease-in-out" 
+                    [ngClass]="{'scale-115': isSubmitting}"/>
+            </div>
+    
+            <div class="pl-2 cursor-pointer hover:scale-110 duration-200 ease-in-out" (click)="updateInscription(-1)">
+                <img 
+                    src="icons/eliminar.png" 
+                    alt="Deny inscription" 
+                    class="w-7 h-7 transition-transform duration-200 ease-in-out" 
+                    [ngClass]="{'scale-115': isSubmitting}"/>
+            </div>
+        }
+        
+        @if (job.isInscripted === 2 || job.isInscripted === 3) {
+            <div class="pl-2">
+                <img 
+                    src="icons/aceptar.png" 
+                    alt="Inscription accepted" 
+                    class="w-7 h-7" />
+            </div>
+        }
 
-        <div class="pl-2 cursor-pointer hover:scale-110 duration-200 ease-in-out" (click)="updateInscription(-1)">
-            <img 
-                src="icons/eliminar.png" 
-                alt="Deny inscription" 
-                class="w-7 h-7 transition-transform duration-200 ease-in-out" 
-                [ngClass]="{'scale-115': isSubmitting}"/>
-        </div>
+        @if (job.isInscripted === -1) {
+            <div class="pl-2">
+                <img 
+                    src="icons/eliminar.png" 
+                    alt="Inscription rejected" 
+                    class="w-7 h-7" />
+            </div>
+        }
     </div>
 }

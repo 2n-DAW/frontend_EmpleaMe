@@ -27,6 +27,8 @@ export class InscriptionValidationButtonComponent implements OnInit {
     status: number = 0;
 
     ngOnInit(): void {
+        console.log('InscriptionValidationButtonComponent', this.job.isInscripted);
+
         if (this.currentUserType === 'recruiter') {
             this.status = 2;
         }
@@ -70,7 +72,7 @@ export class InscriptionValidationButtonComponent implements OnInit {
             case 1:
                 return 'Seleccionar candidato';
             case 2:
-                return 'Aceptado';
+                return 'Aceptado. Pendiente revisión de empresa';
             case 3:
                 return 'Aceptado';
             default:
