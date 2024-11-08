@@ -21,11 +21,58 @@
             </div>
         </div>
 
-        @if (currentUser.username === profile.username) {
-            <!-- Navegación de las pestañas -->
-            <div class="container max-w-screen-xl flex mx-auto px-10 pt-2 pb-1.5">
-                <ul class="outline-active flex justify-center">
 
+        <!-- Navegación de las pestañas -->
+        <div class="container max-w-screen-xl flex mx-auto px-10 pt-2 pb-1.5">
+            <ul class="outline-active flex justify-center">
+                
+                <!-- Pestaña "My Comments" -->
+                <li class="nav-item">
+                    <a
+                        [routerLink]="['/profile', profile.username]"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
+                        Mis comentarios
+                    </a>
+                </li>
+
+                @if (currentUserType !== 'recruiter') {
+                    <!-- Pestaña "Favorited" -->
+                    <li class="nav-item">
+                        <a
+                            [routerLink]="['/profile', profile.username, 'favorites']"
+                            routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
+                            Favoritos
+                        </a>
+                    </li>
+                }
+
+                <!-- Pestaña "Followers" -->
+                <li class="nav-item">
+                    <a
+                        [routerLink]="['/profile', profile.username, 'followers']"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
+                        Seguidores
+                    </a>
+                </li>
+
+                <!-- Pestaña "Followings" -->
+                <li class="nav-item">
+                    <a
+                        [routerLink]="['/profile', profile.username, 'following']"
+                        routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
+                        Siguiendo
+                    </a>
+                </li>
+
+                @if (currentUser.username === profile.username) {
                     @if (currentUserType === 'company') {
                         <!-- Pestaña "My Jobs" -->
                         <li class="nav-item">
@@ -37,6 +84,7 @@
                                 Mis ofertas
                             </a>
                         </li>
+
                         <!-- Pestaña "Create Job" -->
                         <li class="nav-item">
                             <a
@@ -49,7 +97,7 @@
                         </li>
                     }
 
-
+                    <!------------------------------------------ Pestañas "Inscriptions" ------------------------------------------>
                     @if (currentUserType === 'client') {
                         @if (inscriptionStatusCounts[1] > 0 || inscriptionStatusCounts[2] > 0) {
                             <!-- Pestaña "Pending Inscriptions" -->
@@ -95,7 +143,6 @@
                         }
                     }
 
-
                     @if (currentUserType === 'client' || currentUserType === 'company') {
                         @if (inscriptionStatusCounts[3] > 0) {
                             <!-- Pestaña "Accepted Inscriptions" -->
@@ -139,43 +186,9 @@
                             </a>
                         </li>
                     }
-                    
-
-                    @if (currentUserType === 'client' || currentUserType === 'company') {
-                        <!-- Pestaña "Favorited" -->
-                        <li class="nav-item">
-                            <a
-                                [routerLink]="['/profile', profile.username, 'favorites']"
-                                routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
-                                [routerLinkActiveOptions]="{ exact: true }"
-                                class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
-                                Favoritos
-                            </a>
-                        </li>
-                        <!-- Pestaña "Followers" -->
-                        <li class="nav-item">
-                            <a
-                                [routerLink]="['/profile', profile.username, 'followers']"
-                                routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
-                                [routerLinkActiveOptions]="{ exact: true }"
-                                class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
-                                Seguidores
-                            </a>
-                        </li>
-                        <!-- Pestaña "Followings" -->
-                        <li class="nav-item">
-                            <a
-                                [routerLink]="['/profile', profile.username, 'following']"
-                                routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
-                                [routerLinkActiveOptions]="{ exact: true }"
-                                class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
-                                Siguiendo
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        }
+                }
+            </ul>
+        </div>
     </div>
     
     <!-- Contenido de las pestañas -->

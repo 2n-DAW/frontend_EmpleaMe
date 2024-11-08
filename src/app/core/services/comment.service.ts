@@ -26,4 +26,12 @@ export class CommentService {
   delete(slug: string, commentId: string): Observable<Comment> {
     return this.apiService.delete(`/${slug}/comments/${commentId}`);
   }
+
+  getCommentsByUser(username: string): Observable<Comment[]> {
+    return this.apiService.get(`/comments/username/${username}`);
+  }
+
+  deleteCommentById(commentId: any): Observable<Comment> {
+    return this.apiService.delete(`/comments/${commentId}`);
+  }
 }

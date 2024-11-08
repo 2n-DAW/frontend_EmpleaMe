@@ -11,9 +11,12 @@ const profileRoutes: Routes = [
     resolve: { profile: ProfileResolver },
     children: [
       {
+        path: '',
+        loadComponent: () => import('./ui/profile-comments/profile-comments.component').then(c => c.ProfileCommentsComponent),
+      },
+      {
         path: 'jobs',
         loadComponent: () => import('./ui/profile-jobs/profile-jobs.component').then(c => c.ProfileJobsComponent),
-        canActivate: [CompanyGuard]
       },
       {
         path: 'create-job',
@@ -41,18 +44,14 @@ const profileRoutes: Routes = [
         path: 'followers',
         // outlet: 'users',
         loadComponent: () => import('./ui/profile-followers/profile-followers.component').then(c => c.ProfileFollowersComponent),
-        canActivate: [NoRecruiterGuard]
       },
       {
         path: 'following',
         // outlet: 'users',
         loadComponent: () => import('./ui/profile-following/profile-following.component').then(c => c.ProfileFollowingComponent),
-        canActivate: [NoRecruiterGuard]
       },
     ]
   },
-
-
 ];
 
 export default profileRoutes;

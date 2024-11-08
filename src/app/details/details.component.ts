@@ -20,7 +20,8 @@ export class DetailsComponent implements OnInit {
     user_email!: string;
     isAuthenticated!: boolean;
     currentUserType!: String;
-    canModify!: boolean;
+    canModifyFavorite!: boolean;
+    canModifyFollow!: boolean;
     canInscription!: boolean;
 
     constructor(
@@ -58,9 +59,11 @@ export class DetailsComponent implements OnInit {
             (userType: String) => {
                 this.currentUserType = userType;
                 console.log(this.currentUserType);
-                this.canModify =
+                this.canModifyFavorite =
                     (this.currentUser.username !== this.job.author.username) &&
                     ((this.currentUserType === 'client') || (this.currentUserType === 'company'));
+                this.canModifyFollow =
+                    (this.currentUser.username !== this.job.author.username);
                 this.canInscription =
                     (this.currentUser.username !== this.job.author.username) && (this.currentUserType === 'client');
                 this.cd.markForCheck();

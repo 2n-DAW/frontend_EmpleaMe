@@ -14,7 +14,7 @@
                 <h3 class="relative text-2xl font-bold text-color1">{{ job.name }}</h3>
                 <!-- Botones para favoritos y inscripción -->
                 <div>
-                    @if (canModify === true) {
+                    @if (canModifyFavorite === true) {
                         <app-favorite-button
                             [job]="job"
                             (toggle)="onToggleFavorite($event)"
@@ -46,7 +46,7 @@
                         </a>
                     </strong>
                     <!-- Boton para seguir -->
-                    @if (canModify === true) {
+                    @if (canModifyFollow === true) {
                         <div class="pl-6">
                             <app-follow-button [profile]="job.author" (toggle)="onToggleFollowing($event)"></app-follow-button>
                         </div>
