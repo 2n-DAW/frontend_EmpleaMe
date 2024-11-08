@@ -4,12 +4,13 @@ import { Router, RouterLink, ActivatedRoute  } from '@angular/router';
 import { User, Job, Profile, InscriptionList } from '../../../core/models';
 import { UserService, JobService, ProfilesService } from '../../../core/services';
 import { InscriptionButtonComponent } from '../buttons/inscription-button/inscription-button.component';
+import { InscriptionValidationButtonComponent } from '../buttons/inscription-validation-button/inscription-validation-button.component';
 
 
 @Component({
   selector: 'app-card-inscription',
   standalone: true,
-  imports: [CommonModule, RouterLink, InscriptionButtonComponent],
+  imports: [CommonModule, RouterLink, InscriptionButtonComponent, InscriptionValidationButtonComponent],
   templateUrl: './card-inscription.component.html',
   styleUrl: './card-inscription.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,6 +39,7 @@ export class CardInscriptionComponent implements OnInit{
 
   ngOnInit(): void {
     console.log('Inscription', this.inscription);
+    this.user_email = this.inscription.user_email;
 
     this.jobService.getJob(this.inscription.job).subscribe(
       (data: any) => {
@@ -56,7 +58,6 @@ export class CardInscriptionComponent implements OnInit{
         (userData: User) => {
             this.currentUser = userData;
             console.log('Current User', this.currentUser);
-            this.user_email = this.currentUser.email;
             this.cd.markForCheck();
         }
     );
@@ -81,20 +82,15 @@ export class CardInscriptionComponent implements OnInit{
             this.currentUserType = userType;
             console.log('Current User Type', this.currentUserType)
             console.log('Job Author', this.job.author.username)
-            this.canModify =
-                (this.currentUser.username !== this.job.author.username) &&
-                ((this.currentUserType === 'client') || (this.currentUserType === 'company'));
             this.canInscription =
                 (this.currentUser.username !== this.job.author.username) && (this.currentUserType === 'client');
+            this.canModify =
+                ((this.currentUserType === 'company') || (this.currentUserType === 'recruiter'));
             this.cd.markForCheck();
         }
       );
     }, 50);
   }
-
-  // goToDetails(slug: string) {
-  //     this.router.navigate(['/details', slug]);
-  // }
 
   handleInscription(data: number) {
       this.job.isInscripted = data;

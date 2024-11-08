@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Inscription, InscriptionList } from '../models/inscription.model';
+import { Inscription, UpdateInscription, InscriptionList } from '../models/inscription.model';
 import { ApiService, UserService } from './';
 
 
@@ -20,14 +20,14 @@ export class InscriptionService {
         return this.apiService.postFromBaseUrl(`/inscription/`, this.userType, { inscription: inscription });
     }
 
-    updateInscription(inscription: Inscription): Observable<Inscription[]> {
+    updateInscription(inscription: UpdateInscription): Observable<Inscription[]> {
         this.userType = this.userService.getCurrentTypeUser();
-        return this.apiService.putFromBaseUrl(`/inscription/`, this.userType, { inscription: inscription });
+        return this.apiService.putFromBaseUrl(`/inscription`, this.userType, { inscription: inscription });
     }
 
     getInscriptions(): Observable<InscriptionList[]> {
         this.userType = this.userService.getCurrentTypeUser();
-        return this.apiService.getFromBaseUrl(`/inscription/`, this.userType);
+        return this.apiService.getFromBaseUrl(`/inscription`, this.userType);
     }
 
     // DELETE ONE

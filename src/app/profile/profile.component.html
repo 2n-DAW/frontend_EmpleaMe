@@ -49,8 +49,24 @@
                         </li>
                     }
 
-                    @if (currentUserType === 'client' || currentUserType === 'recruiter') {
-                        @if (inscriptionsStatus1Count !== 0) {
+
+                    @if (currentUserType === 'client') {
+                        @if (inscriptionStatusCounts[1] > 0 || inscriptionStatusCounts[2] > 0) {
+                            <!-- Pestaña "Pending Inscriptions" -->
+                            <li class="nav-item">
+                                <a
+                                    [routerLink]="['/profile', profile.username, 'pending-inscriptions']"
+                                    routerLinkActive="!bg-color13 !text-color9 border-l border-t border-r !border-color14 border-b !border-b-color13 shadow-inner"
+                                    [routerLinkActiveOptions]="{ exact: true }"
+                                    class="py-2 px-4 bg-color3 text-white hover:bg-color4 rounded-t-2xl !border-l !border-r border-color13 transition-all">
+                                    Insc. pendientes
+                                </a>
+                            </li>
+                        }
+                    }
+
+                    @if (currentUserType === 'recruiter') {
+                        @if (inscriptionStatusCounts[1] > 0) {
                             <!-- Pestaña "Pending Inscriptions" -->
                             <li class="nav-item">
                                 <a
@@ -65,7 +81,7 @@
                     }
 
                     @if (currentUserType === 'company') {
-                        @if (inscriptionsStatus2Count !== 0) {
+                        @if (inscriptionStatusCounts[2] > 0) {
                             <!-- Pestaña "Pending Inscriptions" -->
                             <li class="nav-item">
                                 <a
@@ -79,8 +95,9 @@
                         }
                     }
 
+
                     @if (currentUserType === 'client' || currentUserType === 'company') {
-                        @if (inscriptionsStatus3Count !== 0) {
+                        @if (inscriptionStatusCounts[3] > 0) {
                             <!-- Pestaña "Accepted Inscriptions" -->
                             <li class="nav-item">
                                 <a
@@ -95,7 +112,7 @@
                     }
 
                     @if (currentUserType === 'recruiter') {
-                        @if (inscriptionsStatus2Count !== 0 || inscriptionsStatus3Count !== 0) {
+                        @if (inscriptionStatusCounts[2] > 0 || inscriptionStatusCounts[3] > 0) {
                             <!-- Pestaña "Accepted Inscriptions" -->
                             <li class="nav-item">
                                 <a
@@ -109,7 +126,8 @@
                         }
                     }
 
-                    @if (inscriptionsStatus_1Count !== 0) {
+
+                    @if (inscriptionStatusCounts[-1] > 0) {
                     <!-- Pestaña "Rejected Inscriptions" -->
                         <li class="nav-item">
                             <a
@@ -121,6 +139,7 @@
                             </a>
                         </li>
                     }
+                    
 
                     @if (currentUserType === 'client' || currentUserType === 'company') {
                         <!-- Pestaña "Favorited" -->

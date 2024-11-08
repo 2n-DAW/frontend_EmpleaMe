@@ -25,7 +25,7 @@ export class InscriptionButtonComponent {
     @Output() isInscripted = new EventEmitter<number>();
     isSubmitting = false;
 
-    inscriptionMode() {
+    createInscription() {
         // Prevent multiple submissions
         if (this.isSubmitting || this.job.isInscripted !== 0) {
             return;
@@ -38,14 +38,8 @@ export class InscriptionButtonComponent {
             this.isSubmitting = false;
             return;
         }
-
-        const inscriptionData = { job: this.job.slug, user_email: this.user_email };
-
-        const inscriptionObservable = this.currentUserType === 'client' 
-            ? this.inscriptionService.createInscription(inscriptionData)
-            : this.inscriptionService.updateInscription(inscriptionData);
         
-        inscriptionObservable.subscribe(
+        this.inscriptionService.createInscription({ job: this.job.slug, user_email: this.user_email }).subscribe(
             data => {
                 console.log('Inscription done:', data);
                 this.isSubmitting = false;
@@ -56,38 +50,5 @@ export class InscriptionButtonComponent {
                 this.isSubmitting = false;
             }
         );
-
-        // if (this.currentUserType === 'client') {
-        //     return this.inscriptionService.createInsciption({job: this.slug, user_email: this.user_email, status: 1})
-        //         .subscribe(
-        //             data => {
-        //                 console.log(data);
-        //                 this.isSubmitting = false;
-        //                 this.inscription.emit(true);
-        //             },
-        //             err => {
-        //                 console.log(err);
-        //                 this.isSubmitting = false;
-        //             }
-        //     );
-        // }
-
-        // if (this.currentUserType === 'company') this.status = 2;
-        // if (this.currentUserType === 'recruiter') this.status = 3;
-
-        // if (this.currentUserType === 'company' || this.currentUserType === 'recruiter') {
-        //     return this.inscriptionService.updateInsciption({job: this.slug, user_email: this.user_email, status: this.status})
-        //         .subscribe(
-        //             data => {
-        //                 console.log(data);
-        //                 this.isSubmitting = false;
-        //                 this.inscription.emit(true);
-        //             },
-        //             err => {
-        //                 console.log(err);
-        //                 this.isSubmitting = false;
-        //             }
-        //     );
-        // }
     }
 }

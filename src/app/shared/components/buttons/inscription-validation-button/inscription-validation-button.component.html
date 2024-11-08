@@ -1,0 +1,23 @@
+@if (currentUserType === 'company' || currentUserType === 'recruiter') {
+    <div class="inline-flex items-center">
+        <span class="text-sm text-color8 bg-gray-100 px-2.5 py-1 rounded-2xl">
+            {{ getInscriptedStatus() }}
+        </span>
+
+        <div class="pl-2 cursor-pointer hover:scale-110 duration-200 ease-in-out" (click)="updateInscription(status)">
+            <img 
+                src="icons/aceptar.png" 
+                alt="Accept inscription" 
+                class="w-7 h-7 transition-transform duration-200 ease-in-out" 
+                [ngClass]="{'scale-115': isSubmitting}"/>
+        </div>
+
+        <div class="pl-2 cursor-pointer hover:scale-110 duration-200 ease-in-out" (click)="updateInscription(-1)">
+            <img 
+                src="icons/eliminar.png" 
+                alt="Deny inscription" 
+                class="w-7 h-7 transition-transform duration-200 ease-in-out" 
+                [ngClass]="{'scale-115': isSubmitting}"/>
+        </div>
+    </div>
+}

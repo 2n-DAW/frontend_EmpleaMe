@@ -18,6 +18,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FollowButtonComponent } from './components/buttons/follow-button/follow-button.component';
 import { FavoriteButtonComponent } from './components/buttons/favorite-button/favorite-button.component';
 import { InscriptionButtonComponent } from './components/buttons/inscription-button/inscription-button.component';
+import { InscriptionValidationButtonComponent } from './components/buttons/inscription-validation-button/inscription-validation-button.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { InscriptionButtonComponent } from './components/buttons/inscription-but
     SearchComponent,
     FollowButtonComponent,
     FavoriteButtonComponent,
-    InscriptionButtonComponent
+    InscriptionButtonComponent,
+    InscriptionValidationButtonComponent,
   ],
   exports: [
     CommonModule,
@@ -57,7 +59,8 @@ import { InscriptionButtonComponent } from './components/buttons/inscription-but
     SearchComponent,
     FollowButtonComponent,
     FavoriteButtonComponent,
-    InscriptionButtonComponent
+    InscriptionButtonComponent,
+    InscriptionValidationButtonComponent,
   ],
 })
 export class SharedModule { }

@@ -1,13 +1,17 @@
 export interface Inscription {
     job: string;
     user_email: string;
-    // status: Number;
-    // createdAt: Date;
+}
+
+export interface UpdateInscription {
+    job: string;
+    user_email: string;
+    status: number;
 }
 
 export interface InscriptionList {
     job: string;
     user_email: string;
-    status: Number;
+    status: number;
     date: Date;
 }

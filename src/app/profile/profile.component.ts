@@ -24,10 +24,12 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   inscriptions: InscriptionList[] = [];
-  inscriptionsStatus_1Count: number = 0;
-  inscriptionsStatus1Count: number = 0;
-  inscriptionsStatus2Count: number = 0;
-  inscriptionsStatus3Count: number = 0;
+  inscriptionStatusCounts: { [key: number]: number } = {
+    [-1]: 0,
+    1: 0,
+    2: 0,
+    3: 0
+  };
   profile!: Profile;
   currentUser!: User;
   currentUserType!: String;
@@ -92,27 +94,24 @@ export class ProfileComponent implements OnInit {
 
   // Contar inscriptions por status
   inscriptionsStatusCont(inscriptions: InscriptionList[]): void {
+    // Reiniciar conteos
+    Object.keys(this.inscriptionStatusCounts).forEach(key => {
+      this.inscriptionStatusCounts[Number(key)] = 0;
+    });
+
     inscriptions.forEach(inscription => {
-      switch (inscription.status) {
-        case -1:
-          this.inscriptionsStatus_1Count++;
-          break;
-        case 1:
-          this.inscriptionsStatus1Count++;
-          break;
-        case 2:
-          this.inscriptionsStatus2Count++;
-          break;
-        case 3:
-          this.inscriptionsStatus3Count++;
-          break;
+      if (inscription.status in this.inscriptionStatusCounts) {
+        this.inscriptionStatusCounts[inscription.status]++;
       }
     });
-    console.log(this.inscriptionsStatus_1Count);
-    console.log(this.inscriptionsStatus1Count);
-    console.log(this.inscriptionsStatus2Count);
-    console.log(this.inscriptionsStatus3Count);
+
+    console.log('Conteos de estado de inscripciones:', this.inscriptionStatusCounts);
   }
+
+  // reloadPage() {
+  //   console.log(this.router.url.split('/').slice(1, 3).join('/'));
+  //   this.router.navigate([this.router.url.split('/').slice(1, 3).join('/')], { replaceUrl: true });
+  // }
 
   ngOnDestroy() {
     if (this.routerSubscription) {
