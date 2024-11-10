@@ -1,0 +1,420 @@
+<!------------------------------ Inscripciones pendientes de revisión ------------------------------>
+@if (currentRoute === 'pending-inscriptions') {
+
+    <!-------------------- Usuario tipo client -------------------->
+    @if (currentUserType === 'client') {
+        @if (inscription.status === 1 || inscription.status === 2) {
+            <div class="block w-full p-6 bg-white shadow-lg rounded-lg mb-6 flex flex-col">
+                <!-- Información del candidato e inscripción -->
+                <div class="block w-full flex flex-col md:flex-row justify-between border-b border-color10 pb-3">
+                    <div class="flex items-center md:mb-0">
+                        <!-- Imagen del candidato -->
+                        <div class="w-14 h-14 mr-5">
+                            <img  
+                                [src]="inscriptedUserProfile.image" 
+                                alt="imagen de {{inscriptedUserProfile.username}}"
+                                class="w-full h-full object-cover rounded-full" />
+                        </div>
+            
+                        <!-- Info del candidato -->
+                        <div class="block text-base text-color8">
+                            <span class="mb-2">Fecha de inscripción: </span>
+                            <span class="text-lg font-semibold text-color1 mb-2">{{ inscription.date | date: 'longDate' }}</span>
+                            <br>
+                            <span>Candidato: </span>
+                            <a
+                                [routerLink]="['/profile', inscriptedUserProfile.username]"
+                                class="text-xl font-bold text-color1 hover:underline">
+                                {{ inscriptedUserProfile.username }}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Estado de inscripción -->
+                    <div *ngIf="canInscription" class="md:mt-0">
+                        <app-inscription-button
+                            class="pl-10"
+                            [job]="job"
+                            [user_email]="user_email"
+                            [currentUserType]="currentUserType"
+                            [isAuthenticated]="isAuthenticated"
+                            (isInscripted)="handleInscription($event)"
+                            (click)="$event.stopPropagation()">
+                        </app-inscription-button>
+                    </div>
+                </div>
+            
+                <!-- Información de la oferta de empleo -->
+                <div class="flex-1 mt-2.5 w-full">
+                    <!-- Título de la oferta -->
+                    <div class="flex justify-between items-center mb-2">
+                        <a
+                            [routerLink]="['/details', job.slug]"
+                            class="text-xl font-bold text-color1 hover:underline">
+                            {{ job.name }}
+                        </a>
+                    </div>
+            
+                    <!-- Descripción de la oferta -->
+                    <p class="text-color8 mb-2">{{ job.description }}</p>
+            
+                    <!-- Autor de la oferta -->
+                    <div class="text-base text-color8">
+                        <span>Autor de la oferta: </span>
+                        <a
+                            [routerLink]="['/profile', job.author.username]"
+                            class="text-color1 font-bold hover:underline">
+                            {{ job.author.username }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    <!-------------------- Usuario tipo company -------------------->
+    @if (currentUserType === 'company') {
+        @if (inscription.status === 2) {
+            <div class="block w-full p-6 bg-white shadow-lg rounded-lg mb-6 flex flex-col">
+                <!-- Información del candidato e inscripción -->
+                <div class="block w-full flex flex-col md:flex-row justify-between border-b border-color10 pb-3">
+                    <div class="flex items-center md:mb-0">
+                        <!-- Imagen del candidato -->
+                        <div class="w-14 h-14 mr-5">
+                            <img  
+                                [src]="inscriptedUserProfile.image" 
+                                alt="imagen de {{inscriptedUserProfile.username}}"
+                                class="w-full h-full object-cover rounded-full" />
+                        </div>
+            
+                        <!-- Info del candidato -->
+                        <div class="block text-base text-color8">
+                            <span class="mb-2">Fecha de inscripción: </span>
+                            <span class="text-lg font-semibold text-color1 mb-2">{{ inscription.date | date: 'longDate' }}</span>
+                            <br>
+                            <span>Candidato: </span>
+                            <a
+                                [routerLink]="['/profile', inscriptedUserProfile.username]"
+                                class="text-xl font-bold text-color1 hover:underline">
+                                {{ inscriptedUserProfile.username }}
+                            </a>
+                        </div>
+                    </div>
+            
+                    <!-- Estado de inscripción -->
+                    <div *ngIf="canModify" class="md:mt-0">
+                        <app-inscription-validation-button
+                            class="pl-10"
+                            [job]="job"
+                            [user_email]="user_email"
+                            [currentUserType]="currentUserType"
+                            [isAuthenticated]="isAuthenticated"
+                            (isInscripted)="handleInscription($event)"
+                            (click)="$event.stopPropagation()">
+                        </app-inscription-validation-button>
+                    </div>
+                </div>
+            
+                <!-- Información de la oferta de empleo -->
+                <div class="flex-1 mt-2.5 w-full">
+                    <!-- Título de la oferta -->
+                    <div class="flex justify-between items-center mb-2">
+                        <a
+                            [routerLink]="['/details', job.slug]"
+                            class="text-xl font-bold text-color1 hover:underline">
+                            {{ job.name }}
+                        </a>
+                    </div>
+            
+                    <!-- Descripción de la oferta -->
+                    <p class="text-color8 mb-2">{{ job.description }}</p>
+            
+                    <!-- Autor de la oferta -->
+                    <div class="text-base text-color8">
+                        <span>Autor de la oferta: </span>
+                        <a
+                            [routerLink]="['/profile', job.author.username]"
+                            class="text-color1 font-bold hover:underline">
+                            {{ job.author.username }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    <!-------------------- Usuario tipo recruiter -------------------->
+    @if (currentUserType === 'recruiter') {
+        @if (inscription.status === 1) {
+            <div class="block w-full p-6 bg-white shadow-lg rounded-lg mb-6 flex flex-col">
+                <!-- Información del candidato e inscripción -->
+                <div class="block w-full flex flex-col md:flex-row justify-between border-b border-color10 pb-3">
+                    <div class="flex items-center md:mb-0">
+                        <!-- Imagen del candidato -->
+                        <div class="w-14 h-14 mr-5">
+                            <img  
+                                [src]="inscriptedUserProfile.image" 
+                                alt="imagen de {{inscriptedUserProfile.username}}"
+                                class="w-full h-full object-cover rounded-full" />
+                        </div>
+            
+                        <!-- Info del candidato -->
+                        <div class="block text-base text-color8">
+                            <span class="mb-2">Fecha de inscripción: </span>
+                            <span class="text-lg font-semibold text-color1 mb-2">{{ inscription.date | date: 'longDate' }}</span>
+                            <br>
+                            <span>Candidato: </span>
+                            <a
+                                [routerLink]="['/profile', inscriptedUserProfile.username]"
+                                class="text-xl font-bold text-color1 hover:underline">
+                                {{ inscriptedUserProfile.username }}
+                            </a>
+                        </div>
+                    </div>
+            
+                    <!-- Estado de inscripción -->
+                    <div *ngIf="canModify" class="md:mt-0">
+                        <app-inscription-validation-button
+                            class="pl-10"
+                            [job]="job"
+                            [user_email]="user_email"
+                            [currentUserType]="currentUserType"
+                            [isAuthenticated]="isAuthenticated"
+                            (isInscripted)="handleInscription($event)"
+                            (click)="$event.stopPropagation()">
+                        </app-inscription-validation-button>
+                    </div>
+                </div>
+            
+                <!-- Información de la oferta de empleo -->
+                <div class="flex-1 mt-2.5 w-full">
+                    <!-- Título de la oferta -->
+                    <div class="flex justify-between items-center mb-2">
+                        <a
+                            [routerLink]="['/details', job.slug]"
+                            class="text-xl font-bold text-color1 hover:underline">
+                            {{ job.name }}
+                        </a>
+                    </div>
+            
+                    <!-- Descripción de la oferta -->
+                    <p class="text-color8 mb-2">{{ job.description }}</p>
+            
+                    <!-- Autor de la oferta -->
+                    <div class="text-base text-color8">
+                        <span>Autor de la oferta: </span>
+                        <a
+                            [routerLink]="['/profile', job.author.username]"
+                            class="text-color1 font-bold hover:underline">
+                            {{ job.author.username }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+
+<!----------------------------------- Inscripciones aceptadas ----------------------------------->
+@if (currentRoute === 'accepted-inscriptions') {
+
+    <!-------------------- Usuario tipo client y company -------------------->
+    @if (currentUserType === 'client' || currentUserType === 'company') {
+        @if (inscription.status === 3) {
+            <div class="block w-full p-6 bg-white shadow-lg rounded-lg mb-6 flex flex-col">
+                <!-- Información del candidato e inscripción -->
+                <div class="block w-full flex flex-col md:flex-row justify-between border-b border-color10 pb-3">
+                    <div class="flex items-center md:mb-0">
+                        <!-- Imagen del candidato -->
+                        <div class="w-14 h-14 mr-5">
+                            <img  
+                                [src]="inscriptedUserProfile.image" 
+                                alt="imagen de {{inscriptedUserProfile.username}}"
+                                class="w-full h-full object-cover rounded-full" />
+                        </div>
+            
+                        <!-- Info del candidato -->
+                        <div class="block text-base text-color8">
+                            <span class="mb-2">Fecha de inscripción: </span>
+                            <span class="text-lg font-semibold text-color1 mb-2">{{ inscription.date | date: 'longDate' }}</span>
+                            <br>
+                            <span>Candidato: </span>
+                            <a
+                                [routerLink]="['/profile', inscriptedUserProfile.username]"
+                                class="text-xl font-bold text-color1 hover:underline">
+                                {{ inscriptedUserProfile.username }}
+                            </a>
+                        </div>
+                    </div>
+            
+                    <!-- Estado de inscripción -->
+                    <div class="md:mt-0">
+                        <img  
+                            src="icons/aceptar.png"
+                            alt="inscripción aceptada"
+                            class="w-7 h-7 object-cover rounded-full" />
+                    </div>
+                </div>
+            
+                <!-- Información de la oferta de empleo -->
+                <div class="flex-1 mt-2.5 w-full">
+                    <!-- Título de la oferta -->
+                    <div class="flex justify-between items-center mb-2">
+                        <a
+                            [routerLink]="['/details', job.slug]"
+                            class="text-xl font-bold text-color1 hover:underline">
+                            {{ job.name }}
+                        </a>
+                    </div>
+            
+                    <!-- Descripción de la oferta -->
+                    <p class="text-color8 mb-2">{{ job.description }}</p>
+            
+                    <!-- Autor de la oferta -->
+                    <div class="text-base text-color8">
+                        <span>Autor de la oferta: </span>
+                        <a
+                            [routerLink]="['/profile', job.author.username]"
+                            class="text-color1 font-bold hover:underline">
+                            {{ job.author.username }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    <!-------------------- Usuario tipo recruiter -------------------->
+    @if (currentUserType === 'recruiter') {
+        @if (inscription.status === 2 || inscription.status === 3) {
+            <div class="block w-full p-6 bg-white shadow-lg rounded-lg mb-6 flex flex-col">
+                <!-- Información del candidato e inscripción -->
+                <div class="block w-full flex flex-col md:flex-row justify-between border-b border-color10 pb-3">
+                    <div class="flex items-center md:mb-0">
+                        <!-- Imagen del candidato -->
+                        <div class="w-14 h-14 mr-5">
+                            <img  
+                                [src]="inscriptedUserProfile.image" 
+                                alt="imagen de {{inscriptedUserProfile.username}}"
+                                class="w-full h-full object-cover rounded-full" />
+                        </div>
+            
+                        <!-- Info del candidato -->
+                        <div class="block text-base text-color8">
+                            <span class="mb-2">Fecha de inscripción: </span>
+                            <span class="text-lg font-semibold text-color1 mb-2">{{ inscription.date | date: 'longDate' }}</span>
+                            <br>
+                            <span>Candidato: </span>
+                            <a
+                                [routerLink]="['/profile', inscriptedUserProfile.username]"
+                                class="text-xl font-bold text-color1 hover:underline">
+                                {{ inscriptedUserProfile.username }}
+                            </a>
+                        </div>
+                    </div>
+            
+                    <!-- Estado de inscripción -->
+                    <div class="md:mt-0">
+                        <img  
+                            src="icons/aceptar.png"
+                            alt="inscripción aceptada"
+                            class="w-7 h-7 object-cover rounded-full" />
+                    </div>
+                </div>
+            
+                <!-- Información de la oferta de empleo -->
+                <div class="flex-1 mt-2.5 w-full">
+                    <!-- Título de la oferta -->
+                    <div class="flex justify-between items-center mb-2">
+                        <a
+                            [routerLink]="['/details', job.slug]"
+                            class="text-xl font-bold text-color1 hover:underline">
+                            {{ job.name }}
+                        </a>
+                    </div>
+            
+                    <!-- Descripción de la oferta -->
+                    <p class="text-color8 mb-2">{{ job.description }}</p>
+            
+                    <!-- Autor de la oferta -->
+                    <div class="text-base text-color8">
+                        <span>Autor de la oferta: </span>
+                        <a
+                            [routerLink]="['/profile', job.author.username]"
+                            class="text-color1 font-bold hover:underline">
+                            {{ job.author.username }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+
+<!----------------------------------- Inscripciones rechazadas ----------------------------------->
+@if (currentRoute === 'rejected-inscriptions') {
+    @if (inscription.status === -1) {
+        <div class="block w-full p-6 bg-white shadow-lg rounded-lg mb-6 flex flex-col">
+            <!-- Información del candidato e inscripción -->
+            <div class="block w-full flex flex-col md:flex-row justify-between border-b border-color10 pb-3">
+                <div class="flex items-center md:mb-0">
+                    <!-- Imagen del candidato -->
+                    <div class="w-14 h-14 mr-5">
+                        <img  
+                            [src]="inscriptedUserProfile.image" 
+                            alt="imagen de {{inscriptedUserProfile.username}}"
+                            class="w-full h-full object-cover rounded-full" />
+                    </div>
+        
+                    <!-- Info del candidato -->
+                    <div class="block text-base text-color8">
+                        <span class="mb-2">Fecha de inscripción: </span>
+                        <span class="text-lg font-semibold text-color1 mb-2">{{ inscription.date | date: 'longDate' }}</span>
+                        <br>
+                        <span>Candidato: </span>
+                        <a
+                            [routerLink]="['/profile', inscriptedUserProfile.username]"
+                            class="text-xl font-bold text-color1 hover:underline">
+                            {{ inscriptedUserProfile.username }}
+                        </a>
+                    </div>
+                </div>
+        
+                <!-- Estado de inscripción -->
+                <div class="md:mt-0">
+                    <img  
+                        src="icons/eliminar.png"
+                        alt="inscripción aceptada"
+                        class="w-7 h-7 object-cover rounded-full" />
+                </div>
+            </div>
+        
+            <!-- Información de la oferta de empleo -->
+            <div class="flex-1 mt-2.5 w-full">
+                <!-- Título de la oferta -->
+                <div class="flex justify-between items-center mb-2">
+                    <a
+                        [routerLink]="['/details', job.slug]"
+                        class="text-xl font-bold text-color1 hover:underline">
+                        {{ job.name }}
+                    </a>
+                </div>
+        
+                <!-- Descripción de la oferta -->
+                <p class="text-color8 mb-2">{{ job.description }}</p>
+        
+                <!-- Autor de la oferta -->
+                <div class="text-base text-color8">
+                    <span>Autor de la oferta: </span>
+                    <a
+                        [routerLink]="['/profile', job.author.username]"
+                        class="text-color1 font-bold hover:underline">
+                        {{ job.author.username }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+}

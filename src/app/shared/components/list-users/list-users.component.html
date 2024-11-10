@@ -1,6 +1,43 @@
-<div class="categorias grid grid-cols-1 md:grid-cols-2 gap-10 px-10 pt-10 pb-12"
-    infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="scroll()">
+<div class="categorias grid grid-cols-1 md:grid-cols-2 gap-6 px-10 pt-10 pb-12" infiniteScroll
+    [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="scroll()">
+
+    <ng-container *ngIf="users.length === 0">
+
+        <div class="block w-full">
+            <div class="flex w-full mx-auto bg-white shadow-lg overflow-hidden" style="
+            border-top-left-radius:100px;
+            border-bottom-left-radius:100px;
+            border-top-right-radius:20px;
+            border-bottom-right-radius:20px;">
+            
+                <div class="flex items-center justify-center">
+                    <div class="w-24 h-24 ml-4 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500">!</span>
+                    </div>
+                </div>
+
+                <div class="w-3/4 px-4 py-3">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="h-10 mb-1 text-xl text-gray-600 font-bold leading-none">Aun no tienes ningun perfil en este apartado
+                            </h4>
+                            <p class="pt-1 text-gray-500 text-base">
+                                Tipo: <span class="italic">Desconocido</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt text-gray-500 text-base">
+                        <p>Email: No disponible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-container>
+
+
     @for (user of users; track user.username) {
-        <app-card-user class="item" [user]="user"></app-card-user>
+    <app-card-user class="item" [user]="user"></app-card-user>
     }
 </div>

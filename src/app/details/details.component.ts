@@ -17,9 +17,12 @@ export class DetailsComponent implements OnInit {
     job!: Job;
     slug!: string;
     currentUser!: User;
+    user_email!: string;
     isAuthenticated!: boolean;
-    user_image!: string;
-    canModify!: boolean;
+    currentUserType!: String;
+    canModifyFavorite!: boolean;
+    canModifyFollow!: boolean;
+    canInscription!: boolean;
 
     constructor(
     private userService: UserService,
@@ -40,7 +43,7 @@ export class DetailsComponent implements OnInit {
         this.userService.currentUser.subscribe(
             (userData: User) => {
                 this.currentUser = userData;
-                this.canModify = (this.currentUser.username === this.job.author.username);
+                this.user_email = this.currentUser.email;
                 this.cd.markForCheck();
             }
         );
@@ -48,6 +51,21 @@ export class DetailsComponent implements OnInit {
         this.userService.isAuthenticated.subscribe(
             (data: any) => {
                 this.isAuthenticated = data;
+                this.cd.markForCheck();
+            }
+        );
+
+        this.userService.currentUserType.subscribe(
+            (userType: String) => {
+                this.currentUserType = userType;
+                console.log(this.currentUserType);
+                this.canModifyFavorite =
+                    (this.currentUser.username !== this.job.author.username) &&
+                    ((this.currentUserType === 'client') || (this.currentUserType === 'company'));
+                this.canModifyFollow =
+                    (this.currentUser.username !== this.job.author.username);
+                this.canInscription =
+                    (this.currentUser.username !== this.job.author.username) && (this.currentUserType === 'client');
                 this.cd.markForCheck();
             }
         );
@@ -65,6 +83,11 @@ export class DetailsComponent implements OnInit {
     
     onToggleFollowing(following: boolean) {
         this.job.author.following = following;
+    }
+
+    handleInscription(data: number) {
+        this.job.isInscripted = data;
+        console.log(this.job.isInscripted);
     }
 
 }

@@ -1,0 +1,27 @@
+<div class="profile-posts container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
+    <div class="flex-1">
+
+        <ng-container *ngIf="comments.length === 0">
+            <div class="comments-section w-full shadow">
+                <div class="card mb-4">
+                    <div class="card-block pl-4 pt-2 pb-2">
+                        <p class="card-text">
+                            Aún no has realizado ningún comentario
+                        </p>
+                    </div>
+                    <div class="card-footer flex items-center space-x-4">
+                        <span class="date-posted block text-gray-500 text-sm">
+                            {{ today | date: 'longDate' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <app-card-comment
+            *ngFor="let comment of comments"
+            [comment]="comment"
+            (commentDeleted)="onCommentDeleted($event)">
+        </app-card-comment>
+    </div>
+</div>

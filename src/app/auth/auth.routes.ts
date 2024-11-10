@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { NoAuthGuard } from '../core/services/no-auth-guard.service';
+import { NoAuthGuard } from '../core/guards/no-auth-guard.service';
 
 const authRoutes: Routes = [
   {

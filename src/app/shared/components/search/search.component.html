@@ -1,14 +1,14 @@
 <!-- Barra de búsqueda -->
-<div class=" rounded-lg flex items-center space-x-4 p-3">
+<div class="max-w-max flex items-center space-x-4">
     <!-- Campo de texto de búsqueda -->
-    <div class="flex-grow relative">
+    <div class="relative">
         <input [(ngModel)]="searchQuery" (input)="onInputChange()" (blur)="onBlur()" type="text"
-            placeholder="Buscar ofertas de..."
-            class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-color3 focus:outline-none" />
+            placeholder="Busca tus ofertas de trabajo"
+            class="w-96 px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-color3 focus:outline-none" />
 
         <!-- Lista de sugerencias -->
         <div *ngIf="suggestions.length"
-            class="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 w-full shadow-lg">
+            class="absolute z-10 bg-white border border-gray-300 rounded-xl mt-1 w-full shadow-lg">
             <div *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)"
                 class="p-2 cursor-pointer hover:bg-gray-200 text-black">
                 {{ suggestion }}
@@ -17,19 +17,19 @@
     </div>
 
     <!-- Desplegable de ubicación -->
-    <div>
+    <!-- <div>
         <select [(ngModel)]="selectedLocation"
             class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-color3 focus:outline-none">
             <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
         </select>
-    </div>
+    </div> -->
 
     <!-- Botón de búsqueda -->
     <div>
         <button
-            class="bg-color3 text-white p-3 rounded-md hover:bg-color4 focus:ring-2 focus:ring-color3 focus:outline-none"
+            class="bg-color3 text-white px-3 py-2 rounded-full hover:bg-color4 focus:ring-2 focus:ring-color3 focus:outline-none"
             (click)="onSearch()" routerLink="/shop">
-            BUSCAR
+            Buscar
         </button>
     </div>
 </div>

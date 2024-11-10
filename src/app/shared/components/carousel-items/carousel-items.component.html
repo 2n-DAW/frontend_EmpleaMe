@@ -27,7 +27,7 @@
         @for (slide of slidesDetails; track slide) {
             <div class="min-w-full flex">
                 @for (imgJob of slide; track imgJob) {
-                    <div class="slideDetails w-1/3 h-58 flex items-center justify-center">
+                    <div class="slideDetails w-1/3 h-58 flex items-center justify-center overflow-hidden">
                         <img [src]="'img_jobs/' + imgJob" alt="Category Image" class="w-full h-full object-contain">
                     </div>
                 }

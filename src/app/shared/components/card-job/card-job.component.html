@@ -10,12 +10,25 @@
             <!-- Título y empresa -->
             <div class="flex justify-between items-center mb-2">
                 <h3 class="text-xl font-bold text-color1">{{job.name}}</h3>
-                <div class="">
-                    <app-favorite-button
-                        [job]="job"
-                        (toggle)="onToggleFavorite($event)"
-                        (click)="$event.stopPropagation()">
-                    </app-favorite-button>
+                <div>
+                    @if (canModify) {
+                        <app-favorite-button
+                            [job]="job"
+                            (toggle)="onToggleFavorite($event)"
+                            (click)="$event.stopPropagation()">
+                        </app-favorite-button>
+                    }
+                    @if (canInscription === true) {
+                        <app-inscription-button
+                            class="pl-10"
+                            [job]="job"
+                            [user_email]="user_email"
+                            [currentUserType]="currentUserType"
+                            [isAuthenticated]="isAuthenticated"
+                            (isInscripted)="handleInscription($event)"
+                            (click)="$event.stopPropagation()">
+                        </app-inscription-button>
+                    }
                 </div>
             </div>
 

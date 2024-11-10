@@ -1,0 +1,32 @@
+<div class="profile-posts container max-w-screen-xl mx-auto px-10 pt-10 pb-4 flex">
+    <div class="flex-1">
+
+        <ng-container *ngIf="inscriptions.length === 0">
+            <div class="block w-full cursor-pointer">
+                <div class="w-full bg-white rounded-lg shadow-lg overflow-hidden p-6 mb-6 flex">
+                    <div class="w-20 h-20 mr-5 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500">!</span>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-gray-600">No hay inscripciones disponibles</h3>
+                        </div>
+
+                        <div class="block text-sm text-gray-500 mb-2">
+                            <span class="text-lg">Actualmente no tienes inscripciones para este trabajo.</span>
+                        </div>
+                        <div class="text-sm text-gray-400 mt-4">
+                            <span>Puedes explorar otros trabajos en tu perfil o buscar nuevas ofertas.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <app-card-inscription
+            *ngFor="let inscription of inscriptions"
+            [inscription]="inscription">
+        </app-card-inscription>
+    </div>
+</div>

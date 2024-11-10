@@ -22,6 +22,7 @@ export interface Job {
     createdAt: Date;
     updatedAt: Date;
     comments: Comment[];
+    isInscripted: number;
 }
 
 

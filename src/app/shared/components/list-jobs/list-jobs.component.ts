@@ -8,6 +8,8 @@ import { CardJobComponent } from '../card-job/card-job.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { FiltersComponent } from '../filters/filters.component';
 import { ChangeDetectorRef } from '@angular/core';
+
+
 @Component({
   selector: 'app-list-jobs',
   standalone: true,
@@ -119,14 +121,12 @@ export class ListJobsComponent implements OnInit {
     this.jobService.getUserLikes(username).subscribe(
       (data: any) => {
         this.jobs = data.jobs;
-        this.jobCount = data.job_count;
-
+        this.jobCount = data.jobs_count;
         console.log(this.jobs);
         console.log(this.jobCount);
         this.cdr.detectChanges();
       });
   }
-
 
   get_list_filtered(filters: Filters) {
     this.filters = filters;
@@ -137,10 +137,6 @@ export class ListJobsComponent implements OnInit {
         this.jobCount = data.job_count;
       });
   }
-
-
-
-
 
   // Carga datos en filtro Categorías
   getListForCategory() {
@@ -187,8 +183,6 @@ export class ListJobsComponent implements OnInit {
         });
     }
   }
-
-
 
   updateFilters(newFilters: Filters) {
     this.currentPage = newFilters.page || 1;

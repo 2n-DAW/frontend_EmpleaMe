@@ -1,4 +1,4 @@
-<div class="container max-w-screen-xl mx-auto px-10 mt-20 mb-3 pt-0.5 pb-6">
+<div class="container max-w-screen-xl mx-auto px-10 mt-28 mb-3 pt-0.5 pb-6">
     <app-carousel></app-carousel>
 
     <!-- Mensaje si no hay job -->
@@ -12,10 +12,26 @@
             <!-- Información del trabajo -->
             <div class="mb-4 flex justify-between items-center">
                 <h3 class="relative text-2xl font-bold text-color1">{{ job.name }}</h3>
-                <!-- Boton para favoritos -->
-                @if (canModify === false) {
-                    <app-favorite-button [job]="job" (toggle)="onToggleFavorite($event)"></app-favorite-button>
-                }
+                <!-- Botones para favoritos y inscripción -->
+                <div>
+                    @if (canModifyFavorite === true) {
+                        <app-favorite-button
+                            [job]="job"
+                            (toggle)="onToggleFavorite($event)"
+                            class="">
+                        </app-favorite-button>
+                    }
+                    @if (canInscription === true) {
+                        <app-inscription-button
+                            class="pl-10"
+                            [job]="job"
+                            [user_email]="user_email"
+                            [currentUserType]="currentUserType"
+                            [isAuthenticated]="isAuthenticated"
+                            (isInscripted)="handleInscription($event)">
+                        </app-inscription-button>
+                    }
+                </div>
             </div>
             <div class="space-y-4 text-color8">
                 <div class="description">
@@ -30,7 +46,7 @@
                         </a>
                     </strong>
                     <!-- Boton para seguir -->
-                    @if (canModify === false) {
+                    @if (canModifyFollow === true) {
                         <div class="pl-6">
                             <app-follow-button [profile]="job.author" (toggle)="onToggleFollowing($event)"></app-follow-button>
                         </div>

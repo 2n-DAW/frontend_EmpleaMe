@@ -1,0 +1,15 @@
+<div
+    class="relative inline-flex items-center cursor-pointer hover:scale-105 duration-200 ease-in-out right-1"
+    (click)="createInscription()">
+    @if (currentUserType === 'client') {
+        <img 
+            [src]="(job.isInscripted === 0) ? 'icons/no_inscription.png' : 'icons/inscription.png'" 
+            alt="Inscription" 
+            class="w-7 h-7 transition-transform duration-200 ease-in-out" 
+            [ngClass]="{'scale-110': isSubmitting}"/>
+
+        <span class="text-sm text-color8 bg-gray-100 px-2.5 py-1 rounded-2xl ml-1">
+            {{ getInscriptedStatus() }}
+        </span>
+    }
+</div>

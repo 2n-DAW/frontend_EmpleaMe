@@ -1,23 +1,23 @@
-
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Observable ,  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   private formatErrors(error: any) {
     return  throwError(error.error);
   }
 
-  // PRUEBA INTERCEPTOR ============================
+  // PRUEBA INTERCEPTOR ==============================================
   private createAuthorizationHeader(): HttpHeaders {
     const token = localStorage.getItem('jwtToken');
     let setHeaders = new HttpHeaders();
@@ -28,7 +28,20 @@ export class ApiService {
 
     return setHeaders;
   }
-  // ==================================================
+  // =================================================================
+
+  private getBaseUrl(userType: String): string {
+    switch (userType) {
+      case 'client':
+        return environment.api_url1;
+      case 'company':
+        return environment.api_url2;
+      case 'recruit':
+        return environment.api_url3;
+      default:
+        return environment.api_url3;
+    }
+  }
 
   get(path: string, paramsObj: any = {}): Observable<any> {
     let params_result = {};
@@ -42,8 +55,8 @@ export class ApiService {
 
     const params = new HttpParams({ fromObject: params_result });
     // console.log(params.toString());
-    const url = `${environment.api_url}${path}?${params.toString()}`;
-    console.log(url);
+    const url = `${environment.api_url1}${path}?${params.toString()}`;
+    // console.log(url);
     
     // return this.http.get(url).pipe(catchError(this.formatErrors));
     return this.http.get(url, { headers: this.createAuthorizationHeader() }).pipe(catchError(this.formatErrors));
@@ -51,7 +64,7 @@ export class ApiService {
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(
-      `${environment.api_url}${path}`,
+      `${environment.api_url1}${path}`,
       body,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
@@ -59,7 +72,7 @@ export class ApiService {
 
   post(path: string, body: Object = {}): Observable<any> {
     return this.http.post(
-      `${environment.api_url}${path}`,
+      `${environment.api_url1}${path}`,
       body,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
@@ -67,7 +80,41 @@ export class ApiService {
 
   delete(path: string): Observable<any> {
     return this.http.delete(
-      `${environment.api_url}${path}`,
+      `${environment.api_url1}${path}`,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  postLoginRegister(path: string, body: Object = {}): Observable<any> {
+    return this.http.post(
+      `${environment.api_url4}${path}`,
+      body,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  getFromBaseUrl(path: string, userType: String): Observable<any> {
+    const url = this.getBaseUrl(userType);
+    return this.http.get(
+      `${url}${path}`,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  postFromBaseUrl(path: string, userType: String, body: Object = {}): Observable<any> {
+    const url = this.getBaseUrl(userType);
+    return this.http.post(
+      `${url}${path}`,
+      body,
+      { headers: this.createAuthorizationHeader() }
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  putFromBaseUrl(path: string, userType: String, body: Object = {}): Observable<any> {
+    const url = this.getBaseUrl(userType);
+    return this.http.put(
+      `${url}${path}`,
+      body,
       { headers: this.createAuthorizationHeader() }
     ).pipe(catchError(this.formatErrors));
   }

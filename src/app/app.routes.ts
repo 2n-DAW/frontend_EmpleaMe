@@ -1,6 +1,6 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { DetailsResolver } from './core/services';
-import { AuthGuard } from './core/services/auth-guard.service';
+import { AuthGuard } from './core/guards/auth-guard.service';
 
 export const routes: Routes = [
     {
